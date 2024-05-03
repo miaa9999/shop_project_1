@@ -14,7 +14,7 @@ public class MainController {
        
        @GetMapping("/doll")
        public String dollCategory(){
-              return "/doll_all";
+              return "/product/doll_all";
        }
        
 
