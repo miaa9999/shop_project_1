@@ -1,60 +1,69 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="main.css">
+
 <div th:fragment="header">
-    <div class="d-flex flex-row-reverse">
+    <div align = right>
         <form>
-            <a class="btn1" role="button"  th:href="@{/user/login}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/user/login}" aria-expanded="false">
                 로그인
             </a>
-            <a class="btn1" role="button"  th:href="@{/outer}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/outer}" aria-expanded="false">
                 회원가입
             </a>
-            <a class="btn1" role="button"  th:href="@{/outer}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/outer}" aria-expanded="false">
                 로그아웃
             </a>
-            <a class="btn1" role="button"  th:href="@{/outer}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/outer}" aria-expanded="false">
                 마이페이지
             </a>
         </form>
     </div>
+    <br>
     <div>
-        <a href="/"  class="header"> 키즈 쇼핑몰 </a>
+        <a href="/" class="header"> 키즈 쇼핑몰 </a>
     </div>
-    <hr class="hr1">
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <div class="dropmenu">
+<br>
+    <nav class="navbar1">
+        <div class="navbar1" id="nav_bar">
+            <div>
+                <div class="dropmenu">
+                    <ul>
+                        <li><a th:href="@{/doll}" id="doll">인형</a>
                             <ul>
-                                <li><a href="#" th:href="@{/doll}" >인형</a>
-                                    <ul>
-
-                                        <li><a th:href="@{/doll_person}">사람인형</a></li>
-                                        <li><a th:href="@{/doll_animal}">동물인형</a></li>
-                                        <li><a th:href="@{/doll_character}">캐릭터인형</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#" id="current">완구</a>
-                                    <ul>
-                                        <li><a href="#">레고</a></li>
-                                        <li><a href="#">실외장난감</a></li>
-                                        <li><a href="#">촉각놀이</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#" >도서전집</a>
-                                    <ul>
-                                        <li><a href="#">동화</a></li>
-                                        <li><a href="#">위인전</a></li>
-                                        <li><a href="#">영어도서</a></li>
-                                    </ul>
-                                </li>
+                                <li><a th:href="@{/doll_person}">사람인형</a></li>
+                                <li><a th:href="@{/doll_animal}">동물인형</a></li>
+                                <li><a th:href="@{/doll_character}">캐릭터인형</a></li>
                             </ul>
-                        </div>
-                </ul>
+                        </li>
+                        <li><a th:href="@{/toy}" id="toy">완구</a>
+                            <ul>
+                                <li><a th:href="@{/toy_lego}">레고</a></li>
+                                <li><a th:href="@{/toy_outdoor}">실외장난감</a></li>
+                                <li><a th:href="@{/toy_touch}">촉각놀이</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/books}">도서전집</a>
+                            <ul>
+                                <li><a th:href="@{/books_story}">동화</a></li>
+                                <li><a th:href="@{/books_biography}">위인전</a></li>
+                                <li><a th:href="@{/books_eng}">영어도서</a></li>
+                            </ul>
+                        </li>
+
+                        <form align=right style="margin-right:20px; padding-top:5px;">
+                            <img class="search_icon" type="submit" src="/img/search_icon.png">
+                            <input class="search_input" type="text" placeholder="Search">
+
+                        </form>
+
+                    </ul>
+
+                </div>
+
             </div>
+
+        </div>
     </nav>
-
 </div>
-
 </html>

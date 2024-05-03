@@ -9,7 +9,7 @@
 <body>
 
 <div layout:fragment="content">
-    <div align="center" style="font-size:20px">사람인형</div>
+    <div align="center" style="font-size:20px">사람 인형</div>
     <br>
     <div th:if="${count}==0" align="center">관련된 상품이 존재하지 않습니다.</div>
     <div  th:unless="${count}==0">
@@ -22,7 +22,7 @@
         <tr th:each="doll : ${dollAll}" th:object="${doll}">
             <td>이미지 넣어야함</td>
             <td th:text="*{productName}"></td>
-            <td th:text="*{productPrice}"></td>
+            <td th:text="*{productPrice}+원"></td>
         </tr>
     </table>
     </div>

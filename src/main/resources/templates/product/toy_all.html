@@ -9,7 +9,7 @@
 <body>
 
 <div layout:fragment="content">
-    <div align="center" style="font-size:15px">동물 인형</div>
+    <div align="center" style="font-size:20px">완구 전체보기</div>
     <br>
     <div th:if="${count}==0" align="center">관련된 상품이 존재하지 않습니다.</div>
     <div  th:unless="${count}==0">
@@ -19,7 +19,7 @@
                 <th>상품명</th>
                 <th>상품가격</th>
             </tr>
-            <tr th:each="doll : ${dollAll}" th:object="${doll}">
+            <tr th:each="toy : ${toyAll}" th:object="${toy}">
                 <td>이미지 넣어야함</td>
                 <td th:text="*{productName}"></td>
                 <td th:text="*{productPrice}+원"></td>
