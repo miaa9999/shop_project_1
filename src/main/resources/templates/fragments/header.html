@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="thymeleaf.org">
+<html xmlns:th="thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <div th:fragment="header">
+    <div class="d-flex flex-row-reverse">
+        <form>
+            <a class="btn1" role="button"  th:href="@{/user/login}" aria-expanded="false">
+                로그인
+            </a>
+            <a class="btn1" role="button"  th:href="@{/outer}" aria-expanded="false">
+                회원가입
+            </a>
+            <a class="btn1" role="button"  th:href="@{/outer}" aria-expanded="false">
+                로그아웃
+            </a>
+            <a class="btn1" role="button"  th:href="@{/outer}" aria-expanded="false">
+                마이페이지
+            </a>
+        </form>
+    </div>
     <div>
-        <a href="/"  class="header"> 쇼핑몰 project </a>
+        <a href="/"  class="header"> 키즈 쇼핑몰 </a>
     </div>
     <hr class="hr1">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background color:none">
-<!--        <div class="container-fluid">-->
-<!--            <a class="navbar-brand" href="#">Navbar</a>-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <div class="dropmenu">
@@ -39,29 +51,10 @@
                                 </li>
                             </ul>
                         </div>
-
                 </ul>
-                <form class="d-flex">
-                    <a class="btn1" role="button"  aria-expanded="false">
-                        로그인
-                    </a>
-                    <a class="btn1" role="button"aria-expanded="false">
-                        회원가입
-                    </a>
-                    <a class="btn1" role="button" aria-expanded="false">
-                        로그아웃
-                    </a>
-<!--                    <a class="btn1" role="button"  th:href="@{/outer}" aria-expanded="false">-->
-<!--                        마이페이지-->
-<!--                    </a>-->
-                </form>
-<!--                <form class="d-flex" role="search">-->
-<!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--                    <button class="btn btn-outline-success" type="submit">Search</button>-->
-<!--                </form>-->
             </div>
-<!--        </div>-->
     </nav>
+
 </div>
 
 </html>
