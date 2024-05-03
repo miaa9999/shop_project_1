@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div align="center" style="font-size:15px">동물 인형</div>
+    <br>
+    <table class="type1"align="center" border="2">
+        <tr>
+            <th>상품이미지</th>
+            <th>상품명</th>
+            <th>상품가격</th>
+        </tr>
+        <tr th:each="doll : ${dollAll}" th:object="${doll}">
+            <td>이미지 넣어야함</td>
+            <td th:text="*{productName}"></td>
+            <td th:text="*{productPrice}"></td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

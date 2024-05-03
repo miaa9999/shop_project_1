@@ -33,7 +33,32 @@ public class MainController {
               }
               model.addAttribute("dollAll", dollProducts);
               return "/product/doll_all";
-              
+       }
+       
+       @GetMapping("/doll_animal")
+       public String dollAnimal(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> dollProducts = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getSubCategory().equals("동물인형")) {
+                            dollProducts.add(product);
+                     }
+              }
+              model.addAttribute("doll", dollProducts);
+              return "/product/doll_animal";
+       }
+       
+       @GetMapping("/doll_character")
+       public String dollCharacter(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> dollProducts = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getSubCategory().equals("캐릭터인형")) {
+                            dollProducts.add(product);
+                     }
+              }
+              model.addAttribute("doll", dollProducts);
+              return "/product/doll_character";
        }
 }
 
