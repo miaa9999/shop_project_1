@@ -1,5 +1,6 @@
 package com.example.shop_project_01.controller;
 
+import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.service.CategoryService;
 import lombok.Getter;
@@ -23,9 +24,9 @@ public class MainController {
        
        @GetMapping("/doll")
        public String dollCategory(Model model) {
-              List<Product> products = categoryService.productViewAll();
-              List<Product> dollProducts = new ArrayList<>();
-              for (Product product : products) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> dollProducts = new ArrayList<>();
+              for (ProductDto product : products) {
                      if (product.getMainCategory().equals("인형")) {
                             dollProducts.add(product);
                      }
