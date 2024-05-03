@@ -31,6 +31,7 @@ public class MainController {
                             dollProducts.add(product);
                      }
               }
+              model.addAttribute("count",dollProducts.stream().count());
               model.addAttribute("dollAll", dollProducts);
               return "/product/doll_all";
        }
@@ -44,7 +45,7 @@ public class MainController {
                             dollProducts.add(product);
                      }
               }
-              System.out.println("갯수 확인 : " + dollProducts.stream().count());
+//              System.out.println("갯수 확인 : " + dollProducts.stream().count());
               model.addAttribute("count",dollProducts.stream().count());
               model.addAttribute("dollAll", dollProducts);
               return "/product/doll_person";
@@ -59,6 +60,7 @@ public class MainController {
                             dollProducts.add(product);
                      }
               }
+              model.addAttribute("count",dollProducts.stream().count());
               model.addAttribute("dollAll", dollProducts);
               return "/product/doll_animal";
        }
@@ -72,8 +74,129 @@ public class MainController {
                             dollProducts.add(product);
                      }
               }
+              model.addAttribute("count",dollProducts.stream().count());
               model.addAttribute("dollAll", dollProducts);
               return "/product/doll_character";
+       }
+
+       @GetMapping("/toy")
+       public String toyAll(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> toyProduct = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getMainCategory().equals("완구")) {
+                            toyProduct.add(product);
+                     }
+              }
+
+              model.addAttribute("count",toyProduct.stream().count());
+              model.addAttribute("toyAll", toyProduct);
+              return "/product/toy_all";
+       }
+
+       @GetMapping("/toy_lego")
+       public String toyLego(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> toyProduct = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getSubCategory().equals("레고")) {
+                            toyProduct.add(product);
+                     }
+              }
+
+              model.addAttribute("count",toyProduct.stream().count());
+              model.addAttribute("toyAll", toyProduct);
+              return "/product/toy_lego";
+       }
+
+       @GetMapping("/toy_outdoor")
+       public String toyOutdoor(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> toyProduct = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getSubCategory().equals("실외장난감")) {
+                            toyProduct.add(product);
+                     }
+              }
+
+              model.addAttribute("count",toyProduct.stream().count());
+              model.addAttribute("toyAll", toyProduct);
+              return "/product/toy_outdoor";
+       }
+
+       @GetMapping("/toy_touch")
+       public String toyTouch(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> toyProduct = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getSubCategory().equals("촉각놀이")) {
+                            toyProduct.add(product);
+                     }
+              }
+
+              model.addAttribute("count",toyProduct.stream().count());
+              model.addAttribute("toyAll", toyProduct);
+              return "/product/toy_touch";
+       }
+
+       @GetMapping("/books")
+       public String bookAll(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> bookProduct = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getMainCategory().equals("도서")) {
+                            bookProduct.add(product);
+                     }
+              }
+
+              model.addAttribute("count",bookProduct.stream().count());
+              model.addAttribute("bookAll", bookProduct);
+              return "/product/books_all";
+       }
+
+       @GetMapping("/books_story")
+       public String bookStory(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> bookProduct = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getSubCategory().equals("동화")) {
+                            bookProduct.add(product);
+                     }
+              }
+
+              model.addAttribute("count",bookProduct.stream().count());
+              model.addAttribute("bookAll", bookProduct);
+              return "/product/books_story";
+       }
+
+       @GetMapping("/books_biography")
+       public String booksBiography(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> bookProduct = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getSubCategory().equals("위인전")) {
+                            bookProduct.add(product);
+                     }
+              }
+
+              model.addAttribute("count",bookProduct.stream().count());
+              model.addAttribute("bookAll", bookProduct);
+              return "/product/books_biography";
+       }
+
+       @GetMapping("/books_eng")
+       public String booksEng(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> bookProduct = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getSubCategory().equals("영어도서")) {
+                            bookProduct.add(product);
+                     }
+              }
+
+              model.addAttribute("count",bookProduct.stream().count());
+              model.addAttribute("bookAll", bookProduct);
+              return "/product/books_eng";
        }
 }
 
