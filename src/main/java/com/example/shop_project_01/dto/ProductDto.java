@@ -30,7 +30,7 @@ public class ProductDto {
         );
     }
 
-    public Product fromProductDto(ProductDto dto){
+    public static Product fromProductDto(ProductDto dto){
         Product product = new Product();
         product.setProductId(dto.getProductId());
         product.setProductName(dto.getProductName());

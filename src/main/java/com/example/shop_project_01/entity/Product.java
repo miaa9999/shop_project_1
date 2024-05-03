@@ -35,5 +35,6 @@ public class Product {
     //게시판
     private String content;
 
+    private String imgUrl;
 
 }
