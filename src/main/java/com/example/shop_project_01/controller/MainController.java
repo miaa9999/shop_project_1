@@ -35,6 +35,21 @@ public class MainController {
               return "/product/doll_all";
        }
        
+       @GetMapping("/doll_person")
+       public String dollPerson(Model model) {
+              List<ProductDto> products = categoryService.productViewAll();
+              List<ProductDto> dollProducts = new ArrayList<>();
+              for (ProductDto product : products) {
+                     if (product.getSubCategory().equals("사람인형")) {
+                            dollProducts.add(product);
+                     }
+              }
+              System.out.println("갯수 확인 : " + dollProducts.stream().count());
+              model.addAttribute("count",dollProducts.stream().count());
+              model.addAttribute("dollAll", dollProducts);
+              return "/product/doll_person";
+       }
+       
        @GetMapping("/doll_animal")
        public String dollAnimal(Model model) {
               List<ProductDto> products = categoryService.productViewAll();
@@ -44,7 +59,7 @@ public class MainController {
                             dollProducts.add(product);
                      }
               }
-              model.addAttribute("doll", dollProducts);
+              model.addAttribute("dollAll", dollProducts);
               return "/product/doll_animal";
        }
        
@@ -57,7 +72,7 @@ public class MainController {
                             dollProducts.add(product);
                      }
               }
-              model.addAttribute("doll", dollProducts);
+              model.addAttribute("dollAll", dollProducts);
               return "/product/doll_character";
        }
 }
