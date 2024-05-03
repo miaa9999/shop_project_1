@@ -12,4 +12,10 @@ public class MainController {
               return "main";
        }
        
+       @GetMapping("/doll")
+       public String dollCategory(){
+              return "/doll_all";
+       }
+       
+
 }
