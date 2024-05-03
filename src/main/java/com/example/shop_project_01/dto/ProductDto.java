@@ -18,6 +18,8 @@ public class ProductDto {
     private String mainCategory;
     private String subCategory;
 
+    private String imgUrl;
+
     public static ProductDto fromProductEntity(Product product){
         return new ProductDto(
                 product.getProductId(),
@@ -26,7 +28,8 @@ public class ProductDto {
                 product.getProductStock(),
                 product.getContent(),
                 product.getMainCategory(),
-                product.getSubCategory()
+                product.getSubCategory(),
+                product.getImgUrl()
         );
     }
 
@@ -40,6 +43,7 @@ public class ProductDto {
         product.setContent(dto.getContent());
         product.setMainCategory(dto.getMainCategory());
         product.setSubCategory(dto.getSubCategory());
+        product.setImgUrl(dto.getImgUrl());
         return product;
     }
 }

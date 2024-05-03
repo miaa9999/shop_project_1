@@ -16,4 +16,13 @@ public class CategoryService {
               List<ProductDto> products = productRepository.findAll().stream().map(x-> ProductDto.fromProductEntity(x)).toList();
               return products;
        }
+
+       public ProductDto productViewOne(Long productId) {
+              Product product = productRepository.findById(productId).orElse(null);
+              if (product != null) {
+                     return ProductDto.fromProductEntity(product);
+              } else {
+                     return null;
+              }
+       }
 }
