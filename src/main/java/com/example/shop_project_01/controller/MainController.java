@@ -3,11 +3,13 @@ package com.example.shop_project_01.controller;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.service.CategoryService;
+import jakarta.websocket.server.PathParam;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,14 @@ public class MainController {
        @GetMapping("/")
        public String main() {
               return "main";
+       }
+
+       @GetMapping("/product_detail/{productId}")
+       public String product_detail(@PathVariable("productId")Long productId, Model model) {
+              ProductDto product = categoryService.productViewOne(productId);
+
+              model.addAttribute("product",product);
+              return "/product/product_detail";
        }
        
        @GetMapping("/doll")

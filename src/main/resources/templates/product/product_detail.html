@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <br>
+    <form th:each="one : ${product}" th:object="${one}">
+        <div>
+            [[*{mainCategory}]] > [[*{subCategory}]]</div>
+
+        <hr>
+
+        <div class="productOneTitle">
+            <div>
+                <img th:src="*{imgUrl}"></img>상품 이미지
+            </div>
+            <div>
+                <h3>[[*{productName}]]</h3>
+                <h4 align="right">[[*{productPrice}]]원</h4>
+                <input type="submit" name="cart" value="장바구니에 넣기">
+                <input type="submit" name="buy" value="구매하기">
+            </div>
+        </div>
+        <hr>
+        <div class="productOneContent">
+            <span> 리뷰 문의 헤더 넣을 공간 </span>
+            <span th:text="*{content}"></span>
+        </div>
+    </form>
+</div>
+</body>
+</html>
