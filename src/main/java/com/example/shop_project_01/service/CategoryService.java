@@ -12,7 +12,6 @@ import java.util.List;
 public class CategoryService {
        @Autowired
        ProductRepository productRepository;
-       
        public List<ProductDto> productViewAll() {
               List<ProductDto> products = productRepository.findAll().stream().map(x-> ProductDto.fromProductEntity(x)).toList();
               return products;
