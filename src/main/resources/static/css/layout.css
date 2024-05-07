@@ -273,8 +273,6 @@ html{
     }
 
 
-.showOneLink{
-=======
 
   /*상품목록 배열하기 */
 
@@ -310,5 +308,4 @@ html{
     display: block;
     margin-top: 5px;
     color: #888;
->>>>>>> ec905db9ee9bbbefaee37b8e0e8549159eaedd4b
 }

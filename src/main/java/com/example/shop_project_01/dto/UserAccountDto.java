@@ -17,18 +17,30 @@ import java.time.LocalDateTime;
 @Builder
 public class UserAccountDto {
     private String userId;
-    private String userPassword;
+    private String password;
+    private String passwordCheck;
     private String userName;
     private String userPhone;
     private String userEmail;
     private UserRole userRole;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
+    
+    public UserAccountDto(String userId, String password, String userName, String userPhone, String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.userId = userId;
+        this.password = password;
+        this.userName = userName;
+        this.userPhone = userPhone;
+        this.userEmail = userEmail;
+        this.userRole = userRole;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+    
     public static UserAccountDto fromUserAccountEntity(UserAccount userAccount){
         return new UserAccountDto(
                 userAccount.getUserId(),
-                userAccount.getUserPassword(),
+                userAccount.getPassword(),
                 userAccount.getUserName(),
                 userAccount.getUserPhone(),
                 userAccount.getUserEmail(),
@@ -41,7 +53,7 @@ public class UserAccountDto {
     public UserAccount fromUserAccountDto(UserAccountDto dto){
         UserAccount userAccount = new UserAccount();
         userAccount.setUserId(dto.getUserId());
-        userAccount.setUserPassword(dto.getUserPassword());
+        userAccount.setPassword(dto.getPassword());
         userAccount.setUserName(dto.getUserName());
         userAccount.setUserPhone(dto.getUserPhone());
         userAccount.setUserEmail(dto.getUserEmail());
