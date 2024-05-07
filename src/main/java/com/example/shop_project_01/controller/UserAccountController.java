@@ -12,4 +12,14 @@ public class UserAccountController {
         return "/user/login";
     }
 
+    @GetMapping("/signup")
+    public String signUp() {
+        return "/user/signup";
+    }
+
+    @GetMapping("/mypage")
+    public String myPage() {
+        return "/user/mypage";
+    }
+
 }
