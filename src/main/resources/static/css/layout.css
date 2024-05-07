@@ -295,7 +295,8 @@ html{
    }
 
 
-  /*상품목록 배열하기 */
+
+/*상품목록 배열하기 */
 
 .product-container {
     display: flex;
