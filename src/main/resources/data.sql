@@ -13,5 +13,6 @@ insert into product(product_name,product_price,product_stock,main_category,sub_c
 insert into product(product_name,product_price,product_stock,main_category,sub_category,content)values("기초 영문 도서 세트",50000,200,"도서","영어도서","어릴때부터 접근하기 쉬운 영문 도서");
 insert into product(product_name,product_price,product_stock,main_category,sub_category,content)values("어린이 기초 영어 단어책",30000,200,"도서","영어도서","우리 아이 첫 영단어 배우기");
 insert into product(product_name,product_price,product_stock,main_category,sub_category,content)values("그림과 함께 읽는 동화책",20000,100,"도서","동화","그림으로 먼저 읽는 동화책");
+insert into product(product_name,product_price,product_stock,main_category,sub_category,content)values("영어로 시작하는 말하기",20000,200,"도서","영어도서","우리아이 말하기 영어로 시작해요");
 
 
