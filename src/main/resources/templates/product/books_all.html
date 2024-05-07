@@ -22,7 +22,8 @@
             <tr th:each="book : ${bookAll}" th:object="${book}">
                 <td>이미지 넣어야함</td>
                 <td>
-                    <a th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"></a>
+                    <a th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"
+                    class="showOneLink"></a>
                     <input type="hidden" name="productId" th:value="*{productId}">
                 </td>
                 <td th:text="*{productPrice}+원"></td>
