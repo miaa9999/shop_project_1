@@ -13,19 +13,6 @@
     <br>
     <div th:if="${count}==0" align="center">관련된 상품이 존재하지 않습니다.</div>
     <div  th:unless="${count}==0">
-<<<<<<< HEAD
-        <table class="type1"align="center" border="2">
-            <tr>
-                <th>상품이미지</th>
-                <th>상품명</th>
-                <th>상품가격</th>
-            </tr>
-            <tr th:each="book : ${bookAll}" th:object="${book}">
-                <td>이미지 넣어야함</td>
-                <td>
-                    <a th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"
-                    class="showOneLink"></a>
-=======
 
         <div class="product-container">
             <!-- 각 상품에 대한 div 요소 -->
@@ -38,7 +25,6 @@
                     <!-- 상품 이름 및 가격 -->
                     <a class="product-name" th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"></a>
                     <br>
->>>>>>> ec905db9ee9bbbefaee37b8e0e8549159eaedd4b
                     <input type="hidden" name="productId" th:value="*{productId}">
                     <span class="product-price" th:text="*{productPrice} + '원'"></span>
                 </div>

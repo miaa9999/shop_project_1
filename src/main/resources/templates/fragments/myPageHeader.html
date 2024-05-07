@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<div th:fragment="header">
+    <div align = right>
+        <form>
+            <a class="btn1" role="button" th:href="@{/user/login}" aria-expanded="false">
+                로그인
+            </a>
+            <a class="btn1" role="button" th:href="@{/user/signup}" aria-expanded="false">
+                회원가입
+            </a>
+            <a class="btn1" role="button" th:href="@{/outer}" aria-expanded="false">
+                로그아웃
+            </a>
+            <a class="btn1" role="button" th:href="@{/user/mypage}" aria-expanded="false">
+                마이페이지
+            </a>
+        </form>
+    </div>
+    <br>
+    <div>
+        <a href="/" class="header"> 키즈 쇼핑몰 </a>
+    </div>
+<br>
+    <nav class="navbar1">
+        <div class="navbar1" id="nav_bar">
+            <div>
+                <div class="dropmenu">
+                    <ul>
+                        <li><a th:href="@{/doll}" id="doll">회원정보</a>
+                            <ul>
+                                <li><a th:href="@{/doll_person}">회원정보변경</a></li>
+                                <li><a th:href="@{/doll_animal}">비밀번호변경</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/toy}" id="toy">구매내역</a>
+                            <ul>
+                                <li><a th:href="@{/toy_lego}">레고</a></li>
+                                <li><a th:href="@{/toy_outdoor}">실외장난감</a></li>
+                                <li><a th:href="@{/toy_touch}">촉각놀이</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/books}">장바구니</a>
+                            <ul>
+                                <li><a th:href="@{/books_story}">동화</a></li>
+                                <li><a th:href="@{/books_biography}">위인전</a></li>
+                                <li><a th:href="@{/books_eng}">영어도서</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/books}">리뷰관리</a>
+                            <ul>
+                                <li><a th:href="@{/books_story}">동화</a></li>
+                                <li><a th:href="@{/books_biography}">위인전</a></li>
+                                <li><a th:href="@{/books_eng}">영어도서</a></li>
+                            </ul>
+                        </li>
+
+                        <form align=right style="margin-right:20px; padding-top:5px;">
+                            <img class="search_icon" type="submit" src="/img/search_icon.png">
+                            <input class="search_input" type="text" placeholder="Search">
+
+                        </form>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+</div>
+</html>
