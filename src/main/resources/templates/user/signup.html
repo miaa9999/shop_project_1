@@ -1,15 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
-<div layout:fragment="content">
-    회원가입 페이지
+<div layout:fragment="content" class="content">
+    <h4>회원가입</h4>
+    <form id="frm" name="frm" class="container" th:action="@{/user/signup}" method="post" th:object="${userAccountDto}">
+<!--&lt;!&ndash;        에러 처리하기 Fragment 삽입        &ndash;&gt;-->
+<!--&lt;!&ndash;        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>&ndash;&gt;-->
+        <div class="mb3">
+            <label class="form-label">사용자 ID</label>
+            <input id="userId" name="userId" type="text" th:field="*{userId}" class="form-control">
+<!--            <span class="error-class" th:errors ="*{username}"></span>-->
+        </div>
+        <div class="mb3">
+            <label class="form-label">사용자 PASSWORD</label>
+            <input id="password" name="password" type="password" th:field="*{password}"  class="form-control">
+<!--            <span th:errors ="*{password1}"></span>-->
+        </div>
+        <div class="mb3">
+            <label class="form-label">PASSWORD CHECK</label>
+            <input id="passwordCheck" name="passwordCheck" type="password" th:field="*{passwordCheck}"  class="form-control">
+<!--            <span th:errors ="*{password2}"></span>-->
+        </div>
+        <div class="mb3">
+            <label class="form-label">이메일</label>
+            <input id="userEmail" name="userEmail" type="email" th:field="*{userEmail}"  class="form-control">
+<!--            <span th:errors ="*{email}"></span>-->
+        </div>
+        <div class="mb3">
+            <label class="form-label">사용자 이름</label>
+            <input id="userName" name="userName" type="text" th:field="*{userName}"  class="form-control">
+<!--            <span th:errors ="*{userName}"></span>-->
+        </div>
+        <input type="submit" value="회원가입">
+<!--        <input type="button" value="취소" onclick="check()">-->
+    </form>
 </div>
 </body>
+
 </html>

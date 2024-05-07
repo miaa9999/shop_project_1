@@ -17,7 +17,7 @@ public class UserAccount {
     @Column(name = "user_id",length = 50)
     private String userId;
     @Column(nullable = false)
-    private String userPassword;
+    private String password;
     @Column(name = "user_name",length = 10)
     private String userName;
     @Column(name = "user_phone",length = 30)
