@@ -13,21 +13,38 @@
     <br>
     <div th:if="${count}==0" align="center">관련된 상품이 존재하지 않습니다.</div>
     <div  th:unless="${count}==0">
-        <table class="type1"align="center" border="2">
-            <tr>
-                <th>상품이미지</th>
-                <th>상품명</th>
-                <th>상품가격</th>
-            </tr>
-            <tr th:each="book : ${bookAll}" th:object="${book}">
-                <td>이미지 넣어야함</td>
-                <td>
-                    <a th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"></a>
+
+        <div class="product-container">
+            <!-- 각 상품에 대한 div 요소 -->
+            <div class="product" th:each="book : ${bookAll}" th:object="${book}">
+                <div class="product-inner">
+                    <!-- 상품 이미지 -->
+                    <div>이미지 자리</div>
+<!--                    <img class="product-image" th:src="*{productImage}" alt="상품 이미지">-->
+                    <img class="product-image" src="img/bookk.jpg" alt="상품 이미지">
+                    <!-- 상품 이름 및 가격 -->
+                    <a class="product-name" th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"></a>
+                    <br>
                     <input type="hidden" name="productId" th:value="*{productId}">
-                </td>
-                <td th:text="*{productPrice}+원"></td>
-            </tr>
-        </table>
+                    <span class="product-price" th:text="*{productPrice} + '원'"></span>
+                </div>
+            </div>
+        </div>
+<!--        <table class="type1"align="center" border="2">-->
+<!--            <tr>-->
+<!--                <th>상품이미지</th>-->
+<!--                <th>상품명</th>-->
+<!--                <th>상품가격</th>-->
+<!--            </tr>-->
+<!--            <tr th:each="book : ${bookAll}" th:object="${book}">-->
+<!--                <td>이미지 넣어야함</td>-->
+<!--                <td>-->
+<!--                    <a th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"></a>-->
+<!--                    <input type="hidden" name="productId" th:value="*{productId}">-->
+<!--                </td>-->
+<!--                <td th:text="*{productPrice}+원"></td>-->
+<!--            </tr>-->
+<!--        </table>-->
     </div>
 </div>
 </body>
