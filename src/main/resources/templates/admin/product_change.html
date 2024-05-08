@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminpage_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <br>
+    <br>
+    <div style="font-size:20px;" align="center"> 관리자페이지</div>
+    <br>
+    <form th:each="one : ${product}" th:object="${one}">
+        <div>
+            [[*{mainCategory}]] > [[*{subCategory}]]</div>
+
+        <hr>
+
+        <div class="productOneTitle">
+            <div>
+                <img th:src="*{imgUrl}">상품 이미지
+            </div>
+            <div>
+                <h3>[[*{productName}]]</h3>
+                <h4 align="right">[[*{productPrice}]]원</h4>
+                <input type="submit" name="change" value="수정하기">
+                <input type="submit" name="delete" value="삭제하기">
+            </div>
+        </div>
+        <br>
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminpage_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <br>
+    <br>
+    <div style="font-size:20px;" align="center"> 상품등록하기 </div>
+    <div>
+        <hr>
+        <form id="product-form" th:action="@{/admin/product_add}" method="post" th:object="${dto}">
+        <div>
+            <div>
+            <div>카테고리 설정</div>
+
+            </div>
+
+            <span>이미지 넣기 실현</span>
+
+        </div>
+        </form>
+    </div>
+
+
+
+</div>
+</body>
+</html>

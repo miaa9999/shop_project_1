@@ -23,7 +23,18 @@ public class MainController {
        public String main() {
               return "/product/main";
        }
-
+       
+       @GetMapping("/admin_page")
+       public String adminPage() {
+              return "/admin/admin_page";
+       }
+       
+       @GetMapping("/mypage")
+       public String myPage() {
+              return "/myPage/mypage";
+       }
+       
+       
        @GetMapping("/product_detail/{productId}")
        public String product_detail(@PathVariable("productId")Long productId, Model model) {
               ProductDto product = categoryService.productViewOne(productId);
