@@ -5,6 +5,7 @@ import com.example.shop_project_01.dto.UserAccountDto;
 import com.example.shop_project_01.entity.UserAccount;
 import com.example.shop_project_01.repository.UserAccountRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,15 +15,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-       
+
+
        private final UserAccountRepository userAccountRepository;
-       
+
        public UserService(UserAccountRepository userAccountRepository) {
               this.userAccountRepository = userAccountRepository;
        }
        @Autowired
        PasswordEncoder passwordEncoder;
-       
+
        @Autowired
        EntityManager em;
        
@@ -41,4 +43,5 @@ public class UserService {
               }
               em.persist(account);
        }
+
 }

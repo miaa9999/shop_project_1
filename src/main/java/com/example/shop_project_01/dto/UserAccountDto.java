@@ -25,7 +25,7 @@ public class UserAccountDto {
     private UserRole userRole;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    
+
     public UserAccountDto(String username, String password, String name, String userPhone, String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.username = username;
         this.password = password;
@@ -36,7 +36,7 @@ public class UserAccountDto {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-    
+
     public static UserAccountDto fromUserAccountEntity(UserAccount userAccount){
         return new UserAccountDto(
                 userAccount.getUsername(),
