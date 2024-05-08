@@ -27,10 +27,7 @@ public class UserAccountController {
               return "login";
        }
        
-       @GetMapping("/mypage")
-       public String myPage() {
-              return "/myPage/mypage";
-       }
+
        
        
        @GetMapping("signup")
@@ -57,10 +54,10 @@ public class UserAccountController {
                      e.printStackTrace();
                      bindingResult.reject
                             ("signupFailed", "이미 등록된 사용자 입니다.");
-                     return "/user/signup";
+                     return "signup";
               } catch (Exception e) {
                      bindingResult.reject("signupFailed", e.getMessage());
-                     return "/user/signup";
+                     return "signup";
               }
               return "redirect:/";
        }
