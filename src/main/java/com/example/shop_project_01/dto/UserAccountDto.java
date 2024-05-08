@@ -16,20 +16,20 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class UserAccountDto {
-    private String userId;
+    private String username;
     private String password;
     private String passwordCheck;
-    private String userName;
+    private String name;
     private String userPhone;
     private String userEmail;
     private UserRole userRole;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     
-    public UserAccountDto(String userId, String password, String userName, String userPhone, String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.userId = userId;
+    public UserAccountDto(String username, String password, String name, String userPhone, String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.username = username;
         this.password = password;
-        this.userName = userName;
+        this.name = name;
         this.userPhone = userPhone;
         this.userEmail = userEmail;
         this.userRole = userRole;
@@ -39,9 +39,9 @@ public class UserAccountDto {
     
     public static UserAccountDto fromUserAccountEntity(UserAccount userAccount){
         return new UserAccountDto(
-                userAccount.getUserId(),
+                userAccount.getUsername(),
                 userAccount.getPassword(),
-                userAccount.getUserName(),
+                userAccount.getName(),
                 userAccount.getUserPhone(),
                 userAccount.getUserEmail(),
                 userAccount.getUserRole(),
@@ -52,9 +52,9 @@ public class UserAccountDto {
 
     public UserAccount fromUserAccountDto(UserAccountDto dto){
         UserAccount userAccount = new UserAccount();
-        userAccount.setUserId(dto.getUserId());
+        userAccount.setUsername(dto.getUsername());
         userAccount.setPassword(dto.getPassword());
-        userAccount.setUserName(dto.getUserName());
+        userAccount.setName(dto.getName());
         userAccount.setUserPhone(dto.getUserPhone());
         userAccount.setUserEmail(dto.getUserEmail());
         userAccount.setUserRole(dto.getUserRole());

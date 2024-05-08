@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
       layout:decorate="~{layouts/default_layout}">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,7 @@
 
 <div layout:fragment="content">
     <h4>로그인</h4>
-    <form id="frm" name="frm" class="container" th:action="@{/login}" method="post" >
+    <form id="frm" name="frm" class="container" th:action="@{/login}" method="post" th:object="${userAccountDto}" >
         <div th:if="${param.error}">
             <div class="alert alert-danger">
                 사용자ID 또는 비밀번호를 확인해주세요
@@ -18,16 +19,13 @@
         </div>
         <div class="mb3">
             <label class="form-label">사용자 ID</label>
-            <input id="userId" name="userId" type="text"  class="form-control">
+            <input id="username" name="username" type="text"  class="form-control" th:field="*{username}">
         </div>
         <div class="mb3">
             <label class="form-label">사용자 PASSWORD</label>
-            <input id="password" name="password" type="password"  class="form-control">
+            <input id="password" name="password" type="password"  class="form-control" th:field="*{password}">
         </div>
         <br>
-<!--        <a href="/oauth2/authorization/google">구글 로그인</a>-->
-<!--        <a href="/oauth2/authorization/naver">네이버 로그인</a>-->
-<!--        <a href="/oauth2/authorization/kakao">카카오 로그인</a>-->
         <input type="submit" value="로그인">
     </form>
 </div>
