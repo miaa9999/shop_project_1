@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.springframework.org/security/tags">
 
 <div th:fragment="header">
     <div align = right>
         <form>
-            <a class="btn1" role="button" th:href="@{/user/login}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/user/login}" aria-expanded="false"
+               sec:authorize="isAnonymous()">
                 로그인
             </a>
-            <a class="btn1" role="button" th:href="@{/user/signup}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/user/signup}" aria-expanded="false"
+               sec:authorize="isAnonymous()">
                 회원가입
             </a>
-            <a class="btn1" role="button" th:href="@{/outer}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/logout}" aria-expanded="false"
+               sec:authorize="isAuthenticated()">
                 로그아웃
             </a>
-            <a class="btn1" role="button" th:href="@{/user/mypage}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/admin_page}" aria-expanded="false"
+               sec:authorize="hasRole('ADMIN')">
+                관리자 페이지
+            </a>
+            <a class="btn1" role="button" th:href="@{/mypage}" aria-expanded="false"
+               sec:authorize="!hasRole('ADMIN')">
                 마이페이지
             </a>
         </form>

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org" xmlns="http://www.w3.org/1999/html"
-        xmlns:sec="http://www.springframework.org/security/tags">
+      xmlns:sec="http://www.springframework.org/security/tags">
 
 <div th:fragment="header">
     <div align = right>
         <form>
-            <a class="btn1" role="button" id="login" th:href="@{/user/login}" aria-expanded="false"
+            <a class="btn1" role="button" th:href="@{/user/login}" aria-expanded="false"
                sec:authorize="isAnonymous()">
                 로그인
             </a>
-            <a class="btn1" role="button" id="signup" th:href="@{/user/signup}" aria-expanded="false"
+            <a class="btn1" role="button" th:href="@{/user/signup}" aria-expanded="false"
                sec:authorize="isAnonymous()">
                 회원가입
             </a>
-            <a class="btn1" role="button" id="logout" th:href="@{/logout}" aria-expanded="false"
+            <a class="btn1" role="button" th:href="@{/logout}" aria-expanded="false"
                sec:authorize="isAuthenticated()">
                 로그아웃
             </a>
@@ -37,23 +37,29 @@
             <div>
                 <div class="dropmenu">
                     <ul>
-                        <li><a th:href="@{/doll}" id="doll">인형</a>
+                        <li><a th:href="@{/doll}" id="doll">회원정보</a>
                             <ul>
-                                <li><a th:href="@{/doll_person}">사람인형</a></li>
-                                <li><a th:href="@{/doll_animal}">동물인형</a></li>
-                                <li><a th:href="@{/doll_character}">캐릭터인형</a></li>
+                                <li><a th:href="@{/doll_person}">회원정보 확인하기</a></li>
+                                <li><a th:href="@{/doll_animal}">회원정보 변경하기</a></li>
                             </ul>
                         </li>
-                        <li><a th:href="@{/toy}" id="toy">완구</a>
+                        <li><a th:href="@{/toy}" id="toy">판매상품정보</a>
                             <ul>
-                                <li><a th:href="@{/toy_lego}">레고</a></li>
-                                <li><a th:href="@{/toy_outdoor}">실외장난감</a></li>
-                                <li><a th:href="@{/toy_touch}">촉각놀이</a></li>
+                                <li><a th:href="@{/toy_lego}">판매상품수정</a></li>
+                                <li><a th:href="@{/toy_outdoor}">판매상품보기</a></li>
+                                <li><a th:href="@{/toy_touch}">상품별 리뷰 확인하기</a></li>
                             </ul>
                         </li>
-                        <li><a th:href="@{/books}">도서전집</a>
+                        <li><a th:href="@{/books}">장바구니</a>
                             <ul>
                                 <li><a th:href="@{/books_story}">동화</a></li>
+                                <li><a th:href="@{/books_biography}">위인전</a></li>
+                                <li><a th:href="@{/books_eng}">영어도서</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/books}">리뷰관리</a>
+                            <ul>
+                                <li><a th:href="@{/books_story}">리뷰</a></li>
                                 <li><a th:href="@{/books_biography}">위인전</a></li>
                                 <li><a th:href="@{/books_eng}">영어도서</a></li>
                             </ul>

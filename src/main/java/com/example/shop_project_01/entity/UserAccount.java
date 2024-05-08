@@ -1,9 +1,7 @@
 package com.example.shop_project_01.entity;
 
 import com.example.shop_project_01.constant.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,6 +22,7 @@ public class UserAccount {
     private String userPhone;
     @Column(name = "user_email",length = 50)
     private String userEmail;
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
     @Column(name = "created_at",updatable = false)
     @CreatedDate

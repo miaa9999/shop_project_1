@@ -15,54 +15,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("user")
 public class UserAccountController {
+       
+       private final UserService userService;
+       
+       public UserAccountController(UserService userService) {
+              this.userService = userService;
+       }
+       
+       @GetMapping("login")
+       public String login(UserAccountDto userAccountDto) {
+              return "login";
+       }
+       
 
-    private final UserService userService;
-
-    public UserAccountController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping("login")
-    public String login(UserAccountDto userAccountDto) {
-        return "login";
-    }
-
-    @GetMapping("/mypage")
-    public String myPage() {
-        return "/myPage/mypage";
-    }
-
-
-    @GetMapping("signup")
-    public String signUp(UserAccountDto userAccountDto) {
-        return "signup";
-    }
-
-    @PostMapping("signup")
-    private String signup(@Valid UserAccountDto userAccountDto,
-                          BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "signup";
-        }
-
-        if (!userAccountDto.getPassword().equals(userAccountDto.getPasswordCheck())) {
-            bindingResult.rejectValue
-                    ("passwordCheck", "passwordIncorrect", "비밀번호가 일치하지 않습니다.");
-            return "signup";
-        }
-
-        try {
-            userService.createUser(userAccountDto);
-        } catch (DataIntegrityViolationException e) {
-            e.printStackTrace();
-            bindingResult.reject
-                    ("signupFailed", "이미 등록된 사용자 입니다.");
-            return "/user/signup";
-        } catch (Exception e) {
-            bindingResult.reject("signupFailed", e.getMessage());
-            return "/user/signup";
-        }
-        return "redirect:/";
-    }
-
+       
+       
+       @GetMapping("signup")
+       public String signUp(UserAccountDto userAccountDto) {
+              return "signup";
+       }
+       
+       @PostMapping("signup")
+       private String signup(@Valid UserAccountDto userAccountDto,
+                             BindingResult bindingResult) {
+              if (bindingResult.hasErrors()) {
+                     return "signup";
+              }
+              
+              if (!userAccountDto.getPassword().equals(userAccountDto.getPasswordCheck())) {
+                     bindingResult.rejectValue
+                            ("passwordCheck", "passwordIncorrect", "비밀번호가 일치하지 않습니다.");
+                     return "signup";
+              }
+              
+              try {
+                     userService.createUser(userAccountDto);
+              } catch (DataIntegrityViolationException e) {
+                     e.printStackTrace();
+                     bindingResult.reject
+                            ("signupFailed", "이미 등록된 사용자 입니다.");
+                     return "signup";
+              } catch (Exception e) {
+                     bindingResult.reject("signupFailed", e.getMessage());
+                     return "signup";
+              }
+              return "redirect:/";
+       }
+       
 }
