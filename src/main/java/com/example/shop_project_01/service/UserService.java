@@ -7,6 +7,8 @@ import com.example.shop_project_01.repository.UserAccountRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,21 +25,20 @@ public class UserService {
        
        @Autowired
        EntityManager em;
+       
        @Transactional
-       public void createUser(UserAccountDto userCreateForm) {
+       public void createUser(UserAccountDto dto) {
               UserAccount account = new UserAccount();
-              account.setUserId(userCreateForm.getUserId());
-              account.setPassword(passwordEncoder.encode(userCreateForm.getPassword()));
-              account.setUserEmail(userCreateForm.getUserEmail());
-              account.setUserName(userCreateForm.getUserName());
-              account.setUserPhone(userCreateForm.getUserPhone());
-              if ("ADMIN".equals(userCreateForm.getUserId().toUpperCase())){
+              account.setUsername(dto.getUsername());
+              account.setPassword(passwordEncoder.encode(dto.getPassword()));
+              account.setUserEmail(dto.getUserEmail());
+              account.setName(dto.getName());
+              account.setUserPhone(dto.getUserPhone());
+              if ("ADMIN".equals(dto.getUsername().toUpperCase())){
                      account.setUserRole(UserRole.ADMIN);
               }else {
                      account.setUserRole(UserRole.USER);
               }
               em.persist(account);
        }
-       
-       
 }

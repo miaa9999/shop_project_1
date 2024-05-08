@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 @Data
 public class UserAccount {
     @Id
-    @Column(name = "user_id",length = 50)
-    private String userId;
+    @Column(name = "username",length = 50)
+    private String username;
     @Column(nullable = false)
     private String password;
-    @Column(name = "user_name",length = 10)
-    private String userName;
+    @Column(name = "name",length = 10)
+    private String name;
     @Column(name = "user_phone",length = 30)
     private String userPhone;
     @Column(name = "user_email",length = 50)

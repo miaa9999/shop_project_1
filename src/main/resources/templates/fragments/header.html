@@ -4,13 +4,16 @@
 <div th:fragment="header">
     <div align = right>
         <form>
-            <a class="btn1" role="button" th:href="@{/user/login}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/user/login}" aria-expanded="false"
+               sec:authorize="isAnonymous()">
                 로그인
             </a>
-            <a class="btn1" role="button" th:href="@{/user/signup}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/user/signup}" aria-expanded="false"
+               sec:authorize="isAnonymous()">
                 회원가입
             </a>
-            <a class="btn1" role="button" th:href="@{/outer}" aria-expanded="false">
+            <a class="btn1" role="button" th:href="@{/logout}" aria-expanded="false"
+               sec:authorize="isAuthenticated()">
                 로그아웃
             </a>
             <a class="btn1" role="button" th:href="@{/user/mypage}" aria-expanded="false">
