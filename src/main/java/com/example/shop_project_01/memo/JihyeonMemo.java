@@ -9,5 +9,35 @@ public class JihyeonMemo {
        A%B8-%EC%83%81%ED%92%88-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%
        97%85%EB%A1%9C%EB%93%9C%EC%99%80-thymeleaf
 
-        */
+
+//    .container {
+//      /* border: 1px solid black; */
+//       margin: 1px;
+//       padding: 10px;
+//       height: 50px;
+//       margin-left: auto;
+//       margin-right: auto;
+//       margin-bottom: 60px;
+//       border-radius: 10px;
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//}
+//
+//    .item {
+//       text-decoration: none;
+//       font-size: 15px;
+//       font-weight: 900;
+//
+//       color: black;
+//       background-color: #ffffff;
+//       height: 50px;
+//       width: 100px;
+//       line-height : 50px;
+//       display: inline-block;
+//       justify-content: center;
+//       text-align: center;
+//       align-items: center;
+//}
+//        */
 }

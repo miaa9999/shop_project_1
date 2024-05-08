@@ -7,8 +7,7 @@ public class MainCategory {
        
        @Id
        @GeneratedValue(strategy = GenerationType.IDENTITY)
-       @Column(name = "category_id")
-       private Long categoryId;
+       private Long mainCategoryId;
        
-       private String mainCategory;
+       private String mainCategoryName;
 }
