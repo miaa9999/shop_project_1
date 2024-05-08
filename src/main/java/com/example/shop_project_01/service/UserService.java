@@ -2,7 +2,9 @@ package com.example.shop_project_01.service;
 
 import com.example.shop_project_01.constant.UserRole;
 import com.example.shop_project_01.dto.UserAccountDto;
+import com.example.shop_project_01.entity.Cart;
 import com.example.shop_project_01.entity.UserAccount;
+import com.example.shop_project_01.repository.CartRepository;
 import com.example.shop_project_01.repository.UserAccountRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -18,9 +20,11 @@ public class UserService {
 
 
        private final UserAccountRepository userAccountRepository;
+       private final CartRepository cartRepository; // CartRepository 추가
 
-       public UserService(UserAccountRepository userAccountRepository) {
+       public UserService(UserAccountRepository userAccountRepository, CartRepository cartRepository) {
               this.userAccountRepository = userAccountRepository;
+              this.cartRepository = cartRepository;
        }
        @Autowired
        PasswordEncoder passwordEncoder;
@@ -43,6 +47,9 @@ public class UserService {
                      account.setUserRole(UserRole.USER);
               }
               em.persist(account);
+              Cart cart = new Cart();
+              cart.setUserAccount(account);
+              cartRepository.save(cart);
        }
 
 }
