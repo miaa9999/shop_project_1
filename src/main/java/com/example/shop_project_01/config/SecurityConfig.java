@@ -10,33 +10,35 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-       @Bean
-       public BCryptPasswordEncoder bCryptPasswordEncoder() {
-              return new BCryptPasswordEncoder();
-       }
-       
-       @Bean
-       public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-              http.authorizeHttpRequests(
-                            request -> request.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                                   .requestMatchers("/mypage").authenticated()
-                                   .anyRequest().permitAll()
-                     )
-                     
-                     .formLogin(
-                            form -> form
-                                   .loginPage("/user/login")
-                                   .loginProcessingUrl("/login")
-                                   .defaultSuccessUrl("/")
-                                   .permitAll()
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(
+                        request -> request.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                                .requestMatchers("/mypage").authenticated()
+                                .anyRequest().permitAll()
+                )
+
+                .formLogin(
+                        form -> form
+                                .loginPage("/user/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/")
+                                .permitAll()
 //                            form -> form.loginPage("/user/login")
 //                                   .loginProcessingUrl("/user/login")
 //                                   .defaultSuccessUrl("/")
-                     )
-                     .logout(
-                            out -> out.logoutSuccessUrl("/")
-                                   .logoutUrl("/logout")
-                     );
-              return http.build();
-       }
+                )
+                .logout(
+                        out -> out.logoutSuccessUrl("/")
+                                .logoutUrl("/logout"))
+                                .csrf(csrf->csrf.disable()
+
+                );
+        return http.build();
+    }
 }

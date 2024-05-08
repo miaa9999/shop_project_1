@@ -18,7 +18,7 @@
 
         <div class="productOneTitle">
             <div>
-                <img th:src="*{imgUrl}"></img>상품 이미지
+                <img th:src="*{imgUrl}">상품 이미지
             </div>
             <div>
                 <h3>[[*{productName}]]</h3>
@@ -27,12 +27,20 @@
                 <input type="submit" name="buy" value="구매하기">
             </div>
         </div>
-        <hr>
-        <div class="productOneContent">
-            <span> 리뷰 문의 헤더 넣을 공간 </span>
-            <span th:text="*{content}"></span>
-        </div>
+        <br>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">상품설명</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">리뷰</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">문의</a>
+            </li>
+        </ul>
     </form>
+
 </div>
 </body>
 </html>
