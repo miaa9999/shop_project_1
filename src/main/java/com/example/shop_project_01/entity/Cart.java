@@ -12,9 +12,12 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private Long cartId;
-    
+
+
+
     //배정된 유저아이디
-    @Column(name = "user_id")
-    private String userId;
+    @OneToOne
+    @JoinColumn(name = "username")
+    private UserAccount userAccount;
 
 }
