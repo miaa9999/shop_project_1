@@ -27,8 +27,8 @@ public class ProductDto {
                 product.getProductPrice(),
                 product.getProductStock(),
                 product.getContent(),
-                product.getMainCategory(),
-                product.getSubCategory(),
+                product.getMainCategoryName(),
+                product.getSubCategoryName(),
                 product.getImgUrl()
         );
     }
@@ -41,8 +41,8 @@ public class ProductDto {
         product.setProductPrice(dto.getProductPrice());
         product.setProductStock(dto.getProductStock());
         product.setContent(dto.getContent());
-        product.setMainCategory(dto.getMainCategory());
-        product.setSubCategory(dto.getSubCategory());
+        product.setMainCategoryName(dto.getMainCategory());
+        product.setSubCategoryName(dto.getSubCategory());
         product.setImgUrl(dto.getImgUrl());
         return product;
     }

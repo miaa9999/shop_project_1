@@ -27,11 +27,16 @@ public class Product {
     @Column(name = "product_stock")
     private int productStock;
     
-    //카테고리 - joincolumn category
-    private String mainCategory;
+    private String mainCategoryName;
     
-    //카테고리 - joincolumn subcategory
-    private String subCategory;
+    private String subCategoryName;
+//    @ManyToOne
+//    @JoinColumn(name = "mainCategoryName")
+//    private MainCategory mainCategory;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "mainCategoryName")
+//    private SubCategory subCategory;
     //게시판
     private String content;
 
