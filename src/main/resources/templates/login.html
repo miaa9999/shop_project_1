@@ -10,8 +10,10 @@
 <body>
 
 <div layout:fragment="content">
-    <h4>로그인</h4>
-    <form id="frm" name="frm" class="container" th:action="@{/login}" method="post" th:object="${userAccountDto}" >
+    <br>
+    <h4 style="font-weight:bold">로그인</h4>
+    <br>
+    <form  th:action="@{/login}" method="post" th:object="${userAccountDto}" >
         <div th:if="${param.error}">
             <div class="alert alert-danger">
                 사용자ID 또는 비밀번호를 확인해주세요
@@ -26,7 +28,7 @@
             <input id="password" name="password" type="password"  class="form-control" th:field="*{password}">
         </div>
         <br>
-        <input type="submit" value="로그인">
+        <input type="submit" class="btn btn-primary" value="로그인">
     </form>
 </div>
 </body>

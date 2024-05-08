@@ -33,9 +33,10 @@ public class UserService {
               UserAccount account = new UserAccount();
               account.setUsername(dto.getUsername());
               account.setPassword(passwordEncoder.encode(dto.getPassword()));
+              account.setUserPhone(dto.getUserPhone());
+              account.setUserAddress(dto.getUserAddress());
               account.setUserEmail(dto.getUserEmail());
               account.setName(dto.getName());
-              account.setUserPhone(dto.getUserPhone());
               if ("ADMIN".equals(dto.getUsername().toUpperCase())){
                      account.setUserRole(UserRole.ADMIN);
               }else {

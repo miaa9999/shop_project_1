@@ -20,6 +20,8 @@ public class UserAccount {
     private String name;
     @Column(name = "user_phone",length = 30)
     private String userPhone;
+    @Column(name = "user_address",length = 100)
+    private String userAddress;
     @Column(name = "user_email",length = 50)
     private String userEmail;
     @Enumerated(EnumType.STRING)

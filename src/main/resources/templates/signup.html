@@ -4,41 +4,59 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원가입</title>
+    <script type="text/javascript" th:src="@{/js/check.js}"></script>
+
 </head>
 <body>
-<div layout:fragment="content" class="content">
-    <h4>회원가입</h4>
-    <form id="frm" name="frm" class="container" th:action="@{/user/signup}" method="post" th:object="${userAccountDto}">
-        <!--&lt;!&ndash;        에러 처리하기 Fragment 삽입        &ndash;&gt;-->
-        <!--&lt;!&ndash;        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>&ndash;&gt;-->
+<div layout:fragment="content">
+    <br>
+    <h4 style="font-weight:bold">회원가입</h4>
+    <br>
+    <form id="frm"  th:action="@{/user/signup}"
+          method="post" th:object="${userAccountDto}">
+<!--        에러 나타내기-->
+        <div th:replace="~{fragments/form_errors::formErrorsFragment}"></div>
+
         <div class="mb3">
             <label class="form-label">사용자 ID</label>
-            <input id="username" name="username" type="text" th:field="*{username}" class="form-control">
-            <!--            <span class="error-class" th:errors ="*{username}"></span>-->
+            <input type="text" id="username" name="username"  th:field="*{username}" class="form-control">
+            <span style="color:red; font-weight:bold;" class="error-class" th:errors ="*{username}"></span>
         </div>
         <div class="mb3">
             <label class="form-label">사용자 PASSWORD</label>
             <input id="password" name="password" type="password" th:field="*{password}"  class="form-control">
-            <!--            <span th:errors ="*{password1}"></span>-->
+            <span style="color:red; font-weight:bold"  class="error-class" th:errors ="*{password}"></span>
         </div>
         <div class="mb3">
             <label class="form-label">PASSWORD CHECK</label>
             <input id="passwordCheck" name="passwordCheck" type="password" th:field="*{passwordCheck}"  class="form-control">
-            <!--            <span th:errors ="*{password2}"></span>-->
-        </div>
-        <div class="mb3">
-            <label class="form-label">이메일</label>
-            <input id="userEmail" name="userEmail" type="email" th:field="*{userEmail}"  class="form-control">
-            <!--            <span th:errors ="*{email}"></span>-->
+            <span style="color:red; font-weight:bold"  class="error-class" th:errors ="*{passwordCheck}"></span>
         </div>
         <div class="mb3">
             <label class="form-label">사용자 이름</label>
             <input id="name" name="name" type="text" th:field="*{name}"  class="form-control">
-            <!--            <span th:errors ="*{userName}"></span>-->
+            <span style="color:red; font-weight:bold"  class="error-class" th:errors ="*{name}"></span>
         </div>
-        <input type="submit" value="회원가입">
-        <!--        <input type="button" value="취소" onclick="check()">-->
+        <div class="mb3">
+            <label class="form-label">전화번호</label>
+            <input id="userPhone" name="userPhone" type="text" th:field="*{userPhone}"  class="form-control">
+            <span style="color:red; font-weight:bold"  class="error-class" th:errors ="*{userPhone}"></span>
+        </div>
+        <div class="mb3">
+            <label class="form-label">주소</label>
+            <input id="userAddress" name="userAddress" type="text" th:field="*{userAddress}"  class="form-control">
+            <span style="color:red; font-weight:bold"  class="error-class" th:errors ="*{userAddress}"></span>
+        </div>
+
+        <div class="mb3">
+            <label class="form-label">이메일</label>
+            <input id="userEmail" name="userEmail" type="email" th:field="*{userEmail}"  class="form-control">
+            <span style="color:red; font-weight:bold" class="error-class" th:errors ="*{userEmail}"></span>
+        </div>
+        <br>
+        <input type="submit" class="btn btn-primary" value="회원가입">
+        <input type="button" value="취소" class="btn btn-primary" onclick="res()">
     </form>
 </div>
 </body>
