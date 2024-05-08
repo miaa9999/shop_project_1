@@ -18,26 +18,14 @@ public class UserAccountController {
     
     private final  UserService userService;
        
-       public UserAccountController(UserService userService) {
+    public UserAccountController(UserService userService) {
               this.userService = userService;
        }
-       
-       @GetMapping("/login")
+    @GetMapping("/login")
     public String login() {
         return "/user/login";
     }
 
-//    @GetMapping("/signup")
-//    public String signUp() {
-//        return "/user/signup";
-//    }
-
-    @GetMapping("/mypage")
-    public String myPage() {
-        return "/user/mypage";
-    }
-    
-    
     @GetMapping("/signup")
     public String signUp(UserAccountDto userAccountDto) {
         return "/user/signup";
@@ -52,7 +40,7 @@ public class UserAccountController {
 
         if(!userAccountDto.getPassword().equals(userAccountDto.getPasswordCheck())){
             bindingResult.rejectValue
-                   ("passwordCheck", "passwordIncorrect", "비밀번호가 일치하지 않습니다.");
+                    ("passwordCheck", "passwordIncorrect", "비밀번호가 일치하지 않습니다.");
             return "/user/signup";
         }
 
@@ -61,7 +49,7 @@ public class UserAccountController {
         }catch (DataIntegrityViolationException e){
             e.printStackTrace();
             bindingResult.reject
-                   ("signupFailed","이미 등록된 사용자 입니다.");
+                    ("signupFailed","이미 등록된 사용자 입니다.");
             return "/user/signup";
         }catch (Exception e){
             bindingResult.reject("signupFailed",e.getMessage());

@@ -23,20 +23,20 @@ public class UserAccountDto {
     private String userPhone;
     private String userEmail;
     private UserRole userRole;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+//    private LocalDateTime createdAt;
+//    private LocalDateTime updatedAt;
     
-    public UserAccountDto(String userId, String password, String userName, String userPhone, String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserAccountDto(String userId, String password, String userName, String userPhone, String userEmail, UserRole userRole) {
         this.userId = userId;
         this.password = password;
         this.userName = userName;
         this.userPhone = userPhone;
         this.userEmail = userEmail;
         this.userRole = userRole;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+//        this.createdAt = createdAt;
+//        this.updatedAt = updatedAt;
     }
-    
+
     public static UserAccountDto fromUserAccountEntity(UserAccount userAccount){
         return new UserAccountDto(
                 userAccount.getUserId(),
@@ -44,9 +44,9 @@ public class UserAccountDto {
                 userAccount.getUserName(),
                 userAccount.getUserPhone(),
                 userAccount.getUserEmail(),
-                userAccount.getUserRole(),
-                userAccount.getCreatedAt(),
-                userAccount.getUpdatedAt()
+                userAccount.getUserRole()
+//                userAccount.getCreatedAt()
+//                userAccount.getUpdatedAt()
         );
     }
 
@@ -58,8 +58,8 @@ public class UserAccountDto {
         userAccount.setUserPhone(dto.getUserPhone());
         userAccount.setUserEmail(dto.getUserEmail());
         userAccount.setUserRole(dto.getUserRole());
-        userAccount.setCreatedAt(dto.getCreatedAt());
-        userAccount.setUpdatedAt(dto.getUpdatedAt());
+//        userAccount.setCreatedAt(dto.getCreatedAt());
+//        userAccount.setUpdatedAt(dto.getUpdatedAt());
         return userAccount;
     }
 

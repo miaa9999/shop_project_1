@@ -25,11 +25,11 @@ public class UserAccount {
     @Column(name = "user_email",length = 50)
     private String userEmail;
     private UserRole userRole;
-    @Column(name = "created_at",updatable = false)
-    @CreatedDate
-    private LocalDateTime createdAt;
-    @Column(name = "updated_at",insertable = false)
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
+//    @Column(name = "created_at",updatable = false)
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//    @Column(name = "updated_at",insertable = false)
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
 
 }
