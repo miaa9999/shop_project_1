@@ -14,7 +14,7 @@
         <!--&lt;!&ndash;        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>&ndash;&gt;-->
         <div class="mb3">
             <label class="form-label">사용자 ID</label>
-            <input id="userId" name="userId" type="text" th:field="*{userId}" class="form-control">
+            <input id="username" name="username" type="text" th:field="*{username}" class="form-control">
             <!--            <span class="error-class" th:errors ="*{username}"></span>-->
         </div>
         <div class="mb3">
@@ -28,19 +28,14 @@
             <!--            <span th:errors ="*{password2}"></span>-->
         </div>
         <div class="mb3">
-            <label class="form-label">사용자 이름</label>
-            <input id="userName" name="userName" type="text" th:field="*{userName}"  class="form-control">
-            <!--            <span th:errors ="*{userName}"></span>-->
-        </div>
-        <div class="mb3">
-            <label class="form-label">전화번호</label>
-            <input id="userPhone" name="userPhone" type="text" th:field="*{userPhone}"  class="form-control">
-            <!--            <span th:errors ="*{email}"></span>-->
-        </div>
-        <div class="mb3">
             <label class="form-label">이메일</label>
             <input id="userEmail" name="userEmail" type="email" th:field="*{userEmail}"  class="form-control">
             <!--            <span th:errors ="*{email}"></span>-->
+        </div>
+        <div class="mb3">
+            <label class="form-label">사용자 이름</label>
+            <input id="name" name="name" type="text" th:field="*{name}"  class="form-control">
+            <!--            <span th:errors ="*{userName}"></span>-->
         </div>
         <input type="submit" value="회원가입">
         <!--        <input type="button" value="취소" onclick="check()">-->

@@ -16,50 +16,50 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class UserAccountDto {
-    private String userId;
+    private String username;
     private String password;
     private String passwordCheck;
-    private String userName;
+    private String name;
     private String userPhone;
     private String userEmail;
     private UserRole userRole;
-//    private LocalDateTime createdAt;
-//    private LocalDateTime updatedAt;
-    
-    public UserAccountDto(String userId, String password, String userName, String userPhone, String userEmail, UserRole userRole) {
-        this.userId = userId;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    public UserAccountDto(String username, String password, String name, String userPhone, String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.username = username;
         this.password = password;
-        this.userName = userName;
+        this.name = name;
         this.userPhone = userPhone;
         this.userEmail = userEmail;
         this.userRole = userRole;
-//        this.createdAt = createdAt;
-//        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public static UserAccountDto fromUserAccountEntity(UserAccount userAccount){
         return new UserAccountDto(
-                userAccount.getUserId(),
+                userAccount.getUsername(),
                 userAccount.getPassword(),
-                userAccount.getUserName(),
+                userAccount.getName(),
                 userAccount.getUserPhone(),
                 userAccount.getUserEmail(),
-                userAccount.getUserRole()
-//                userAccount.getCreatedAt()
-//                userAccount.getUpdatedAt()
+                userAccount.getUserRole(),
+                userAccount.getCreatedAt(),
+                userAccount.getUpdatedAt()
         );
     }
 
     public UserAccount fromUserAccountDto(UserAccountDto dto){
         UserAccount userAccount = new UserAccount();
-        userAccount.setUserId(dto.getUserId());
+        userAccount.setUsername(dto.getUsername());
         userAccount.setPassword(dto.getPassword());
-        userAccount.setUserName(dto.getUserName());
+        userAccount.setName(dto.getName());
         userAccount.setUserPhone(dto.getUserPhone());
         userAccount.setUserEmail(dto.getUserEmail());
         userAccount.setUserRole(dto.getUserRole());
-//        userAccount.setCreatedAt(dto.getCreatedAt());
-//        userAccount.setUpdatedAt(dto.getUpdatedAt());
+        userAccount.setCreatedAt(dto.getCreatedAt());
+        userAccount.setUpdatedAt(dto.getUpdatedAt());
         return userAccount;
     }
 

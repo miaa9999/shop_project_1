@@ -21,7 +21,7 @@ public class MainController {
        
        @GetMapping("/")
        public String main() {
-              return "main";
+              return "/product/main";
        }
 
        @GetMapping("/product_detail/{productId}")

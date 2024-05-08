@@ -11,28 +11,32 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/**").permitAll())
-//                        .anyRequest().authenticated())
-                .formLogin((form)->form
-                        .loginPage("/user/login")
-                        .loginProcessingUrl("/login")
-//                        .usernameParameter("email")
-                        .defaultSuccessUrl("/",true))
-                .logout(out->out
-                        .logoutSuccessUrl("/")
-                        .logoutUrl("/logout"))
-                .csrf(csrf->csrf.disable()
+        http.authorizeHttpRequests(
+                        request -> request.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                                .requestMatchers("/mypage").authenticated()
+                                .anyRequest().permitAll()
+                )
+
+                .formLogin(
+                        form -> form
+                                .loginPage("/user/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/")
+                                .permitAll()
+//                            form -> form.loginPage("/user/login")
+//                                   .loginProcessingUrl("/user/login")
+//                                   .defaultSuccessUrl("/")
+                )
+                .logout(
+                        out -> out.logoutSuccessUrl("/")
+                                .logoutUrl("/logout")
                 );
         return http.build();
-
     }
 }

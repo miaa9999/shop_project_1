@@ -8,17 +8,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class PrincipalDetails implements UserDetails {
-
-
     private UserAccount user;
-    public PrincipalDetails(UserAccount user){
+
+    public PrincipalDetails(UserAccount user) {
         this.user = user;
     }
 
     public UserAccount getUser(){
-        return user;
+        return  user;
     }
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> collect = new ArrayList<>();
+        collect.add(
+                ()->{return user.getUserRole().getValue();}
+        );
+        return collect;
+    }
 
     @Override
     public String getPassword() {
@@ -27,7 +35,7 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUserId();
+        return user.getUsername();
     }
 
     @Override
@@ -48,13 +56,5 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collect = new ArrayList<>();
-        collect.add(()->{
-            return user.getUserRole().getValue();});
-        return collect;
     }
 }
