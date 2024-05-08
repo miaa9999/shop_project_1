@@ -53,7 +53,7 @@ public class UserAccountController {
               } catch (DataIntegrityViolationException e) {
                      e.printStackTrace();
                      bindingResult.reject
-                            ("signupFailed", "이미 등록된 사용자 입니다.");
+                            ("signupFailed", "이미 등록된 사용자 입니다. 새로운 ID를 입력해 주세요!");
                      return "signup";
               } catch (Exception e) {
                      bindingResult.reject("signupFailed", e.getMessage());
