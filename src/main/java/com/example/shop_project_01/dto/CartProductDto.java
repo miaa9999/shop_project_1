@@ -22,11 +22,13 @@ public class CartProductDto {
     //상품 번호
     private Long productId;
 
-    //구매당시의 상품 가격 ( 조인x _ 할인할때 가격을 알기위함 )
+    //구매당시의 상품 가격 ( 조인x _ 할인할때 가격을 알기위함 ) -> 카트
     private int productPrice;
 
     //배정된 카트 아이디
     private Long cartId;
+
+    private String productName;
     
     public CartProductDto(int count, Long productId, int productPrice, Long cartId) {
         this.count = count;
@@ -34,18 +36,23 @@ public class CartProductDto {
         this.productPrice = productPrice;
         this.cartId = cartId;
     }
-    
+
+    public CartProductDto(int count, int productPrice, String productName) {
+        this.count = count;
+        this.productPrice = productPrice;
+        this.productName = productName;
+    }
+
     public static CartProduct fromCartProductDto(CartProductDto cartProductDto){
         CartProduct cartProduct = new CartProduct();
 //        Cart cart = new Cart();
 //        Product product = new Product();
         Long cartId = cartProductDto.getCartId();
-        cartProduct.setProductPrice(cartProductDto.getProductPrice());
+        cartProduct.getProduct().setProductPrice(cartProductDto.getProductPrice());
         cartProduct.setCount(cartProductDto.getCount());
         cartProduct.getCart().setCartId(cartId);
         cartProduct.getProduct().setProductId(cartProductDto.getProductId());
-        
+
         return cartProduct;
     }
-
 }

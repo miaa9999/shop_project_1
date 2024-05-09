@@ -10,7 +10,7 @@
 
 <div layout:fragment="content">
     <br>
-    <form th:object="${product}" th:action="@{/cart}" method="post">
+    <form th:object="${product}" th:action="@{/product_detail/cart}" method="post">
         <div>
             [[${product.mainCategory}]] > [[${product.subCategory}]]
         </div>

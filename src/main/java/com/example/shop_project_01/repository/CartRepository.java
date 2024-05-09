@@ -17,5 +17,5 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 // =======
 
     Cart findByUserAccount_Username(String username);
-// >>>>>>> 서현
+
 }

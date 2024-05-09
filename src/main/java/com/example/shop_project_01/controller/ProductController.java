@@ -12,6 +12,7 @@ import java.util.List;
 
 @Controller
 public class ProductController {
+    //상품보는거 연결된 컨트롤러
     @Autowired
     CategoryService categoryService;
 

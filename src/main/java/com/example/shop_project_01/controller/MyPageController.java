@@ -20,6 +20,7 @@ import java.util.List;
 
 @Controller
 public class MyPageController {
+    //마이페이지 네브바에 있는 내용들 컨트롤러(카트 없음)
     @Autowired
     UserAccountService userAccountService;
 
@@ -49,6 +50,9 @@ public class MyPageController {
     public String updateAccount(@RequestParam("username") String username,
                                 Model model){
         UserAccountDto accountDto = userAccountService.getMyPage(username);
+
+//        System.out.println(accountDto.toString());
+
         model.addAttribute("accountDto", accountDto);
         return "/myPage/updateForm";
     }
@@ -59,6 +63,8 @@ public class MyPageController {
         if (bindingResult.hasErrors()){
             return "/myPage/updateForm";
         }
+
+//        System.out.println("수정받은 dto : " + dto.toString());
         userAccountService.update(dto);// 사용자 정보 업데이트 메서드를 호출해야 함
 
         return "redirect:/mypage"; // 업데이트 후 마이페이지로 리다이렉트
