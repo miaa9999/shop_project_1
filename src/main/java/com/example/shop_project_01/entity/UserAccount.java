@@ -26,6 +26,8 @@ public class UserAccount {
     private String userEmail;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+    @OneToOne(mappedBy = "userAccount", cascade = CascadeType.REMOVE)
+    private Cart cart;
     @Column(name = "created_at",updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;

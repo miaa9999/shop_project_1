@@ -21,7 +21,7 @@
                sec:authorize="hasRole('ADMIN')">
                 관리자 페이지
             </a>
-            <a class="btn1" role="button" th:href="@{/mypage}" aria-expanded="false"
+            <a class="btn1" role="button" th:href="@{'/mypage/' + ${#authentication.name}}" aria-expanded="false"
                sec:authorize="!hasRole('ADMIN')">
                 마이페이지
             </a>
@@ -73,5 +73,11 @@
 
         </div>
     </nav>
+    <th:block th:if="${msg} != null">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong th:text="${msg}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </th:block>
 </div>
 </html>

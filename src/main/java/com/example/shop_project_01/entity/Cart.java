@@ -17,7 +17,7 @@ public class Cart {
 
     //배정된 유저아이디
     @OneToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
     private UserAccount userAccount;
 
 }
