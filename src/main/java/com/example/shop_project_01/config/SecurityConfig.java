@@ -21,6 +21,7 @@ public class SecurityConfig {
                         request -> request.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                                 .requestMatchers("/mypage/**").authenticated()
                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                               .requestMatchers("/product_detail/add_cart").authenticated()
                                 .anyRequest().permitAll()
                 )
 
