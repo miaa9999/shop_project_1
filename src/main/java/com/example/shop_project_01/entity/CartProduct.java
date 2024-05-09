@@ -26,7 +26,7 @@ public class CartProduct {
 //    private int productPrice;
 
          //유저의 장바구니 번호
-     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+     @ManyToOne(fetch = FetchType.EAGER)
      @JoinColumn(name = "cart_id")
     private Cart cart;
 
