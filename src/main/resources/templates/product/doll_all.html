@@ -12,8 +12,8 @@
     <br>
     <div align="center" style="font-size:20px">인형 전체보기</div>
     <div align="right" style="font-size:15px">
-        <a class="btn1" role="button" aria-expanded="false">낮은 가격 순</a>
-        <a class="btn1" role="button" aria-expanded="false">높은 가격 순</a>
+        <a class="btn1" role="button" aria-expanded="false" th:href="@{/doll/low-price}">낮은 가격 순</a>
+        <a class="btn1" role="button" aria-expanded="false" th:href="@{/doll/high-price}">높은 가격 순</a>
     </div>
     <div th:if="${count}==0" align="center">관련된 상품이 존재하지 않습니다.</div>
     <div th:unless="${count}==0">
@@ -28,7 +28,7 @@
                     <!-- 상품 이름 및 가격 -->
                     <br>
                     <div class="product-info">
-                        <span class="product-name" th:text="*{productName}"></span>
+                        <a class="product-name" th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"></a>
                         <br>
                         <span class="product-price" th:text="*{productPrice} + '원'"></span>
                     </div>
