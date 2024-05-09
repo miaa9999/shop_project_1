@@ -16,13 +16,15 @@ public class CartProduct {
     
     // 구매수량
     private int count;
-    
+
     //유저의 장바구니 번호
-    @Column(name = "cart_id")
-    private Long cartId;
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
     //상품 번호
-    @Column(name = "product_id")
-    private Long productId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
 }

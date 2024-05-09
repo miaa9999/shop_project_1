@@ -25,6 +25,10 @@
                sec:authorize="!hasRole('ADMIN')">
                 마이페이지
             </a>
+            <a class="btn1" role="button" id="cart" th:href="@{/cart}" aria-expanded="false"
+               sec:authorize="isAuthenticated()">
+                장바구니
+            </a>
         </form>
     </div>
     <br>
