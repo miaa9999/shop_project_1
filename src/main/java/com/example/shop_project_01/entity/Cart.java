@@ -14,7 +14,6 @@ public class Cart {
     private Long cartId;
 
 
-
     //배정된 유저아이디
     @OneToOne
     @JoinColumn(name = "username")
