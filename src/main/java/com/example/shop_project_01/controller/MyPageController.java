@@ -2,18 +2,18 @@ package com.example.shop_project_01.controller;
 
 import com.example.shop_project_01.dto.UserAccountDto;
 import com.example.shop_project_01.service.UserAccountService;
+import com.example.shop_project_01.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -23,10 +23,13 @@ public class MyPageController {
     @Autowired
     UserAccountService userAccountService;
 
+
+
     //마이 페이지
-    @GetMapping("/mypage/{username}")
-    public String myPage(@PathVariable("username") String username, Model model) {
+    @GetMapping("/mypage")
+    public String myPage(Model model) {
         // 사용자의 아이디를 기반으로 사용자 정보를 가져옵니다.
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserAccountDto accountDto = userAccountService.getMyPage(username);
 
         // 사용자 정보가 존재하지 않으면 예외 처리
@@ -38,10 +41,29 @@ public class MyPageController {
         // 모델에 사용자 정보를 추가하여 마이페이지로 전달합니다.
         model.addAttribute("accountDto", accountDto);
 
-
-
         return "/myPage/mypage";
     }
+
+    //회원정보 수정하기
+    @GetMapping("/update")
+    public String updateAccount(@RequestParam("username") String username,
+                                Model model){
+        UserAccountDto accountDto = userAccountService.getMyPage(username);
+        model.addAttribute("accountDto", accountDto);
+        return "/myPage/updateForm";
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("accountDto") UserAccountDto dto,
+                         BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "/myPage/updateForm";
+        }
+        userAccountService.update(dto);// 사용자 정보 업데이트 메서드를 호출해야 함
+
+        return "redirect:/mypage"; // 업데이트 후 마이페이지로 리다이렉트
+    }
+
 
     //탈퇴하기
 

@@ -21,9 +21,13 @@
                sec:authorize="hasRole('ADMIN')">
                 관리자 페이지
             </a>
-            <a class="btn1" role="button" th:href="@{'/mypage/' + ${#authentication.name}}" aria-expanded="false"
+            <a class="btn1" role="button" th:href="@{/mypage}" aria-expanded="false"
                sec:authorize="!hasRole('ADMIN')">
                 마이페이지
+            </a>
+            <a class="btn1" role="button" id="cart" th:href="@{/cart}" aria-expanded="false"
+                sec:authorize="!hasRole('ADMIN')">
+                장바구니
             </a>
         </form>
     </div>

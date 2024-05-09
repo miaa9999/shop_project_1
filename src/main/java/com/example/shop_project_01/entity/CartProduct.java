@@ -17,6 +17,17 @@ public class CartProduct {
     // 구매수량
     private int count;
 
+// <<<<<<< sh2
+//     //유저의 장바구니 번호
+//     @ManyToOne(fetch = FetchType.EAGER)
+//     @JoinColumn(name = "cart_id")
+//     private Cart cart;
+
+//     //상품 번호
+//     @ManyToOne(fetch = FetchType.EAGER)
+//     @JoinColumn(name = "product_id")
+//     private Product product;
+// =======
     //상품 번호
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -30,5 +41,6 @@ public class CartProduct {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+// >>>>>>> 서현
 
 }
