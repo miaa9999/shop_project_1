@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @Data
-@Builder
+//@Builder
 public class UserAccountDto {
 
     @NotEmpty(message = "사용자 ID 입력은 필수입니다")
@@ -62,8 +62,9 @@ public class UserAccountDto {
         );
     }
 
-    public UserAccount fromUserAccountDto(UserAccountDto dto){
+    public static UserAccount fromUserAccountDto(UserAccountDto dto){
         UserAccount userAccount = new UserAccount();
+
         userAccount.setUsername(dto.getUsername());
         userAccount.setPassword(dto.getPassword());
         userAccount.setName(dto.getName());

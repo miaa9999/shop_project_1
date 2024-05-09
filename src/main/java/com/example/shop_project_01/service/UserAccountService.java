@@ -4,6 +4,7 @@ import com.example.shop_project_01.dto.UserAccountDto;
 import com.example.shop_project_01.entity.UserAccount;
 import com.example.shop_project_01.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,11 +14,22 @@ import java.util.List;
 public class UserAccountService {
     private final UserAccountRepository userAccountRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     public void update(UserAccountDto dto) {
-        UserAccount userAccount = dto.fromUserAccountDto(dto);
-        userAccountRepository.save(userAccount);
+        UserAccount changeUserAccount = UserAccountDto.fromUserAccountDto(dto);
+        UserAccount originUserAccount = userAccountRepository.findByUsername(dto.getUsername());
+
+        originUserAccount.setUserAddress(changeUserAccount.getUserAddress());
+        originUserAccount.setUserPhone(changeUserAccount.getUserPhone());
+        originUserAccount.setName(changeUserAccount.getName());
+        originUserAccount.setPassword(passwordEncoder.encode(changeUserAccount.getPassword()));
+        originUserAccount.setUserEmail(changeUserAccount.getUserEmail());
+
+
+        userAccountRepository.save(originUserAccount);
 
     }
 
@@ -35,6 +47,8 @@ public class UserAccountService {
                     .orElse(null);
         }
     }
+
+
     public void deleteAccount(String username) {
         userAccountRepository.deleteById(username);
     }

@@ -44,7 +44,7 @@ public class Cart {
     @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
     private UserAccount userAccount;
     
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.REMOVE)
     private List<CartProduct> cartProducts = new ArrayList<>();
 // >>>>>>> 서현
 }

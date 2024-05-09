@@ -16,9 +16,9 @@
         <div th:replace="~{fragments/form_errors::formErrorsFragment}"></div>
 
         <div class="mb3">
-            <label for="username" class="form-label">사용자 ID</label>
-            <input type="text" name="username"  th:field="*{username}" class="form-control">
-            <span style="color:red; font-weight:bold;" class="error-class" th:errors ="*{username}"></span>
+            <label for="username" class="form-label">사용자 ID : </label>
+            <span th:text="*{username}" name="username" class="form-control"></span>
+<!--            <span style="color:red; font-weight:bold;" class="error-class" th:errors ="*{username}"></span>-->
         </div>
         <div class="mb3">
             <label for="password" class="form-label">사용자 PASSWORD</label>
