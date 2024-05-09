@@ -10,22 +10,27 @@
 
 <div layout:fragment="content">
     <br>
-    <form th:each="one : ${product}" th:object="${one}">
+    <form th:object="${product}" th:action="@{/cart}" method="post">
         <div>
-            [[*{mainCategory}]] > [[*{subCategory}]]</div>
+            [[${product.mainCategory}]] > [[${product.subCategory}]]
+        </div>
 
         <hr>
 
         <div class="productOneTitle">
             <div>
-                <img th:src="*{imgUrl}">상품 이미지
+                <img th:src="${product.imgUrl}">상품 이미지
             </div>
             <div>
-                <h3>[[*{productName}]]</h3>
-                <h4 align="right">[[*{productPrice}]]원</h4>
-                <input type="submit" name="cart" value="장바구니에 넣기">
-                <input type="submit" name="buy" value="구매하기">
+                <h3>[[${product.productName}]]</h3>
+                <h4 align="right">[[${product.productPrice}]]원</h4>
             </div>
+<!--            <input type="hidden" name="product" th:value="${product}">-->
+            <input type="hidden" name="price" th:value="*{productPrice}">
+            <input type="number" name="count" th:max="${productStock}" value="1" min="1">
+            <input type="hidden" name="productId" th:value="*{productId}">
+            <input type="hidden" name="loginUsername" th:value="${loginUsername}">
+            <button type="submit" value="cart" name="cart">장바구니에 넣기</button>
         </div>
         <br>
         <ul class="nav nav-tabs">

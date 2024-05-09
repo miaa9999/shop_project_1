@@ -39,5 +39,19 @@ public class JihyeonMemo {
 //       text-align: center;
 //       align-items: center;
 //}
+
+
+
+//       <!--                <form  method="post" action="/product_detail/{productId}/cart_add(productId=*{productId})">-->
+//<!--                    수량 : <input type="number" name="productStock"-->
+//<!--                                th:max="*{productStock}" min="1" value="1">-->
+//<!--&lt;!&ndash;                    <input type="hidden" name="productId" th:value="*{productId}">&ndash;&gt;-->
+//<!--                    <button type="submit" name="cart" value="cart">-->
+//<!--                        <input type="hidden" name="productPrice" th:value="*{productPrice}">-->
+//<!--                        <input type="hidden" name="username" th:value="${loginUsername}">-->
+//<!--                        장바구니에 넣기-->
+//<!--                    </button>-->
+//<!--&lt;!&ndash;                    <button type="submit" name="action" th:formaction="@{/}" value="buy">구매하기</button>&ndash;&gt;-->
+//<!--                </form>-->
 //        */
 }
