@@ -48,7 +48,6 @@ public class CartProductDto {
         cartProduct.setProductId(dto.getProductId());
         cartProduct.setProductPrice(dto.getProductPrice());
         cartProduct.getCart().setCartId(dto.getCart().getCartId());
-
         return cartProduct;
     }
 

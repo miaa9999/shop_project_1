@@ -26,8 +26,11 @@ public class CartAndBuyService {
         return cart.getCartId();
     }
 
+    //장바구니에 담기
     public void addCartProduct(CartProductDto cartProductDto) {
         CartProduct cartProduct = CartProductDto.fromCartProductDto(cartProductDto);
         cartProductRepository.save(cartProduct);
     }
+    
+    
 }

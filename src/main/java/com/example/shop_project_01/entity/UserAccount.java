@@ -34,5 +34,5 @@ public class UserAccount {
     @Column(name = "updated_at",insertable = false)
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
+    
 }

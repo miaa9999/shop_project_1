@@ -17,46 +17,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CartAndBuyController {
-
+    
     @Autowired
     CategoryService categoryService;
-
+    
     @Autowired
     CartAndBuyService cartAndBuyService;
-
-
+    
+    
     @GetMapping("/product_detail/{productId}")
-    public String product_detail(@PathVariable("productId")Long productId, Model model) {
+    public String product_detail(@PathVariable("productId") Long productId, Model model) {
         ProductDto product = categoryService.productViewOne(productId);
         CartProduct cartProduct = new CartProduct();
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-
-        model.addAttribute("loginUsername",username);
+        
+        
+        model.addAttribute("loginUsername", username);
         model.addAttribute("cart", cartProduct);
-        model.addAttribute("product",product);
+        model.addAttribute("product", product);
         return "/product/product_detail";
     }
+    
+    @PostMapping("/product_detail/{productId}/cart_add")
+    public String cartAddOne(
+//                            @RequestParam("productId")Long productId,
+           @RequestParam("productPrice") int productPrice,
+           @RequestParam("productStock") int count,
+           @RequestParam("username") String username,
+           @PathVariable("productId") Long productId
+//           @RequestParam("action") String action
+    ) {
 
-    @GetMapping("/cart/add_one")
-    public String cartAddOneGet() {
-        return "redirect:/";
+            Long cartId = cartAndBuyService.cartIdfindByUsername(username);
+
+            CartProductDto cartProductDto = new CartProductDto(
+                   count, productId, productPrice, cartId
+            );
+            cartAndBuyService.addCartProduct(cartProductDto);
+
+        return "redirect:/product_detail/{productId}";
     }
-
-    @PostMapping("/cart/add_one")
-    public String cartAddOne(@RequestParam("productId")Long productId,
-                             @RequestParam("productPrice")int productPrice,
-                             @RequestParam("productStock")int count,
-                             @RequestParam("username")String username
-                             ){
-        Long cartId = cartAndBuyService.cartIdfindByUsername(username);
-
-        CartProductDto cartProductDto = new CartProductDto(
-                count,productId,productPrice,cartId
-        );
-        cartAndBuyService.addCartProduct(cartProductDto);
-
-        return "redirect:/";
-//        return "mypage/cart";
-    }
+    
+//    @PostMapping("/product_detail/cart_add")
+//    public String cartAddOne(
+//           @RequestParam("productPrice") int productPrice,
+//           @RequestParam("productStock") int count,
+//           @RequestParam("username") String username,
+//           @RequestParam("productId") Long productId
+//    ) {
+//        Long cartId = cartAndBuyService.cartIdfindByUsername(username);
+//
+//        CartProductDto cartProductDto = new CartProductDto(
+//               count, productId, productPrice, cartId
+//        );
+//        cartAndBuyService.addCartProduct(cartProductDto);
+//
+//        return "redirect:/product_detail/{productId}";
+//    }
 }

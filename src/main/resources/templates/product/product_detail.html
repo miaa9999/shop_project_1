@@ -24,16 +24,14 @@
             <div>
                 <h3>[[*{productName}]]</h3>
                 <h4 align="right">[[*{productPrice}]]원</h4>
-                <form method="post">
+                <form  method="post" th:action="@{/product_detail/cart_add}">
                     수량 : <input type="number" name="productStock"
                                 th:max="*{productStock}" min="1" value="1">
                     <input type="hidden" name="productId" th:value="*{productId}">
                     <input type="hidden" name="productPrice" th:value="*{productPrice}">
-
-                    <input th:if="${loginUserCartId}!=null" type="hidden" name="username" th:value="${loginUsername}">
-<!--                    <button type="submit" onclick="addToCart()">장바구니에 넣기</button>-->
-                    <input type="submit" name="cart" th:formaction="@{/cart/add_one}" value="장바구니에 넣기">
-                    <input type="submit" name="buy" th:formaction="@{/buy/add_one}" value="구매하기">
+                    <input type="hidden" name="username" th:value="${loginUsername}">
+                    <button type="submit" name="cart" value="cart">장바구니에 넣기</button>
+                    <button type="submit" name="action" th:formaction="@{/}" value="buy">구매하기</button>
                 </form>
             </div>
         </div>
