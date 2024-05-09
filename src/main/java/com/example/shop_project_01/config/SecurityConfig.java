@@ -19,17 +19,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                         request -> request.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                                .requestMatchers("/mypage/**").authenticated()
+
+                                .requestMatchers("/mypage/**","/cart/**").authenticated()
                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                .requestMatchers("/product_detail/add_cart").authenticated()
                                 .anyRequest().permitAll()
+
                 )
 
                 .formLogin(
                         form -> form
                                 .loginPage("/user/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/")
+                                .defaultSuccessUrl("/",true)
                                 .permitAll()
 //                            form -> form.loginPage("/user/login")
 //                                   .loginProcessingUrl("/user/login")

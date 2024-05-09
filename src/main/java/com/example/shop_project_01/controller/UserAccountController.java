@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("user")
 public class UserAccountController {
-       
+       //로그인, 회원가입 컨트롤러
        private final UserService userService;
        
        public UserAccountController(UserService userService) {

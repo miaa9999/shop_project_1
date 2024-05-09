@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,4 +53,8 @@ public class UserService {
               cartRepository.save(cart);
        }
 
+       public String loginUsername(){
+              String username = SecurityContextHolder.getContext().getAuthentication().getName();
+       return username;
+       }
 }

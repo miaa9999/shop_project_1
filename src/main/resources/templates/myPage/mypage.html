@@ -37,7 +37,11 @@
             </tr>
 
         </table>
-        <a th:href="@{/mypage}">정보수정하기</a>
+        <form th:action="@{/update}" method="get">
+            <input type="hidden" name="username" th:value="*{username}">
+            <input type="submit" value="수정하기">
+        </form>
+        <br>
         <form th:action="@{/delete/{deleteId}(deleteId=*{username})}" onclick="return confirm('정말로 삭제하시겠습니까?');" method="post">
             <input type="hidden" name="deleteId" th:value="*{username}">
             <input type="submit" value="회원 탈퇴">
