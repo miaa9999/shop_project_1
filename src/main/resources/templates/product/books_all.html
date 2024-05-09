@@ -12,8 +12,8 @@
     <br>
     <div align="center" style="font-size:20px">도서 전체보기</div>
     <div align="right" style="font-size:15px">
-        <a class="btn1" role="button" aria-expanded="false">낮은 가격 순</a>
-        <a class="btn1" role="button" aria-expanded="false">높은 가격 순</a>
+        <a class="btn1" role="button" aria-expanded="false" th:href="@{/books/low-price}">낮은 가격 순</a>
+        <a class="btn1" role="button" aria-expanded="false" th:href="@{/books/high-price}">높은 가격 순</a>
     </div>
     <div th:if="${count}==0" align="center">관련된 상품이 존재하지 않습니다.</div>
     <div  th:unless="${count}==0">
@@ -35,21 +35,6 @@
                 </div>
             </div>
         </div>
-<!--        <table class="type1"align="center" border="2">-->
-<!--            <tr>-->
-<!--                <th>상품이미지</th>-->
-<!--                <th>상품명</th>-->
-<!--                <th>상품가격</th>-->
-<!--            </tr>-->
-<!--            <tr th:each="book : ${bookAll}" th:object="${book}">-->
-<!--                <td>이미지 넣어야함</td>-->
-<!--                <td>-->
-<!--                    <a th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"></a>-->
-<!--                    <input type="hidden" name="productId" th:value="*{productId}">-->
-<!--                </td>-->
-<!--                <td th:text="*{productPrice}+원"></td>-->
-<!--            </tr>-->
-<!--        </table>-->
     </div>
 </div>
 </body>

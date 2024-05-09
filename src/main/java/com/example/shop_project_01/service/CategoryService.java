@@ -4,6 +4,7 @@ import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,5 +27,16 @@ public class CategoryService {
               }
        }
 
+       public List<ProductDto> productViewAllSortLowPrice() {
+              List<ProductDto> products = productRepository.findAllByOrderByProductPriceAsc().stream().map(x->ProductDto.fromProductEntity(x)).toList();
+//              List<ProductDto> products = productRepository.findAll().stream().map(x-> ProductDto.fromProductEntity(x)).toList();
+              return products;
+       }
 
+
+       public List<ProductDto> productViewAllSortHighPrice() {
+              List<ProductDto> products = productRepository.findAllByOrderByProductPriceDesc().stream().map(x->ProductDto.fromProductEntity(x)).toList();
+//
+              return products;
+       }
 }
