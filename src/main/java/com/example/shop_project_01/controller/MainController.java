@@ -1,8 +1,10 @@
 package com.example.shop_project_01.controller;
 
 import com.example.shop_project_01.dto.ProductDto;
+import com.example.shop_project_01.dto.UserAccountDto;
 import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.service.CategoryService;
+import com.example.shop_project_01.service.UserAccountService;
 import jakarta.websocket.server.PathParam;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import java.util.List;
 public class MainController {
        @Autowired
        CategoryService categoryService;
+       @Autowired
+       UserAccountService userAccountService;
        
        @GetMapping("/")
        public String main() {
@@ -28,12 +32,8 @@ public class MainController {
        public String adminPage() {
               return "/admin/admin_page";
        }
-       
-       @GetMapping("/mypage")
-       public String myPage() {
-              return "/myPage/mypage";
-       }
-       
+
+
        
        @GetMapping("/product_detail/{productId}")
        public String product_detail(@PathVariable("productId")Long productId, Model model) {

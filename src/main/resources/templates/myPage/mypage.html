@@ -12,8 +12,36 @@
     <br>
     <br>
     <div style="font-size:20px;" align="center"> 회원정보 </div>
-    <div>
+    <br>
+    <div th:object="${accountDto}" >
+        <table class="table">
+            <tr>
+                <td>이름</td>
+                <td th:text="*{name}">이름 값</td>
+            </tr>
+            <tr>
+                <td>아이디</td>
+                <td th:text="*{username}">아이디 값</td>
+            </tr>
+            <tr>
+                <td>주소</td>
+                <td th:text="*{userAddress}">주소 값</td>
+            </tr>
+            <tr>
+                <td>번호</td>
+                <td th:text="*{userPhone}">번호 값</td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td th:text="*{userEmail}">이메일 값</td>
+            </tr>
 
+        </table>
+        <a th:href="@{/mypage}">정보수정하기</a>
+        <form th:action="@{/delete/{deleteId}(deleteId=*{username})}" onclick="return confirm('정말로 삭제하시겠습니까?');" method="post">
+            <input type="hidden" name="deleteId" th:value="*{username}">
+            <input type="submit" value="회원 탈퇴">
+        </form>
     </div>
 </div>
 </body>
