@@ -6,6 +6,7 @@ import com.example.shop_project_01.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.parameters.P;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class CartProductDto {
 
     // 구매수량
     private int count;
-
+    
     //상품 번호
     private Long productId;
 
@@ -25,29 +26,25 @@ public class CartProductDto {
     private int productPrice;
 
     //배정된 카트 아이디
-    private Cart cart;
-
-    public CartProductDto(int count, Long productId, int productPrice, Cart cart) {
-        this.count = count;
-        this.productId = productId;
-        this.productPrice = productPrice;
-        this.cart = cart;
-    }
-
+    private Long cartId;
+    
     public CartProductDto(int count, Long productId, int productPrice, Long cartId) {
         this.count = count;
         this.productId = productId;
         this.productPrice = productPrice;
-        cart.getCartId();
+        this.cartId = cartId;
     }
-
-    public static CartProduct fromCartProductDto(CartProductDto dto){
+    
+    public static CartProduct fromCartProductDto(CartProductDto cartProductDto){
         CartProduct cartProduct = new CartProduct();
-        cartProduct.setCartProductId(dto.getCartProductId());
-        cartProduct.setCount(dto.getCount());
-        cartProduct.setProductId(dto.getProductId());
-        cartProduct.setProductPrice(dto.getProductPrice());
-        cartProduct.getCart().setCartId(dto.getCart().getCartId());
+//        Cart cart = new Cart();
+//        Product product = new Product();
+        Long cartId = cartProductDto.getCartId();
+        cartProduct.setProductPrice(cartProductDto.getProductPrice());
+        cartProduct.setCount(cartProductDto.getCount());
+        cartProduct.getCart().setCartId(cartId);
+        cartProduct.getProduct().setProductId(cartProductDto.getProductId());
+        
         return cartProduct;
     }
 

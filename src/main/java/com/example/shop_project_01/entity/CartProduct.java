@@ -18,8 +18,9 @@ public class CartProduct {
     private int count;
 
     //상품 번호
-    @Column(name = "product_id")
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     //구매당시의 상품 가격 ( 조인x _ 할인할때 가격을 알기위함 )
     private int productPrice;

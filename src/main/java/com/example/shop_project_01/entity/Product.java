@@ -41,5 +41,5 @@ public class Product {
     private String content;
 
     private String imgUrl;
-
+    
 }

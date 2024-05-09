@@ -16,5 +16,10 @@ public class CartDto {
     //배정된 유저아이디
     private UserAccount userAccount;
 
-
+    private String username;
+    
+    public CartDto(Long cartId, UserAccount userAccount) {
+        this.cartId = cartId;
+        this.userAccount = userAccount;
+    }
 }
