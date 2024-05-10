@@ -1,16 +1,19 @@
 package com.example.shop_project_01.service;
 
 import com.example.shop_project_01.dto.CartProductDto;
+import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.entity.Cart;
 import com.example.shop_project_01.entity.CartProduct;
 import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.repository.CartProductRepository;
 import com.example.shop_project_01.repository.CartRepository;
+import com.example.shop_project_01.repository.ProductRepository;
 import com.example.shop_project_01.repository.UserAccountRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartAndBuyService {
@@ -21,6 +24,9 @@ public class CartAndBuyService {
     UserAccountRepository userAccountRepository;
     @Autowired
     CartProductRepository cartProductRepository;
+    
+    @Autowired
+    ProductRepository productRepository;
     @Autowired
     EntityManager em;
 
@@ -72,7 +78,11 @@ public class CartAndBuyService {
 
         return cartProducts;
     }
+       
+       
+       public String productNameFindByProductId(Long productId) {
+        String productName = productRepository.findById(productId).map(x->ProductDto.fromProductEntity(x)).get().getProductName();
 
-
-
+        return productName;
+       }
 }

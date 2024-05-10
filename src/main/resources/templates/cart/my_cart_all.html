@@ -28,7 +28,7 @@
                     <td>
                         <input type="number" th:value="${my.count}" name="changeCount">수량
                     </td>
-                    <td th:text="${my.productPrice}">가격</td>
+                    <td th:text="${my.productPrice}*${my.count}">가격</td>
                     <td>
                         <button type="submit" name="change" value="change"
                         formaction="/">수정</button>
