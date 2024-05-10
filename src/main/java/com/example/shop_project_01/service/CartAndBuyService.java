@@ -116,4 +116,17 @@ public class CartAndBuyService {
         userAccount.setInsertPoint(userAccount.getInsertPoint()-totalPrice);
         em.persist(userAccount);
     }
+
+    public void cartProductModifyCount(int changeCount,Long cartProductId) {
+        CartProduct cartProduct = em.find(CartProduct.class,cartProductId);
+        cartProduct.setCount(changeCount);
+
+        em.persist(cartProduct);
+    }
+
+    public void cartProductDelete(Long cartProductId) {
+        CartProduct cartProduct = em.find(CartProduct.class,cartProductId);
+
+        em.remove(cartProduct);
+    }
 }

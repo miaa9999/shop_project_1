@@ -5,6 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script>
+        function submitForm() {
+            var count = document.getElementById("changeCount").value; // 수정할 수량을 가져옴
+            document.getElementById("count").value = count; // 숨겨진 input의 값으로 설정
+            document.getElementById("modifyForm").submit(); // form을 서버로 전송
+        }
+    </script>
 </head>
 <body>
 
@@ -15,7 +22,8 @@
     <br>
     <div th:if="${size}==0">장바구니가 비어있습니다.</div>
     <div th:unless="${size}==0">
-        <form th:object="${myCart}">
+
+
             <table class="type1"align="center" border="2">
                 <tr>
                     <th>상품명</th>
@@ -23,21 +31,33 @@
                     <th>가격</th>
                     <th>변경</th>
                 </tr>
-                <tr th:each="my : ${myCart}">
-                    <td th:text="${my.productName}">상품명</td>
+
+                <tr th:each="my : ${myCart}" th:object="${my}">
+
+                    <td th:text="${my.productName}">
+                        상품명</td>
                     <td>
-                        <input type="number" th:value="${my.count}" name="changeCount">수량
+                        <input type="number" th:value="${my.count}" id="changeCount">
                     </td>
                     <td th:text="${my.productPrice}*${my.count}">가격</td>
+
                     <td>
-                        <button type="submit" name="change" value="change"
-                        formaction="/">수정</button>
-                        <button type="submit" name="delete" value="delete"
-                        formaction="/">삭제</button>
+
+                        <form id="modifyForm" th:action="@{/cart/modify/{cartProductId}(cartProductId=*{cartProductId})}" method="post">
+                            <input type="hidden" id="count" name="count" value=""> <!-- 숨겨진 input으로 수량 정보 전달 -->
+                            <input type="submit" name="change" value="수정" onclick="submitForm()">
+                        </form>
+<!--                        <form th:action="@{/cart/modify/{cartProductId}(cartProductId=*{cartProductId})}" method="post">-->
+<!--                            <input onclick="changeCount()" type="submit" name="change" value="수정">-->
+<!--                        </form>-->
+
+                        <form th:action="@{/cart/delete/{cartProductId}(cartProductId=*{cartProductId})}" method="post">
+                            <input type="submit" name="delete" value="삭제">
+                        </form>
                     </td>
                 </tr>
             </table>
-        </form>
+
     </div>
 </div>
 

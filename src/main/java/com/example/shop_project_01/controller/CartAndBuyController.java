@@ -54,6 +54,8 @@ public class CartAndBuyController {
             if(userCartNum!=null) {
                 CartProductDto cartProductDto = new CartProductDto(count, productId, price, userCartNum);
                 cartAndBuyService.addCartProduct(cartProductDto);
+
+
             }
             return "redirect:/product_detail/" + productId;
             
