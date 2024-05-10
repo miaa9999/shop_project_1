@@ -49,6 +49,18 @@ public class UserAccountDto {
         this.updatedAt = updatedAt;
     }
 
+    public UserAccountDto(String username, String name, String userPhone, String userAddress, String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.username = username;
+        this.name = name;
+        this.userPhone = userPhone;
+        this.userAddress = userAddress;
+        this.userEmail = userEmail;
+        this.userRole = userRole;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+
     public static UserAccountDto fromUserAccountEntity(UserAccount userAccount){
         return new UserAccountDto(
                 userAccount.getUsername(),
@@ -62,6 +74,20 @@ public class UserAccountDto {
                 userAccount.getUpdatedAt()
         );
     }
+
+    public static UserAccountDto fromUserAccountEntityNoPassword(UserAccount userAccount){
+        return new UserAccountDto(
+                userAccount.getUsername(),
+                userAccount.getName(),
+                userAccount.getUserPhone(),
+                userAccount.getUserAddress(),
+                userAccount.getUserEmail(),
+                userAccount.getUserRole(),
+                userAccount.getCreatedAt(),
+                userAccount.getUpdatedAt()
+        );
+    }
+
 
     public static UserAccount fromUserAccountDto(UserAccountDto dto){
         UserAccount userAccount = new UserAccount();
@@ -77,6 +103,9 @@ public class UserAccountDto {
         userAccount.setUpdatedAt(dto.getUpdatedAt());
         return userAccount;
     }
+
+
+
 
 
 
