@@ -26,7 +26,7 @@
                 마이페이지
             </a>
             <a class="btn1" role="button" id="cart" th:href="@{/cart}" aria-expanded="false"
-               sec:authorize="isAuthenticated()">
+               sec:authorize="!hasRole('ADMIN')">
                 장바구니
             </a>
         </form>
