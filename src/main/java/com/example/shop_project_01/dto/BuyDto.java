@@ -11,12 +11,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BuyDto {
+       public BuyDto(LocalDateTime buyDate, String username, ProductStatus productStatus) {
+              this.buyDate = buyDate;
+              this.username = username;
+              this.productStatus = productStatus;
+       }
+       
        //구매확정
        private Long buyId;
        //구매 날짜
        private LocalDateTime buyDate;
        //구매한 유저 아이디 ( joinColumn - UserAccount )
        private String username;
+       //유저가 충전한 금액
+       private int insertPoint;
        
        //구매상태
        private ProductStatus productStatus;
@@ -35,12 +43,21 @@ public class BuyDto {
        
        private String productName;
        
-       public BuyDto(String username, int count, int price, String productName, Long productId) {
+       public BuyDto(String username, int count, int price, String productName, Long productId,int insertPoint) {
               this.username = username;
               this.count = count;
               this.price = price;
               this.productName = productName;
               this.productId = productId;
+              this.insertPoint = insertPoint;
        }
        
+       public BuyDto(LocalDateTime buyDate, String username, ProductStatus productStatus, int count, int price, Long productId) {
+              this.buyDate = buyDate;
+              this.username = username;
+              this.productStatus = productStatus;
+              this.count = count;
+              this.price = price;
+              this.productId = productId;
+       }
 }

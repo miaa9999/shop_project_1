@@ -35,6 +35,7 @@ public class UserAccountDto {
     private UserRole userRole;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private int insertPoint;
 
     public UserAccountDto(String username, String password, String name, String userPhone, String userAddress,String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.username = username;
