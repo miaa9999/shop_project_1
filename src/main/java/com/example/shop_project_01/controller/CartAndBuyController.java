@@ -49,9 +49,10 @@ public class CartAndBuyController {
                           @RequestParam("loginUsername")String loginUsername
                           ){
         Long userCartNum = cartAndBuyService.cartIdFindByUsername(loginUsername);
-
-        CartProductDto cartProductDto = new CartProductDto(count,productId,price,userCartNum);
-        cartAndBuyService.addCartProduct(cartProductDto);
+if(userCartNum!=null) {
+    CartProductDto cartProductDto = new CartProductDto(count, productId, price, userCartNum);
+    cartAndBuyService.addCartProduct(cartProductDto);
+}
     return "redirect:/product_detail/"+productId;
     }
 }
