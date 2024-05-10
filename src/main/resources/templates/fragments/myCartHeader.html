@@ -17,6 +17,10 @@
                sec:authorize="isAuthenticated()">
                 로그아웃
             </a>
+            <a class="btn1" role="button" id="insert" th:href="@{/cart/insert_point}" aria-expanded="false"
+               sec:authorize="isAuthenticated()">
+                충전하기
+            </a>
             <a class="btn1" role="button" th:href="@{/admin_page}" aria-expanded="false"
                sec:authorize="hasRole('ADMIN')">
                 관리자 페이지

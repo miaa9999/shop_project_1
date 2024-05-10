@@ -78,7 +78,8 @@ public class CartAndBuyController {
                          @RequestParam("productId")Long productId,
                          @RequestParam("username")String loginUsername,
                          @RequestParam("count")int count,
-                         @RequestParam("price")int nowPrice
+                         @RequestParam("price")int nowPrice,
+                         Model model
                          ){
         if (action.equals("cancel")){
             System.out.println(productName);
@@ -91,6 +92,12 @@ public class CartAndBuyController {
             cartAndBuyService.addBuyProductOne(buyDto);
             
             return "cart/buy_ok";
+        } else if (action.equals("requestMoney")) {
+            int userPoint = cartAndBuyService.userPointFindByUsername(loginUsername);
+            model.addAttribute("productId",productId);
+            model.addAttribute("userPoint",userPoint);
+            model.addAttribute("username",loginUsername);
+            return "/cart/insert_point";
         }
         
         return "/product/main";

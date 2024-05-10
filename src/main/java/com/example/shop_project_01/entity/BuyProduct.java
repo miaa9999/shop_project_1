@@ -21,7 +21,7 @@ public class BuyProduct {
     private int price;
     
     //상품 번호
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
     
