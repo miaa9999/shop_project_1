@@ -52,9 +52,12 @@ public class CartAndBuyController {
                           Model model
                           ) {
         Long userCartNum = cartAndBuyService.cartIdFindByUsername(loginUsername);
+
         if (action.equals("cart")) {
-            CartProductDto cartProductDto = new CartProductDto(count, productId, price, userCartNum);
-            cartAndBuyService.addCartProduct(cartProductDto);
+            if(userCartNum!=null) {
+                CartProductDto cartProductDto = new CartProductDto(count, productId, price, userCartNum);
+                cartAndBuyService.addCartProduct(cartProductDto);
+            }
             return "redirect:/product_detail/" + productId;
             
         } else if (action.equals("buy")) {
@@ -81,5 +84,6 @@ public class CartAndBuyController {
             return  "redirect:/product_detail/" + productId;
         }
         return "/product_detail/";
+
     }
 }
