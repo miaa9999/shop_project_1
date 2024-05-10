@@ -1,21 +1,22 @@
 package com.example.shop_project_01.service;
 
+import com.example.shop_project_01.dto.BuyDto;
 import com.example.shop_project_01.dto.CartProductDto;
 import com.example.shop_project_01.dto.ProductDto;
-import com.example.shop_project_01.entity.Cart;
-import com.example.shop_project_01.entity.CartProduct;
-import com.example.shop_project_01.entity.Product;
+import com.example.shop_project_01.entity.*;
 import com.example.shop_project_01.repository.CartProductRepository;
 import com.example.shop_project_01.repository.CartRepository;
 import com.example.shop_project_01.repository.ProductRepository;
 import com.example.shop_project_01.repository.UserAccountRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CartAndBuyService {
     @Autowired
     CartRepository cartRepository;
@@ -85,4 +86,34 @@ public class CartAndBuyService {
 
         return productName;
        }
+    
+    public int userPointFindByUsername(String loginUsername) {
+        int userPoint = userAccountRepository.findByUsername(loginUsername).getInsertPoint();
+        return userPoint;
+    }
+    
+    public void addBuyProductOne(BuyDto buyDto) {
+        UserAccount userAccount = em.find(UserAccount.class,buyDto.getUsername());
+        Product product = em.find(Product.class,buyDto.getProductId());
+        BuyProduct buyProduct = new BuyProduct();
+        
+        int totalPrice =  buyDto.getPrice()*buyDto.getCount();
+        buyProduct.setCount(buyDto.getCount());
+        buyProduct.setPrice(buyDto.getPrice());
+        buyProduct.setProduct(product);
+        buyProduct.setTotalPrice(totalPrice);
+        Buy buy = new Buy();
+        buy.setBuyDate(buyDto.getBuyDate());
+        buy.setProductStatus(buyDto.getProductStatus());
+        buy.setUserAccount(userAccount);
+        
+        buyProduct.setBuy(buy);
+        buy.getBuyProducts().add(buyProduct);
+        
+        em.persist(buy);
+        em.persist(buyProduct);
+        
+        userAccount.setInsertPoint(userAccount.getInsertPoint()-totalPrice);
+        em.persist(userAccount);
+    }
 }

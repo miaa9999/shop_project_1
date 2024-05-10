@@ -6,6 +6,8 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -33,4 +35,7 @@ public class Buy {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
+    
+    @OneToMany(mappedBy = "buy")
+    private List<BuyProduct> buyProducts = new ArrayList<>();
 }
