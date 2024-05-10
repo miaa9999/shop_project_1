@@ -13,7 +13,7 @@
     <br>
     <div style="font-size:20px;" align="center"> 회원정보 </div>
     <br>
-    <div th:object="${accountDto}" >
+    <div th:object="${userAccountDto}" >
         <table class="table">
             <tr>
                 <td>이름</td>
@@ -37,15 +37,12 @@
             </tr>
 
         </table>
-        <form th:action="@{/update}" method="get">
+        <form th:action="@{/admin/update}" method="get">
             <input type="hidden" name="username" th:value="*{username}">
             <input type="submit" value="수정하기">
         </form>
+        <a th:href="@{/admin/user_all}">돌아가기</a>
         <br>
-        <form th:action="@{/delete/{deleteId}(deleteId=*{username})}" onclick="return confirm('정말로 탈퇴하시겠습니까?');" method="post">
-            <input type="hidden" name="deleteId" th:value="*{username}">
-            <input type="submit" value="회원 탈퇴">
-        </form>
     </div>
 </div>
 </body>
