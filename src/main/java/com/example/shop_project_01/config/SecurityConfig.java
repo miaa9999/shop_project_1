@@ -22,7 +22,7 @@ public class SecurityConfig {
 
                                 .requestMatchers("/mypage/**","/cart/**").authenticated()
                                .requestMatchers("/admin/**").hasRole("ADMIN")
-                               .requestMatchers("/product_detail/add_cart").authenticated()
+                               .requestMatchers("/product_detail/cart_and_buy").authenticated()
                                 .anyRequest().permitAll()
 
                 )

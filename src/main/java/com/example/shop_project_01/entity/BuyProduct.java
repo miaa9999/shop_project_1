@@ -14,15 +14,16 @@ public class BuyProduct {
     private Long buyProductId;
     
     //구매 수량
-    private Long count;
+    private int count;
     
     //구매가격
     @Column(name = "price")
-    private Long price;
+    private int price;
     
     //상품 번호
-    @Column(name = "product_id")
-    private Long productId;
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
     
     //구매번호
     @Column(name = "buy_id")

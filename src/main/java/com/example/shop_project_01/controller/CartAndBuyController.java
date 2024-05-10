@@ -1,5 +1,6 @@
 package com.example.shop_project_01.controller;
 
+import com.example.shop_project_01.dto.BuyDto;
 import com.example.shop_project_01.dto.CartDto;
 import com.example.shop_project_01.dto.CartProductDto;
 import com.example.shop_project_01.dto.ProductDto;
@@ -41,17 +42,44 @@ public class CartAndBuyController {
         return "/product/product_detail";
     }
     
-    @PostMapping("/product_detail/cart")
+    @PostMapping("/product_detail/cart_and_buy")
     public String addCart(
                           @RequestParam("price")int price,
                           @RequestParam("count")int count,
                           @RequestParam("productId")Long productId,
-                          @RequestParam("loginUsername")String loginUsername
-                          ){
+                          @RequestParam("loginUsername")String loginUsername,
+                          @RequestParam("action")String action,
+                          Model model
+                          ) {
         Long userCartNum = cartAndBuyService.cartIdFindByUsername(loginUsername);
-
-        CartProductDto cartProductDto = new CartProductDto(count,productId,price,userCartNum);
-        cartAndBuyService.addCartProduct(cartProductDto);
-    return "redirect:/product_detail/"+productId;
+        if (action.equals("cart")) {
+            CartProductDto cartProductDto = new CartProductDto(count, productId, price, userCartNum);
+            cartAndBuyService.addCartProduct(cartProductDto);
+            return "redirect:/product_detail/" + productId;
+            
+        } else if (action.equals("buy")) {
+          //구매하기 버튼 눌렀을때 작동
+            String productName = cartAndBuyService.productNameFindByProductId(productId);
+            BuyDto buyDto = new BuyDto(loginUsername,count,price,productName,productId);
+            int total = price * count;
+            model.addAttribute("total",total);
+            model.addAttribute("buyDto",buyDto);
+            return "/cart/buy_one";
+        } else {
+            return "redirect:/product_detail/" + productId;
+        }
+    }
+    
+    @PostMapping("/buy_one")
+    public String buyOne(@RequestParam("action")String action,
+                         @RequestParam("productName")String productName,
+                         @RequestParam("productId")Long productId
+                         ){
+        if (action.equals("cancel")){
+            System.out.println(productName);
+            System.out.println(productId);
+            return  "redirect:/product_detail/" + productId;
+        }
+        return "/product_detail/";
     }
 }

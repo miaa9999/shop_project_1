@@ -25,8 +25,9 @@ public class Buy {
     private LocalDateTime buyDate;
     
     //구매한 유저 아이디 ( joinColumn - UserAccount )
-    @Column(name = "user_id",length = 50)
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private UserAccount userAccount;
     
     //구매상태
     @Column(name = "status")
