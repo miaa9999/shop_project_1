@@ -21,4 +21,8 @@ public class AdminService {
        public ProductDto productViewFindById(Long productId) {
               return productRepository.findById(productId).map(x->ProductDto.fromProductEntity(x)).orElse(null);
        }
+
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+    }
 }
