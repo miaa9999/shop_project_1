@@ -12,33 +12,42 @@
     <br>
     <br>
     <h2 align="center">장바구니</h2>
+    <div align="center"><a th:href="@{/buy}">전체구매하기</a> </div>
     <br>
     <div th:if="${size}==0">장바구니가 비어있습니다.</div>
     <div th:unless="${size}==0">
-        <form th:object="${myCart}">
-            <table class="type1"align="center" border="2">
-                <tr>
-                    <th>상품명</th>
-                    <th>수량</th>
-                    <th>가격</th>
-                    <th>변경</th>
-                </tr>
-                <tr th:each="my : ${myCart}">
-                    <td th:text="${my.productName}">상품명</td>
+
+
+        <table class="type1" align="center" border="2">
+            <tr>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>가격</th>
+                <th>변경</th>
+            </tr>
+
+                <tr th:each="my : ${myCart}" th:object="${my}">
+
+                    <td th:text="${my.productName}">
+                        상품명
+                    </td>
                     <td>
-                        <input type="number" th:value="${my.count}" name="changeCount">수량
+                        <form id="modifyForm" th:action="@{/cart/modify}" method="post">
+                            <input type="hidden" th:value="*{cartProductId}" name="cartProductId">
+                            <input type="number" th:value="${my.count}" name="count">
+                            <input type="submit" name="change" value="수정">
+                        </form>
                     </td>
                     <td th:text="${my.productPrice}*${my.count}">가격</td>
                     <td>
-                        <button type="submit" name="change" value="change"
-                        formaction="/">수정</button>
-                        <button type="submit" name="delete" value="delete"
-                        formaction="/">삭제</button>
+                        <a th:href="@{/cart/delete/{cartProductId}(cartProductId=*{cartProductId})}"
+                           type="submit">삭제</a>
                     </td>
                 </tr>
-            </table>
-        </form>
+        </table>
+
     </div>
+
 </div>
 
 </body>

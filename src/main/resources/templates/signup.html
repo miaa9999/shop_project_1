@@ -55,6 +55,7 @@
             <span style="color:red; font-weight:bold" class="error-class" th:errors ="*{userEmail}"></span>
         </div>
         <br>
+        <input type="hidden" name="insertPoint" th:field="*{insertPoint}" value="0">
         <button type="submit" class="btn btn-primary">회원가입</button>
         <button type="submit" class="btn btn-primary" onclick="res()">취소</button>
     </form>

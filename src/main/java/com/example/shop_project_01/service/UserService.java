@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class UserService {
 
 
@@ -56,5 +57,12 @@ public class UserService {
        public String loginUsername(){
               String username = SecurityContextHolder.getContext().getAuthentication().getName();
        return username;
+       }
+       
+       public void insertPoint(String username, int insertMoney) {
+              UserAccount userAccount = em.find(UserAccount.class,username);
+              int totalUserPoint = userAccount.getInsertPoint()+insertMoney;
+              userAccount.setInsertPoint(totalUserPoint);
+              em.persist(userAccount);
        }
 }

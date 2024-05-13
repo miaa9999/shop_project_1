@@ -6,6 +6,8 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,12 +27,15 @@ public class Buy {
     private LocalDateTime buyDate;
     
     //구매한 유저 아이디 ( joinColumn - UserAccount )
-    @ManyToOne
-    @JoinColumn(name = "username")
-    private UserAccount userAccount;
+//    @ManyToOne
+//    @JoinColumn(name = "username")
+    private String username;
     
     //구매상태
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
+    
+    @OneToMany(mappedBy = "buy")
+    private List<BuyProduct> buyProducts = new ArrayList<>();
 }
