@@ -9,6 +9,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -33,10 +34,10 @@ public class UserAccountDto {
     @NotEmpty(message = "이메일 입력은 필수입니다")
     private String userEmail;
     private UserRole userRole;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
-    public UserAccountDto(String username, String password, String name, String userPhone, String userAddress,String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserAccountDto(String username, String password, String name, String userPhone, String userAddress,String userEmail, UserRole userRole, LocalDate createdAt, LocalDate updatedAt) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -48,7 +49,7 @@ public class UserAccountDto {
         this.updatedAt = updatedAt;
     }
 
-    public UserAccountDto(String username, String name, String userPhone, String userAddress, String userEmail, UserRole userRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserAccountDto(String username, String name, String userPhone, String userAddress, String userEmail, UserRole userRole, LocalDate createdAt, LocalDate updatedAt) {
         this.username = username;
         this.name = name;
         this.userPhone = userPhone;
@@ -57,6 +58,13 @@ public class UserAccountDto {
         this.userRole = userRole;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public UserAccountDto(String name, String userPhone, String userEmail, String userAddress) {
+        this.name = name;
+        this.userPhone = userPhone;
+        this.userAddress = userAddress;
+        this.userEmail = userEmail;
     }
 
 

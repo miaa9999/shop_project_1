@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript" th:src="@{/js/check.js}"></script>
-    <!--    카테고리 설정 js함수-->
+    <!--    카테고리 설정 및 에러 확인 js함수-->
     <script type="text/javascript" th:src="@{/js/productCheck.js}"></script>
 
 </head>
@@ -15,10 +15,11 @@
 <div layout:fragment="content">
     <br>
     <br>
-    <div style="font-size:20px;" align="center"> 상품등록하기 </div>
+    <div style="font-size:20px;" align="center"> 상품 수정하기 </div>
+    <div align="right"><a th:href="@{/admin/product_all}">상품 전체 목록으로 돌아가기</a></div>
     <div>
         <hr>
-        <form id="frm" th:action="@{/admin/product_add}" method="post" enctype="multipart/form-data"
+        <form id="frm" th:action="@{/admin/product_update}" method="post"
               th:object="${productDto}" onsubmit="checkFormSubmit(event)">
             <div class="mb3">
                 <label class="form-label">상품이름</label>
@@ -65,9 +66,12 @@
 
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">상품등록</button>
+            <input type="hidden" th:field="*{productId}">
+            <input type="submit" value="수정">
             <input type="button" value="다시" class="btn btn-primary" onclick="res()">
         </form>
+        <br>
+
     </div>
 
 

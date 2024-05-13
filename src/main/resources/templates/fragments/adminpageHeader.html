@@ -41,12 +41,9 @@
                             <ul>
                                 <li><a th:href="@{/admin/product_all}">전체상품보기</a></li>
                                 <li><a th:href="@{/admin/product_add}">상품 등록</a></li>
-<!--                                <li><a th:href="@{/doll_person}">상품 수정</a></li>-->
-<!--                                <li><a th:href="@{/doll_animal}">상품 삭제</a></li>-->
-<!--                                <li><a th:href="@{/doll_animal}">상품 리뷰관리</a></li>-->
                             </ul>
                         </li>
-                        <li><a th:href="@{/toy}" id="toy">회원관리</a>
+                        <li><a th:href="@{/admin/user_all}" id="toy">회원관리</a>
                             <ul>
                                 <li><a th:href="@{/admin/user_all}">전체회원보기</a></li>
                                 <li><a th:href="@{/toy_outdoor}">회원찾기</a></li>
@@ -58,6 +55,13 @@
                                 <li><a th:href="@{/books_biography}">제품별</a></li>
                             </ul>
                         </li>
+                        <li><a th:href="@{/notice}">공지사항</a>
+                            <ul>
+                                <li><a th:href="@{/admin/notice_all}">수정 및 삭제</a></li>
+                                <li><a th:href="@{/admin/notice_add}">등록하기</a></li>
+                            </ul>
+                        </li>
+
 
                         <form align=right style="margin-right:20px; padding-top:5px;">
                             <img class="search_icon" type="submit" src="/img/search_icon.png">

@@ -24,10 +24,12 @@
                 <img th:src="*{imgUrl}">상품 이미지
             </div>
             <div>
-                <h3>[[*{productName}]]</h3>
+                <h3>상품이름:[[*{productName}]]</h3>
+                <h5>상품설명:[[*{content}]]</h5>
                 <h4 align="right">[[*{productPrice}]]원</h4>
-                <input type="submit" name="change" value="수정하기">
-                <input type="submit" name="change" value="취소">
+                <h4 align="right">[[*{productStock}]]개</h4>
+                <a th:href="@{/admin/product_update(productId=${product.productId})}">변경하기</a>
+                <a th:href="@{/admin/product_all}">취소</a>
             </div>
         </div>
         <br>

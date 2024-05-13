@@ -1,9 +1,13 @@
 package com.example.shop_project_01.service;
 
 import com.example.shop_project_01.constant.UserRole;
+import com.example.shop_project_01.dto.NoticeDto;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.dto.UserAccountDto;
+import com.example.shop_project_01.entity.Notice;
+import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.entity.UserAccount;
+import com.example.shop_project_01.repository.NoticeRepository;
 import com.example.shop_project_01.repository.ProductRepository;
 import com.example.shop_project_01.repository.UserAccountRepository;
 import jakarta.persistence.EntityManager;
@@ -23,6 +27,8 @@ public class AdminService {
     ProductRepository productRepository;
     @Autowired
     UserAccountRepository userAccountRepository;
+    @Autowired
+    NoticeRepository noticeRepository;
 
     @Autowired
     EntityManager em;
@@ -43,7 +49,7 @@ public class AdminService {
         return users.stream().map(UserAccountDto::fromUserAccountEntity).collect(Collectors.toList());
     }
 
-    public void updateUser(@Valid UserAccountDto dto) {
+    public void updateUser(UserAccountDto dto) {
            UserAccount userAccount = em.find(UserAccount.class,dto.getUsername());
            userAccount.setUserEmail(dto.getUserEmail());
            userAccount.setUserAddress(dto.getUserAddress());
@@ -82,7 +88,37 @@ public class AdminService {
                 findById(username).map(x->UserAccountDto.fromUserAccountEntityNoPassword(x)).orElse(null);
         return userAccountDto;
        }
+    public void addProduct(ProductDto dto) {
+        Product product = dto.fromProductDto(dto);
+        productRepository.save(product);
+    }
 
 
+    public void updateProduct(ProductDto dto) {
+        Product product = dto.fromProductDto(dto);
+        productRepository.save(product);
+    }
 
+
+    public void addNotice(NoticeDto dto) {
+           Notice notice = dto.fromNoticeDto(dto);
+           noticeRepository.save(notice);
+    }
+
+    public List<NoticeDto> showAllNotice() {
+        return noticeRepository.findAll().stream().map(x -> NoticeDto.fromNoticeEntity(x)).toList();
+    }
+
+    public NoticeDto noticeViewFindById(Long noticeId) {
+        return noticeRepository.findById(noticeId).map(x -> NoticeDto.fromNoticeEntity(x)).orElse(null);
+    }
+
+    public void deleteNotice(Long noticeId) {
+           noticeRepository.deleteById(noticeId);
+    }
+
+    public void updateNotice(NoticeDto dto) {
+           Notice notice = dto.fromNoticeDto(dto);
+           noticeRepository.save(notice);
+    }
 }
