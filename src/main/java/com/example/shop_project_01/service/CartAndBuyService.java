@@ -1,6 +1,7 @@
 package com.example.shop_project_01.service;
 
 import com.example.shop_project_01.dto.BuyDto;
+import com.example.shop_project_01.dto.BuyProductDto;
 import com.example.shop_project_01.dto.CartProductDto;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.entity.*;
@@ -26,6 +27,8 @@ public class CartAndBuyService {
     @Autowired
     CartProductRepository cartProductRepository;
     
+    @Autowired
+    UserService userService;
     @Autowired
     ProductRepository productRepository;
     @Autowired
@@ -92,28 +95,70 @@ public class CartAndBuyService {
         return userPoint;
     }
     
-    public void addBuyProductOne(BuyDto buyDto) {
-        UserAccount userAccount = em.find(UserAccount.class,buyDto.getUsername());
-        Product product = em.find(Product.class,buyDto.getProductId());
+    public void addBuyProductOne(BuyDto buyDto, BuyProductDto buyProductDto) {
+        String username = userService.loginUsername();
+        UserAccount userAccount = em.find(UserAccount.class,username);
+        Product product = em.find(Product.class,buyProductDto.getBuyProductId());
         BuyProduct buyProduct = new BuyProduct();
+        int stock = product.getProductStock()-buyProductDto.getCount();
         
-        int totalPrice =  buyDto.getPrice()*buyDto.getCount();
-        buyProduct.setCount(buyDto.getCount());
-        buyProduct.setPrice(buyDto.getPrice());
-        buyProduct.setProduct(product);
+        product.setProductStock(stock);
+        
+        int totalPrice =  buyProductDto.getPrice()*buyProductDto.getCount();
+        buyProduct.setCount(buyProductDto.getCount());
+        buyProduct.setPrice(buyProductDto.getPrice());
+        buyProduct.setProductId(buyProductDto.getProductId());
         buyProduct.setTotalPrice(totalPrice);
         Buy buy = new Buy();
         buy.setBuyDate(buyDto.getBuyDate());
         buy.setProductStatus(buyDto.getProductStatus());
-        buy.setUserAccount(userAccount);
+        buy.setUsername(username);
         
         buyProduct.setBuy(buy);
         buy.getBuyProducts().add(buyProduct);
         
         em.persist(buy);
         em.persist(buyProduct);
-        
+        em.persist(product);
         userAccount.setInsertPoint(userAccount.getInsertPoint()-totalPrice);
+        em.persist(userAccount);
+    }
+    
+    public void addBuyAll(BuyDto buyDto, List<BuyProductDto> buyProductDto) {
+        String username = userService.loginUsername();
+        UserAccount userAccount = em.find(UserAccount.class,username);
+        
+        int total = 0;
+        for (BuyProductDto buyPro : buyProductDto) {
+            total = total + buyPro.getPrice() * buyPro.getCount();
+        }
+        Buy buy = new Buy();
+        buy.setBuyDate(buyDto.getBuyDate());
+        buy.setProductStatus(buyDto.getProductStatus());
+        buy.setUsername(username);
+        em.persist(buy);
+        
+        for (BuyProductDto buyPro : buyProductDto) {
+            int totalPrice = buyPro.getPrice() * buyPro.getCount();
+            Product product = em.find(Product.class,buyPro.getProductId());
+            int stock = product.getProductStock()-buyPro.getCount();
+            product.setProductStock(stock);
+            
+            em.persist(product);
+            
+            BuyProduct buyProduct = new BuyProduct();
+            buyProduct.setCount(buyPro.getCount());
+            buyProduct.setPrice(buyPro.getPrice());
+            buyProduct.setProductId(buyPro.getProductId());
+            buyProduct.setTotalPrice(totalPrice);
+            buyProduct.setBuy(buy);
+            
+            em.persist(buyProduct);
+            buy.getBuyProducts().add(buyProduct);
+        }
+        em.persist(buy);
+        
+        userAccount.setInsertPoint(userAccount.getInsertPoint()-total);
         em.persist(userAccount);
     }
 
