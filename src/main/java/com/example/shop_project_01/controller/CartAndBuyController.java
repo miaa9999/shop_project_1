@@ -1,9 +1,7 @@
 package com.example.shop_project_01.controller;
 
-import com.example.shop_project_01.dto.BuyDto;
-import com.example.shop_project_01.dto.CartDto;
-import com.example.shop_project_01.dto.CartProductDto;
-import com.example.shop_project_01.dto.ProductDto;
+import com.example.shop_project_01.constant.ProductStatus;
+import com.example.shop_project_01.dto.*;
 import com.example.shop_project_01.entity.CartProduct;
 import com.example.shop_project_01.service.CartAndBuyService;
 import com.example.shop_project_01.service.CategoryService;
@@ -17,17 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Controller
 @Slf4j
 public class CartAndBuyController {
-
-
-    @Autowired
-    CategoryService categoryService;
     
     @Autowired
+    CategoryService categoryService;
+    @Autowired
     CartAndBuyService cartAndBuyService;
-
     @Autowired
     UserService userService;
     
@@ -57,13 +54,17 @@ public class CartAndBuyController {
             if(userCartNum!=null) {
                 CartProductDto cartProductDto = new CartProductDto(count, productId, price, userCartNum);
                 cartAndBuyService.addCartProduct(cartProductDto);
+
+
             }
             return "redirect:/product_detail/" + productId;
             
         } else if (action.equals("buy")) {
           //구매하기 버튼 눌렀을때 작동
             String productName = cartAndBuyService.productNameFindByProductId(productId);
-            BuyDto buyDto = new BuyDto(loginUsername,count,price,productName,productId);
+            int userPoint = cartAndBuyService.userPointFindByUsername(loginUsername);
+            
+            BuyDto buyDto = new BuyDto(loginUsername,count,price,productName,productId,userPoint);
             int total = price * count;
             model.addAttribute("total",total);
             model.addAttribute("buyDto",buyDto);
@@ -76,14 +77,31 @@ public class CartAndBuyController {
     @PostMapping("/buy_one")
     public String buyOne(@RequestParam("action")String action,
                          @RequestParam("productName")String productName,
-                         @RequestParam("productId")Long productId
+                         @RequestParam("productId")Long productId,
+                         @RequestParam("username")String loginUsername,
+                         @RequestParam("count")int count,
+                         @RequestParam("price")int nowPrice,
+                         Model model
                          ){
         if (action.equals("cancel")){
             System.out.println(productName);
             System.out.println(productId);
             return  "redirect:/product_detail/" + productId;
+            
+        } else if (action.equals("buy")) {
+            LocalDateTime buyDate = LocalDateTime.now();
+            BuyDto buyDto = new BuyDto(buyDate,loginUsername, ProductStatus.DEPOSIT,count,nowPrice,productId);
+            cartAndBuyService.addBuyProductOne(buyDto);
+            
+            return "cart/buy_ok";
+        } else if (action.equals("requestMoney")) {
+            int userPoint = cartAndBuyService.userPointFindByUsername(loginUsername);
+            model.addAttribute("productId",productId);
+            model.addAttribute("userPoint",userPoint);
+            model.addAttribute("username",loginUsername);
+            return "/cart/insert_point";
         }
-        return "/product_detail/";
-
+        
+        return "/product/main";
     }
 }

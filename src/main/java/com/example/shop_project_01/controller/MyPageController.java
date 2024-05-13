@@ -1,6 +1,7 @@
 package com.example.shop_project_01.controller;
 
 import com.example.shop_project_01.dto.UserAccountDto;
+import com.example.shop_project_01.service.CartAndBuyService;
 import com.example.shop_project_01.service.UserAccountService;
 import com.example.shop_project_01.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,8 +25,11 @@ public class MyPageController {
     @Autowired
     UserAccountService userAccountService;
 
+    @Autowired
+    CartAndBuyService cartAndBuyService;
 
-
+    @Autowired
+    UserService userService;
     //마이 페이지
     @GetMapping("/mypage")
     public String myPage(Model model) {
@@ -89,6 +93,29 @@ public class MyPageController {
 
     }
 
+    @GetMapping("/cart/insert_point")
+    public String insertPoint(Model model){
+        String loginUsername = userService.loginUsername();
+        int userPoint = cartAndBuyService.userPointFindByUsername(loginUsername);
+        
+        model.addAttribute("userPoint",userPoint);
+        model.addAttribute("username",loginUsername);
+        
+        return "/cart/insert_point";
+    }
 
+    @PostMapping("/insert_point")
+    public String insertPoint(@RequestParam("username")String username,
+                              @RequestParam("insertMoney")int insertMoney,
+                              Model model){
+        userService.insertPoint(username,insertMoney);
+        
+        int userPoint = cartAndBuyService.userPointFindByUsername(username);
+        
+        model.addAttribute("userPoint",userPoint);
+        model.addAttribute("username",username);
+        
+        return "redirect:/cart/insert_point";
+    }
 
 }

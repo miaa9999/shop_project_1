@@ -17,16 +17,19 @@ public class BuyProduct {
     private int count;
     
     //구매가격
-    @Column(name = "price")
+    @Column(name = "1ea_price")
     private int price;
     
     //상품 번호
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
     
     //구매번호
-    @Column(name = "buy_id")
     //joinColumn - buy
-    private Long buyId;
+    @ManyToOne
+    @JoinColumn (name = "buy_id")
+    private Buy buy;
+    
+    private int totalPrice;
 }
