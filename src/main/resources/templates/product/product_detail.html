@@ -7,11 +7,11 @@
     <title>Title</title>
 
     <!-- JavaScript 추가 -->
-    <script type="text/javascript">
-        function addToCart() {
-            alert("상품이 장바구니에 담겼습니다.");
-        }
-    </script>
+<!--    <script type="text/javascript">-->
+<!--        function addToCart() {-->
+<!--            alert("상품이 장바구니에 담겼습니다.");-->
+<!--        }-->
+<!--    </script>-->
 
 </head>
 <body>
@@ -38,8 +38,10 @@
             <input type="number" name="count" th:max="${productStock}" value="1" min="1">
             <input type="hidden" name="productId" th:value="*{productId}">
             <input type="hidden" name="loginUsername" th:value="${loginUsername}">
-            <button type="submit" name="action" value="cart" onclick="addToCart()">장바구니에 넣기
-                 </button>
+<!--            <button type="submit" name="action" value="cart" onclick="addToCart()">장바구니에 넣기-->
+<!--            </button>   -->
+            <button type="submit" name="action" value="cart">장바구니에 넣기
+        </button>
             <button type="submit" name="action" value="buy">구매하기</button>
         </div>
         <br>

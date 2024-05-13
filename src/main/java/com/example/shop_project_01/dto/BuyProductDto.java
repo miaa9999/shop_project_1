@@ -23,11 +23,22 @@ public class BuyProductDto {
        private Long productId;
        
        private String productName;
-       
+//
        //구매확정
        private Long buyId;
        
        private int totalPrice;
-       public BuyProductDto(int count, int nowPrice, Long productId) {
+       
+       public BuyProductDto(int count, int price, Long productId) {
+              this.count = count;
+              this.price = price;
+              this.productId = productId;
+       }
+       
+       public BuyProductDto(int count, int price, Long productId, String productName) {
+              this.count = count;
+              this.price = price;
+              this.productId = productId;
+              this.productName = productName;
        }
 }

@@ -49,8 +49,8 @@ public class UserAccount {
     @LastModifiedDate
     private LocalDate updatedAt;
     
-    @OneToMany(mappedBy = "userAccount")
-    private List<Buy> buyList = new ArrayList<>();
+//    @OneToMany(mappedBy = "userAccount")
+//    private List<Buy> buyList = new ArrayList<>();
     
     private int insertPoint;
 }

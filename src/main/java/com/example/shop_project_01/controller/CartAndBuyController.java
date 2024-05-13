@@ -54,8 +54,6 @@ public class CartAndBuyController {
             if(userCartNum!=null) {
                 CartProductDto cartProductDto = new CartProductDto(count, productId, price, userCartNum);
                 cartAndBuyService.addCartProduct(cartProductDto);
-
-
             }
             return "redirect:/product_detail/" + productId;
             
@@ -64,8 +62,14 @@ public class CartAndBuyController {
             String productName = cartAndBuyService.productNameFindByProductId(productId);
             int userPoint = cartAndBuyService.userPointFindByUsername(loginUsername);
             
-            BuyDto buyDto = new BuyDto(loginUsername,count,price,productName,productId,userPoint);
+            BuyProductDto buyDto = new BuyProductDto(count,price,productId,productName);
             int total = price * count;
+            
+            System.out.println(productName);
+            System.out.println(count);
+            
+            model.addAttribute("username",loginUsername);
+            model.addAttribute("userPoint",userPoint);
             model.addAttribute("total",total);
             model.addAttribute("buyDto",buyDto);
             return "/cart/buy_one";
@@ -90,8 +94,9 @@ public class CartAndBuyController {
             
         } else if (action.equals("buy")) {
             LocalDateTime buyDate = LocalDateTime.now();
-            BuyDto buyDto = new BuyDto(buyDate,loginUsername, ProductStatus.DEPOSIT,count,nowPrice,productId);
-            cartAndBuyService.addBuyProductOne(buyDto);
+            BuyDto buyDto = new BuyDto(buyDate,loginUsername,ProductStatus.DEPOSIT);
+            BuyProductDto buyProductDto = new BuyProductDto(count,nowPrice,productId);
+            cartAndBuyService.addBuyProductOne(buyDto,buyProductDto);
             
             return "cart/buy_ok";
         } else if (action.equals("requestMoney")) {
