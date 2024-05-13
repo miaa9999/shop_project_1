@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminpage_layout}">
 <head>
     <meta charset="UTF-8">
     <title>수정화면</title>
@@ -9,6 +11,9 @@
 <div layout:fragment="content">
     <br>
     <h4 style="font-weight:bold">회원 정보 수정하기</h4>
+    <br>
+    <h4 style="font-weight:bold">회원 정보 수정하기</h4>
+    <div align="right"> <a th:href="@{/admin/user_all}">회원 목록 화면으로 돌아가기</a></div>
     <br>
     <form id="frm"  th:action="@{/admin/update}"
           method="post" th:object="${accountDto}">
@@ -43,10 +48,12 @@
         </div>
         <br>
         <input type="hidden" th:field="*{username}">
+        <input type="hidden" th:value="*{password}">
+        <input type="hidden" th:value="*{passwordCheck}">
         <input type="submit" value="수정">
     </form>
     <br>
-    <a th:href="@{/admin/user_all}">회원 목록 화면으로 돌아가기</a>
+
 </div>
 </body>
 </html>

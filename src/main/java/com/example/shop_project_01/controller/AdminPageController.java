@@ -1,9 +1,11 @@
 package com.example.shop_project_01.controller;
 
+import com.example.shop_project_01.dto.NoticeDto;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.dto.UserAccountDto;
 import com.example.shop_project_01.entity.CartProduct;
 import com.example.shop_project_01.repository.CartProductRepository;
+import com.example.shop_project_01.repository.NoticeRepository;
 import com.example.shop_project_01.service.AdminService;
 import com.example.shop_project_01.service.UserAccountService;
 import jakarta.validation.Valid;
@@ -26,6 +28,79 @@ public class AdminPageController {
 
     @Autowired
     CartProductRepository cartProductRepository;
+
+    @Autowired
+    NoticeRepository noticeRepository;
+
+    //공지사항 등록하기
+    @GetMapping("/notice_add")
+    public String addNoticeView(Model model){
+        model.addAttribute("noticeDto", new NoticeDto());
+        return "admin/new_notice";
+    }
+
+    @PostMapping("/notice_add")
+    public String addNotice(@ModelAttribute("noticeDto") @Valid NoticeDto dto,BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "admin/new_notice";
+        }
+        adminService.addNotice(dto);
+        return "redirect:/admin/notice_all";
+    }
+
+    //공지사항 목록 확인(관리자용)
+    @GetMapping("/notice_all")
+    public String showAllNotice(Model model) {
+        List<NoticeDto> dtoList = adminService.showAllNotice();
+        long count = dtoList.size();
+        model.addAttribute("count", count);
+        model.addAttribute("dtoList", dtoList);
+        return "admin/notice_all";
+    }
+
+    //공지사항 하나씩 확인하기
+    @GetMapping("/notice_change/{noticeId}")
+    public String noticeChange(@PathVariable("noticeId")Long noticeId, Model model){
+        NoticeDto noticeDto = adminService.noticeViewFindById(noticeId);
+
+        model.addAttribute("noticeDto",noticeDto);
+        return "admin/notice_change";
+    }
+
+    //공지사항 삭제하기
+    @PostMapping("/notice_delete/{deleteId}")
+    public String deleteNotice(@PathVariable("deleteId") Long noticeId,
+                             RedirectAttributes redirectAttributes){
+
+        adminService.deleteNotice(noticeId);
+        redirectAttributes.addFlashAttribute("msg", "공지사항이 정상적으로 삭제되었습니다!!");
+        return "redirect:/admin/notice_all";
+    }
+
+    //공지사항 수정하기
+    @GetMapping("/notice_update")
+    public String noticeUpdateView(@RequestParam("noticeId") Long noticeId,
+                                    Model model){
+        NoticeDto noticeDto = adminService.noticeViewFindById(noticeId);
+        model.addAttribute("noticeDto", noticeDto);
+        return "admin/notice_updateForm";
+    }
+
+
+    @PostMapping("/notice_update")
+    public String noticeUpdate(@ModelAttribute("noticeDto") @Valid NoticeDto dto,
+                         BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return  "admin/notice_updateForm";
+        }
+        adminService.updateNotice(dto);
+        return "redirect:/admin/notice_all";
+    }
+
+
+
+
+
 
 
        @GetMapping("/product_all")
@@ -56,10 +131,6 @@ public class AdminPageController {
               return "admin/product_change";
        }
        
-       @GetMapping("product_add")
-       public String productAdd(ProductDto productDto){
-              return "/admin/new_product";
-       }
 
 
     @GetMapping("/user_change/{username}")
@@ -73,7 +144,8 @@ public class AdminPageController {
     @GetMapping("/update")
     public String updateAccount(@RequestParam("username") String username,
                                 Model model){
-        UserAccountDto accountDto = adminService.getUserPageNoPassword(username);
+        UserAccountDto accountDto = adminService.getUserPage(username);
+
 
 //        System.out.println(accountDto.toString());
 
@@ -84,13 +156,17 @@ public class AdminPageController {
 
 
     @PostMapping("/update")
-    public String update(@ModelAttribute("accountDto") UserAccountDto dto,
+    public String update(@RequestParam("name") String name,
+                         @RequestParam("userPhone") String userPhone,
+                         @RequestParam("userEmail") String userEmail,
+                         @RequestParam("userAddress") String userAddress,
                          BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "/admin/user_updateForm";
         }
+        UserAccountDto userAccountDto = new UserAccountDto(name,userPhone,userEmail,userAddress);
 
-        adminService.updateUser(dto);// 사용자 정보 업데이트 메서드를 호출해야 함
+        adminService.updateUser(userAccountDto);// 사용자 정보 업데이트 메서드를 호출해야 함
 
         return "redirect:/admin/user_all";
     }
@@ -106,6 +182,43 @@ public class AdminPageController {
            redirectAttributes.addFlashAttribute("msg", "회원 탈퇴가 정상적으로 처리되었습니다!!");
            return "redirect:/admin/user_all";
        }
+
+    // 상품등록하기
+    @GetMapping("/product_add")
+    public String addProductView(Model model){
+        model.addAttribute("productDto", new ProductDto());
+        return "admin/new_product";
+    }
+
+    @PostMapping("/product_add")
+    public String addProduct(@ModelAttribute("productDto") @Valid ProductDto dto,BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "admin/new_product";
+        }
+        adminService.addProduct(dto);
+        return "redirect:/admin/product_all";
+    }
+
+    //상품 정보 수정하기
+    @GetMapping("/product_update")
+    public String productUpdateView(@RequestParam("productId") Long productId,
+                                    Model model){
+        ProductDto productDto = adminService.productViewFindById(productId);
+        model.addAttribute("productDto", productDto);
+        return "admin/product_updateForm";
+    }
+
+
+    @PostMapping("/product_update")
+    public String update(@ModelAttribute("productDto") @Valid ProductDto dto,
+                         BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return  "admin/product_updateForm";
+        }
+        adminService.updateProduct(dto);
+        return "redirect:/admin/product_all";
+    }
+
 
 
 

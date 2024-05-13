@@ -2,6 +2,7 @@ package com.example.shop_project_01.dto;
 
 import com.example.shop_project_01.entity.Product;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 @AllArgsConstructor
@@ -11,11 +12,15 @@ import lombok.*;
 @Builder
 public class ProductDto {
     private Long productId;
+    @NotEmpty(message = "상품이름 입력은 필수입니다")
     private String productName;
     private int productPrice;
     private int productStock;
+    @NotEmpty(message = "상품 설명 입력은 필수입니다")
     private String content;
+    @NotEmpty(message = "메인카테고리 입력은 필수입니다")
     private String mainCategory;
+    @NotEmpty(message = "서브 카테고리 입력은 필수입니다")
     private String subCategory;
 
     private String imgUrl;
