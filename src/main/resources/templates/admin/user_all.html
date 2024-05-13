@@ -21,6 +21,7 @@
                 <th>전화번호</th>
                 <th>주소</th>
                 <th>이메일</th>
+                <th>가입일</th>
                 <th>관리</th>
             </tr>
             <tr th:each="user : ${dtoList}" th:object="${user}" >
@@ -29,6 +30,7 @@
                     <td th:text="*{userPhone}"></td>
                     <td th:text="*{userAddress}"></td>
                     <td th:text="*{userEmail}"></td>
+                    <td th:text="*{createdAt}"></td>
                 <td>
                     <a th:href="@{/admin/user_change/{id}(id=*{username})}">
                         <input type="submit" name="change" value="수정하기"></a>
