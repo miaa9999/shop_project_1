@@ -191,10 +191,7 @@ public class AdminPageController {
     }
 
     @PostMapping("/product_add")
-    public String addProduct(@ModelAttribute("productDto") @Valid ProductDto dto,BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-            return "admin/new_product";
-        }
+    public String addProduct(@ModelAttribute("productDto")  ProductDto dto){
         adminService.addProduct(dto);
         return "redirect:/admin/product_all";
     }
@@ -210,11 +207,8 @@ public class AdminPageController {
 
 
     @PostMapping("/product_update")
-    public String update(@ModelAttribute("productDto") @Valid ProductDto dto,
-                         BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return  "admin/product_updateForm";
-        }
+    public String update(@ModelAttribute("productDto") ProductDto dto
+                       ){
         adminService.updateProduct(dto);
         return "redirect:/admin/product_all";
     }
