@@ -24,51 +24,49 @@
             <div class="mb3">
                 <label class="form-label">상품이름</label>
                 <input type="text" id="productName" name="productName"  th:field="*{productName}" class="form-control">
-                <span style="color:red; font-weight:bold"  class="error-class" th:errors ="*{productName}"></span>
-            </div>
-            <div class="mb3">
-                <label class="form-label">상품가격</label>
-                <input id="productPrice" name="productPrice" type="number" th:field="*{productPrice}"  class="form-control" onchange="checkProductPrice()">
-                <div id="errorDiv2" style="color:red; font-weight:bold"></div>
-            </div>
+                <div id="errorDivName" style="color:red; font-weight:bold"></div>
+                <div class="mb3">
+                    <label class="form-label">상품가격</label>
+                    <input id="productPrice" name="productPrice" type="number" th:field="*{productPrice}"  class="form-control" onchange="checkProductPrice()">
+                    <div id="errorDivPrice" style="color:red; font-weight:bold"></div>
+                </div>
 
-            <div class="mb3">
-                <label class="form-label">상품 수량</label>
-                <input id="productStock" name="productStock" type="number" th:field="*{productStock}" class="form-control" onchange="checkProductStock()">
-                <div id="errorDiv" style="color:red; font-weight:bold"></div>
-            </div>
-            <div class="mb3">
-                <label class="form-label">메인카테고리</label>
-                <select id="mainCategory" onchange="updateSubCategories()" th:field="*{mainCategory}" class="form-select">
-                    <option value="">메인 카테고리를 선택해주세요</option>
-                    <option value="인형">인형</option>
-                    <option value="완구">완구</option>
-                    <option value="도서">도서</option>
-                </select>
-                <span style="color:red; font-weight:bold"  class="error-class" th:errors ="*{mainCategory}"></span>
-            </div>
-            <div class="mb3">
-                <label class="form-label">서브 카테고리</label>
-                <select id="subCategory" th:field="*{subCategory}" class="form-select">
-                    <option value="">서브 카테고리를 선택해주세요</option>
-                </select>
-                <span style="color:red; font-weight:bold"  class="error-class" th:errors ="*{subCategory}"></span>
-            </div>
+                <div class="mb3">
+                    <label class="form-label">상품 수량</label>
+                    <input id="productStock" name="productStock" type="number" th:field="*{productStock}" class="form-control" onchange="checkProductStock()">
+                    <div id="errorDivStock" style="color:red; font-weight:bold"></div>
+                </div>
+                <div class="mb3">
+                    <label class="form-label">메인카테고리</label>
+                    <select id="mainCategory" onchange="updateSubCategories()" th:field="*{mainCategory}" class="form-select">
+                        <option value="">메인 카테고리를 선택해주세요</option>
+                        <option value="인형">인형</option>
+                        <option value="완구">완구</option>
+                        <option value="도서">도서</option>
+                    </select>
+                    <div id="errorDivMainCategory" style="color:red; font-weight:bold"></div>
+                </div>
+                <div class="mb3">
+                    <label class="form-label">서브 카테고리</label>
+                    <select id="subCategory" th:field="*{subCategory}" class="form-select">
+                    </select>
+                    <div id="errorDivSubCategory" style="color:red; font-weight:bold"></div>
+                </div>
 
-            <div class="mb3">
-                <label class="form-label">상품 설명</label>
-                <input id="content" name="content" type="text" th:field="*{content}"  class="form-control">
-                <span style="color:red; font-weight:bold"  class="error-class" th:errors ="*{content}"></span>
-            </div>
-            <div class="mb3">
-                <label class="form-label">이미지 등록</label>
-                <input id="imgUrl" name="imgUrl" type="text" th:field="*{imgUrl}"  class="form-control">
+                <div class="mb3">
+                    <label class="form-label">상품 설명</label>
+                    <input id="content" name="content" type="text" th:field="*{content}"  class="form-control">
+                    <div id="errorDivDescription" style="color:red; font-weight:bold"></div>
+                </div>
+                <div class="mb3">
+                    <label class="form-label">이미지 등록</label>
+                    <input id="imgUrl" name="imgUrl" type="text" th:field="*{imgUrl}"  class="form-control">
 
-            </div>
-            <br>
-            <input type="hidden" th:field="*{productId}">
-            <input type="submit" value="수정">
-            <input type="button" value="다시" class="btn btn-primary" onclick="res()">
+                </div>
+                <br>
+                <input type="hidden" th:field="*{productId}">
+                <input type="submit" value="수정">
+                <input type="button" value="다시" class="btn btn-primary" onclick="res()">
         </form>
         <br>
 
