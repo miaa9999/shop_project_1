@@ -1,12 +1,15 @@
 package com.example.shop_project_01.controller;
 
+import com.example.shop_project_01.dto.BuyProductDto;
 import com.example.shop_project_01.dto.NoticeDto;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.dto.UserAccountDto;
+import com.example.shop_project_01.entity.Buy;
 import com.example.shop_project_01.entity.CartProduct;
 import com.example.shop_project_01.repository.CartProductRepository;
 import com.example.shop_project_01.repository.NoticeRepository;
 import com.example.shop_project_01.service.AdminService;
+import com.example.shop_project_01.service.CartAndBuyService;
 import com.example.shop_project_01.service.UserAccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,6 +35,7 @@ public class AdminPageController {
 
     @Autowired
     NoticeRepository noticeRepository;
+
 
     //공지사항 등록하기
     @GetMapping("/notice_add")
@@ -96,13 +101,17 @@ public class AdminPageController {
         adminService.updateNotice(dto);
         return "redirect:/admin/notice_all";
     }
-
-
-
-
-
-
-
+    
+    @GetMapping("/sales_all")
+    public String salesAll(Model model) {
+        List<BuyProductDto> dto = adminService.showSalesAll();
+        long count = dto.size();
+        
+        model.addAttribute("count",count);
+        model.addAttribute("dto", dto);
+        return "/admin/sales_all";
+    }
+    
        @GetMapping("/product_all")
        public String productViewAll(Model model) {
               List<ProductDto> dto = adminService.productViewAll();

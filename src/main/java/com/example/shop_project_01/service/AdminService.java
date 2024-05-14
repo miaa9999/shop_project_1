@@ -1,12 +1,14 @@
 package com.example.shop_project_01.service;
 
 import com.example.shop_project_01.constant.UserRole;
+import com.example.shop_project_01.dto.BuyProductDto;
 import com.example.shop_project_01.dto.NoticeDto;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.dto.UserAccountDto;
 import com.example.shop_project_01.entity.Notice;
 import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.entity.UserAccount;
+import com.example.shop_project_01.repository.BuyProductRepository;
 import com.example.shop_project_01.repository.NoticeRepository;
 import com.example.shop_project_01.repository.ProductRepository;
 import com.example.shop_project_01.repository.UserAccountRepository;
@@ -16,6 +18,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,9 +33,14 @@ public class AdminService {
     UserAccountRepository userAccountRepository;
     @Autowired
     NoticeRepository noticeRepository;
-
+    
+    @Autowired
+       BuyProductRepository buyProductRepository;
     @Autowired
     EntityManager em;
+       
+       @Autowired
+       CartAndBuyService cartAndBuyService;
        
        public List<ProductDto> productViewAll() {
               return productRepository.findAll().stream().map(x->ProductDto.fromProductEntity(x)).toList();
@@ -57,20 +66,6 @@ public class AdminService {
            userAccount.setName(dto.getName());
 
            em.persist(userAccount);
-
-//        UserAccount changeUserAccount = UserAccountDto.fromUserAccountDto(dto);
-//        UserAccount originUserAccount = userAccountRepository.findByUsername(dto.getUsername());
-
-//        originUserAccount.setUserAddress(changeUserAccount.getUserAddress());
-//        originUserAccount.setUserPhone(changeUserAccount.getUserPhone());
-//        originUserAccount.setName(changeUserAccount.getName());
-//        originUserAccount.setUserEmail(changeUserAccount.getUserEmail());
-//        originUserAccount.setPassword(originUserAccount.getPassword());
-
-
-
-//        userAccountRepository.save(originUserAccount);
-
     }
     public UserAccountDto getUserPage(String username) {
         UserAccount userAccount = userAccountRepository.findById(username).orElse(null);
@@ -121,4 +116,33 @@ public class AdminService {
            Notice notice = dto.fromNoticeDto(dto);
            noticeRepository.save(notice);
     }
+       
+       public List<BuyProductDto> showSalesAll() {
+              List<BuyProductDto> dtos = buyProductRepository.findAll().stream().map(x->BuyProductDto.buyProductDtoFromEntity(x)).toList();
+              List<BuyProductDto> dtoList = new ArrayList<>();
+              String statues = null;
+              
+              for (BuyProductDto buyDto : dtos){
+                     String productName = cartAndBuyService.productNameFindByProductId(buyDto.getProductId());
+                     buyDto.setProductName(productName);
+                     buyDto.setDate(buyDto.getSalesDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm")));
+                     switch (buyDto.getProductStatus()){
+                            case FINISH :
+                                   statues = "배송완료";
+                                   buyDto.setStatues(statues);
+                                   break;
+                            
+                            case DELIVER:
+                                   statues = "배송중";
+                                   buyDto.setStatues(statues);
+                                   break;
+                            
+                            case DEPOSIT:
+                                   statues = "입금완료";
+                                   buyDto.setStatues(statues);
+                                   break;
+                     }
+              }
+              return dtos;
+       }
 }
