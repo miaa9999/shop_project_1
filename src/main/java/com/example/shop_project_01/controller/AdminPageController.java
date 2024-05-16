@@ -6,15 +6,19 @@ import com.example.shop_project_01.dto.BuyProductDto;
 import com.example.shop_project_01.dto.NoticeDto;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.dto.UserAccountDto;
-import com.example.shop_project_01.entity.Buy;
-import com.example.shop_project_01.entity.CartProduct;
+import com.example.shop_project_01.entity.*;
 import com.example.shop_project_01.repository.CartProductRepository;
 import com.example.shop_project_01.repository.NoticeRepository;
 import com.example.shop_project_01.service.AdminService;
 import com.example.shop_project_01.service.CartAndBuyService;
+import com.example.shop_project_01.service.PaginationService;
 import com.example.shop_project_01.service.UserAccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,11 +42,43 @@ public class AdminPageController {
        
        @Autowired
        NoticeRepository noticeRepository;
+
+       @Autowired
+       PaginationService paginationService;
        
        
        // =======================공지사항==========================
-       
-       //공지사항 등록하기
+
+    //공지사항 목록 확인(관리자용)
+//       @GetMapping("/notice_all")
+//       public String showAllNotice(Model model) {
+//              List<NoticeDto> dtoList = adminService.showAllNotice();
+//              long count = dtoList.size();
+//              model.addAttribute("count", count);
+//              model.addAttribute("dtoList", dtoList);
+//              return "admin/notice_all";
+//       }
+
+    //공지사항 목록 확인(관리자용) - 페이징처리
+    @GetMapping("notice_all")
+    public String showAllNotice(Model model,
+                           @PageableDefault(page = 0,size = 5,sort = "createdAt",direction = Sort.Direction.DESC)
+                           Pageable pageable) {
+        //넘겨온 페이지 번호로 리스트 받아오기
+        Page<Notice> paging = adminService.pagingListNotice(pageable);
+        Long count = paging.getTotalElements();
+
+        //페이지 출력 처리 (1,2,3,4,5)
+        int totalPage = paging.getTotalPages();
+        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), totalPage);
+        model.addAttribute("paginationBarNumbers", barNumbers);
+        model.addAttribute("count", count);
+        model.addAttribute("paging", paging);
+        return "/admin/notice_all";
+    }
+
+
+    //공지사항 등록하기
        @GetMapping("/notice_add")
        public String addNoticeView(Model model) {
               model.addAttribute("noticeDto", new NoticeDto());
@@ -58,17 +94,11 @@ public class AdminPageController {
               return "redirect:/admin/notice_all";
        }
        
-       //공지사항 목록 확인(관리자용)
-       @GetMapping("/notice_all")
-       public String showAllNotice(Model model) {
-              List<NoticeDto> dtoList = adminService.showAllNotice();
-              long count = dtoList.size();
-              model.addAttribute("count", count);
-              model.addAttribute("dtoList", dtoList);
-              return "admin/notice_all";
-       }
-       
-       //공지사항 하나씩 확인하기
+
+
+
+
+        //공지사항 하나씩 확인하기
        @GetMapping("/notice_change/{noticeId}")
        public String noticeChange(@PathVariable("noticeId") Long noticeId, Model model) {
               NoticeDto noticeDto = adminService.noticeViewFindById(noticeId);
@@ -110,17 +140,38 @@ public class AdminPageController {
     
     
     // =======================판매목록==========================
-       @GetMapping("/sales_all")
-       public String salesAll(Model model) {
-              List<BuyProductDto> dto = adminService.showSalesAll();
-              long count = dto.size();
-              
-              model.addAttribute("count", count);
-              model.addAttribute("dto", dto);
-              return "/admin/sales_all";
-       }
-       
-       @GetMapping("/sales_all/deliver")
+//       @GetMapping("/sales_all")
+//       public String salesAll(Model model) {
+//              List<BuyProductDto> dto = adminService.showSalesAll();
+//              long count = dto.size();
+//
+//              model.addAttribute("count", count);
+//              model.addAttribute("dto", dto);
+//              return "/admin/sales_all";
+//       }
+    //판매목록 -  페이징 처리
+    @GetMapping("sales_all")
+    public String salesViewAll(Model model,
+                                 @PageableDefault(page = 0,size = 5,sort = "buyProductId",direction = Sort.Direction.DESC)
+                                 Pageable pageable) {
+        //넘겨온 페이지 번호로 리스트 받아오기
+        Page<BuyProductDto> paging = adminService.pagingListBuyProduct(pageable);
+        Long count =  paging.getTotalElements();
+
+        //페이지 출력 처리 (1,2,3,4,5)
+        int totalPage = paging.getTotalPages();
+        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), totalPage);
+        model.addAttribute("count", count);
+        model.addAttribute("paginationBarNumbers", barNumbers);
+        model.addAttribute("paging", paging);
+        return "/admin/sales_all";
+    }
+
+
+
+
+
+    @GetMapping("/sales_all/deliver")
        public String salesAllWithDeliver(Model model) {
               List<BuyProductDto> dto = adminService.showSalesAll();
               long count = dto.size();
@@ -130,24 +181,54 @@ public class AdminPageController {
               return "/admin/sales_all";
        }
     
-    @GetMapping("/sales_status")
-    public String salesStatus(Model model) {
-        List<BuyProductDto> dto = adminService.showSalesAll();
-        long count = dto.size();
-        
-           // 상태 값 목록 생성
-           List<String> statusValues = new ArrayList<>();
-           statusValues.add("입금완료");
-           statusValues.add("배송중");
-           statusValues.add("배송완료");
+//    @GetMapping("/sales_status")
+//    public String salesStatus(Model model) {
+//        List<BuyProductDto> dto = adminService.showSalesAll();
+//        long count = dto.size();
+//
+//           // 상태 값 목록 생성
+//           List<String> statusValues = new ArrayList<>();
+//           statusValues.add("입금완료");
+//           statusValues.add("배송중");
+//           statusValues.add("배송완료");
+////           List<ProductStatus> statusValues = Arrays.asList(ProductStatus.values());
+//
+//        model.addAttribute("statusValues",statusValues);
+//        model.addAttribute("count", count);
+//        model.addAttribute("dto", dto);
+//        return "/admin/sales_status";
+//    }
+
+    //판매목록관리 -  페이징 처리
+    @GetMapping("sales_status")
+    public String salesStatusViewAll(Model model,
+                               @PageableDefault(page = 0,size = 5,sort = "buyProductId",direction = Sort.Direction.DESC)
+                               Pageable pageable) {
+        //넘겨온 페이지 번호로 리스트 받아오기
+        Page<BuyProductDto> paging = adminService.pagingListBuyProduct(pageable);
+        Long count =  paging.getTotalElements();
+
+        //상태값 출력
+        List<String> statusValues = new ArrayList<>();
+        statusValues.add("입금완료");
+        statusValues.add("배송중");
+        statusValues.add("배송완료");
 //           List<ProductStatus> statusValues = Arrays.asList(ProductStatus.values());
-        
-        model.addAttribute("statusValues",statusValues);
+
+
+        //페이지 출력 처리 (1,2,3,4,5)
+        int totalPage = paging.getTotalPages();
+        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), totalPage);
         model.addAttribute("count", count);
-        model.addAttribute("dto", dto);
+        model.addAttribute("paginationBarNumbers", barNumbers);
+        model.addAttribute("paging", paging);
+        model.addAttribute("statusValues",statusValues);
         return "/admin/sales_status";
     }
-    
+
+
+
+
     @PostMapping("/updateProductStatus")
     public String updateProductStatus(@RequestParam("status")String status,
                                                                @RequestParam("buyProductId")Long buyProductId){
@@ -160,15 +241,34 @@ public class AdminPageController {
     
     
     // =======================상품목록==========================
-       @GetMapping("/product_all")
-       public String productViewAll(Model model) {
-              List<ProductDto> dto = adminService.productViewAll();
-              long count = dto.stream().count();
-              model.addAttribute("count", count);
-              model.addAttribute("dto", dto);
-              return "/admin/product_all";
-       }
-    
+//       @GetMapping("/product_all")
+//       public String productViewAll(Model model) {
+//              List<ProductDto> dto = adminService.productViewAll();
+//              long count = dto.stream().count();
+//              model.addAttribute("count", count);
+//              model.addAttribute("dto", dto);
+//              return "/admin/product_all";
+//       }
+
+    //상품 목록 확인(관리자용) - 페이징처리
+    @GetMapping("product_all")
+    public String productViewAll(Model model,
+                           @PageableDefault(page = 0,size = 5,sort = "productId",direction = Sort.Direction.DESC)
+                           Pageable pageable) {
+        //넘겨온 페이지 번호로 리스트 받아오기
+        Page<Product> paging = adminService.pagingListProduct(pageable);
+        Long count = paging.stream().count();
+
+        //페이지 출력 처리 (1,2,3,4,5)
+        int totalPage = paging.getTotalPages();
+        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), totalPage);
+        model.addAttribute("count", count);
+        model.addAttribute("paginationBarNumbers", barNumbers);
+        model.addAttribute("paging", paging);
+        return "/admin/product_all";
+    }
+
+
     @GetMapping("/product_change/{id}")
     public String productChange(@PathVariable("id") Long productId, Model model) {
         ProductDto productDto = adminService.productViewFindById(productId);
@@ -230,15 +330,30 @@ public class AdminPageController {
     
     
     // =======================회원목록==========================
-       @GetMapping("/user_all")
-       public String showAllUser(Model model) {
-              List<UserAccountDto> dtoList = adminService.showAllUserExceptAdmin();
-              long count = dtoList.size();
-              model.addAttribute("count", count);
-              model.addAttribute("dtoList", dtoList);
-              return "admin/user_all";
-       }
-       
+//       @GetMapping("/user_all")
+//       public String showAllUser(Model model) {
+//              List<UserAccountDto> dtoList = adminService.showAllUserExceptAdmin();
+//              long count = dtoList.size();
+//              model.addAttribute("count", count);
+//              model.addAttribute("dtoList", dtoList);
+//              return "admin/user_all";
+//       }
+    //상품 목록 확인(관리자용) - 페이징처리
+    @GetMapping("user_all")
+    public String userViewAll(Model model,
+                                 @PageableDefault(page = 0,size = 5,sort = "createdAt",direction = Sort.Direction.DESC)
+                                 Pageable pageable) {
+        //넘겨온 페이지 번호로 리스트 받아오기
+        Page<UserAccount> paging = adminService.pagingListUser(pageable);
+        Long count = paging.stream().count();
+        //페이지 출력 처리 (1,2,3,4,5)
+        int totalPage = paging.getTotalPages();
+        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), totalPage);
+        model.addAttribute("paginationBarNumbers", barNumbers);
+        model.addAttribute("paging", paging);
+        model.addAttribute("count", count);
+        return "/admin/user_all";
+    }
 
        
        

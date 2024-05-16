@@ -16,8 +16,10 @@ import com.example.shop_project_01.repository.ProductRepository;
 import com.example.shop_project_01.repository.UserAccountRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
@@ -105,9 +107,9 @@ public class AdminService {
               noticeRepository.save(notice);
        }
        
-       public List<NoticeDto> showAllNotice() {
-              return noticeRepository.findAll().stream().map(x -> NoticeDto.fromNoticeEntity(x)).toList();
-       }
+//       public List<NoticeDto> showAllNotice() {
+//              return noticeRepository.findAll().stream().map(x -> NoticeDto.fromNoticeEntity(x)).toList();
+//       }
        
        public NoticeDto noticeViewFindById(Long noticeId) {
               return noticeRepository.findById(noticeId).map(x -> NoticeDto.fromNoticeEntity(x)).orElse(null);
@@ -194,5 +196,42 @@ public class AdminService {
                             break;
               }
               em.persist(buyProduct);
+       }
+//페이징 처리 목록들
+    public Page<Notice> pagingListNotice(Pageable pageable) {
+           return noticeRepository.findAll(pageable);
+    }
+
+       public Page<Product> pagingListProduct(Pageable pageable) {
+              return productRepository.findAll(pageable);
+       }
+
+       public Page<UserAccount> pagingListUser(Pageable pageable) {
+              return userAccountRepository.findAllExceptAdmin(pageable);
+       }
+
+       public Page<BuyProductDto> pagingListBuyProduct(Pageable pageable) {
+              Page<BuyProduct> page = buyProductRepository.findAll(pageable);
+              List<BuyProductDto> dtos = page.getContent().stream()
+                      .map(x -> {
+                             BuyProductDto dto = BuyProductDto.buyProductDtoFromEntity(x);
+                             String productName = cartAndBuyService.productNameFindByProductId(dto.getProductId());
+                             dto.setProductName(productName);
+                             dto.setDate(dto.getSalesDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH:mm")));
+                             switch (dto.getProductStatus()) {
+                                    case FINISH:
+                                           dto.setStatues("배송완료");
+                                           break;
+                                    case DELIVER:
+                                           dto.setStatues("배송중");
+                                           break;
+                                    case DEPOSIT:
+                                           dto.setStatues("입금완료");
+                                           break;
+                             }
+                             return dto;
+                      })
+                      .collect(Collectors.toList());
+              return new PageImpl<>(dtos, pageable, page.getTotalElements());
        }
 }

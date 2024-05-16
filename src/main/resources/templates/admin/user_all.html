@@ -24,7 +24,7 @@
                 <th>가입일</th>
                 <th>관리</th>
             </tr>
-            <tr th:each="user : ${dtoList}" th:object="${user}" >
+            <tr th:each="user : ${paging}" th:object="${user}" >
                     <td th:text="*{username}"></td>
                     <td th:text="*{name}"></td>
                     <td th:text="*{userPhone}"></td>
@@ -43,6 +43,28 @@
                 </td>
             </tr>
         </table>
+        <br>
+        <div style="display: flex; justify-content: center;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${paging.number}<=0?'disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/user_all(page=${paging.number-1})}">
+                            <<
+                        </a>
+                    </li>
+                    <th:block th:each="pageNumber:${paginationBarNumbers}">
+                        <li class="page-item"><a class="page-link"
+                                                 th:href="@{/admin/user_all(page=${pageNumber})}"
+                                                 th:text="${pageNumber+1}">1</a></li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${paging.number}==${paging.totalPages-1}?'disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/user_all(page=${paging.number+1})}">>></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
 </body>

@@ -22,8 +22,8 @@
                 <th>상품가격</th>
                 <th>변경사항</th>
             </tr>
-            <tr th:each="product : ${dto}" th:object="${product}">
-                <td>[[*{mainCategory}]] > [[*{subCategory}]]</td>
+            <tr th:each="product : ${paging}" th:object="${product}">
+                <td>[[*{mainCategoryName}]] > [[*{subCategoryName}]]</td>
                 <td>이미지 넣어야함</td>
                 <td th:text="*{productName}"></td>
                 <td th:text="*{productPrice}+원"></td>
@@ -39,6 +39,28 @@
                 </td>
             </tr>
         </table>
+        <br>
+        <div style="display: flex; justify-content: center;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${paging.number}<=0?'disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/product_all(page=${paging.number-1})}">
+                            <<
+                        </a>
+                    </li>
+                    <th:block th:each="pageNumber:${paginationBarNumbers}">
+                        <li class="page-item"><a class="page-link"
+                                                 th:href="@{/admin/product_all(page=${pageNumber})}"
+                                                 th:text="${pageNumber+1}">1</a></li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${paging.number}==${paging.totalPages-1}?'disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/product_all(page=${paging.number+1})}">>></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
 </body>

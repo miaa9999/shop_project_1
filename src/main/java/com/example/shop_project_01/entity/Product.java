@@ -37,6 +37,7 @@ public class Product {
 //    @ManyToOne
 //    @JoinColumn(name = "mainCategoryName")
 //    private SubCategory subCategory;
+
     //게시판
     private String content;
 

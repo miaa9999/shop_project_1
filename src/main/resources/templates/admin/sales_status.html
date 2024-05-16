@@ -28,7 +28,7 @@
                 <th>상태</th>
                 <th>상태변경</th>
             </tr>
-            <tr th:each="product : ${dto}" th:object="${product}">
+            <tr th:each="product : ${paging}" th:object="${product}">
                 <td th:text="*{productName}"></td>
                 <td th:text="*{count}"></td>
                 <td th:text="*{totalPrice}+원"></td>
@@ -46,7 +46,31 @@
                 </td>
             </tr>
         </table>
+        <br>
+        <div style="display: flex; justify-content: center;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${paging.number}<=0?'disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/sales_status(page=${paging.number-1})}">
+                            <<
+                        </a>
+                    </li>
+                    <th:block th:each="pageNumber:${paginationBarNumbers}">
+                        <li class="page-item"><a class="page-link"
+                                                 th:href="@{/admin/sales_status(page=${pageNumber})}"
+                                                 th:text="${pageNumber+1}">1</a></li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${paging.number}==${paging.totalPages-1}?'disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/sales_status(page=${paging.number+1})}">>></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
+
+</div>
 </div>
 </body>
 </html>

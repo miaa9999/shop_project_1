@@ -3,14 +3,20 @@ package com.example.shop_project_01.controller;
 import com.example.shop_project_01.dto.NoticeDto;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.dto.UserAccountDto;
+import com.example.shop_project_01.entity.Notice;
 import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.repository.NoticeRepository;
 import com.example.shop_project_01.service.CategoryService;
 import com.example.shop_project_01.service.NoticeService;
+import com.example.shop_project_01.service.PaginationService;
 import com.example.shop_project_01.service.UserAccountService;
 import jakarta.websocket.server.PathParam;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +34,9 @@ public class MainController {
        UserAccountService userAccountService;
        @Autowired
        NoticeService noticeService;
+       @Autowired
+       PaginationService paginationService;
+
        @GetMapping("/")
        public String main() {
               return "/product/main";
@@ -38,13 +47,31 @@ public class MainController {
               return "/admin/admin_page";
        }
 
-       //공지사항 페이지
-       @GetMapping("/notice")
-       public String noticePage(Model model){
-              List<NoticeDto> dtoList = noticeService.showAllNotice();
-              long count = dtoList.size();
+//       //공지사항 페이지
+//       @GetMapping("/notice")
+//       public String noticePage(Model model){
+//              List<NoticeDto> dtoList = noticeService.showAllNotice();
+//              long count = dtoList.size();
+//              model.addAttribute("count", count);
+//              model.addAttribute("dtoList", dtoList);
+//              return "/notice/notice_all";
+//       }
+
+       //공지사항 페이지 - 페이징처리
+       @GetMapping("notice")
+       public String testView(Model model,
+                              @PageableDefault(page = 0,size = 5,sort = "createdAt",direction = Sort.Direction.DESC)
+                              Pageable pageable) {
+              //넘겨온 페이지 번호로 리스트 받아오기
+              Page<Notice> paging = noticeService.pagingList(pageable);
+
+              //페이지 출력 처리 (1,2,3,4,5)
+              int totalPage = paging.getTotalPages();
+              List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), totalPage);
+              model.addAttribute("paginationBarNumbers", barNumbers);
+              Long count = paging.stream().count();
               model.addAttribute("count", count);
-              model.addAttribute("dtoList", dtoList);
+              model.addAttribute("paging", paging);
               return "/notice/notice_all";
        }
 
