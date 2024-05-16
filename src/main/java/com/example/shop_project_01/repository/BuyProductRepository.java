@@ -6,6 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface BuyProductRepository extends JpaRepository<BuyProduct,Long> {
        Page<BuyProduct> findByBuy_ProductStatus(ProductStatus productStatus, Pageable pageable);
+       List<BuyProduct> findByBuy_Username(String username);
 }

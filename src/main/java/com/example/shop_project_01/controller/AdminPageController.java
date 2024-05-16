@@ -181,10 +181,7 @@ public class AdminPageController {
         model.addAttribute("paging", paging);
         return "/admin/sales_all";
        }
-<<<<<<< HEAD
-       
-=======
->>>>>>> 0c57b91f5f58f71202dd46d6bec12d043b86db60
+
        @GetMapping("/sales_all/deposit")
        public String salesAllWithDeposit(Model model,@PageableDefault(page = 0,size = 5,sort = "buyProductId",direction = Sort.Direction.DESC)
                Pageable pageable) {
@@ -225,10 +222,7 @@ public class AdminPageController {
         statusValues.add("입금완료");
         statusValues.add("배송중");
         statusValues.add("배송완료");
-<<<<<<< HEAD
-=======
-//           List<ProductStatus> statusValues = Arrays.asList(ProductStatus.values());
->>>>>>> 0c57b91f5f58f71202dd46d6bec12d043b86db60
+
         
         //페이지 출력 처리 (1,2,3,4,5)
         int totalPage = paging.getTotalPages();

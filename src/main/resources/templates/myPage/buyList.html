@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/myCart_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <br>
+    <br>
+    <h2 align="center">구매내역</h2>
+    <br>
+    <div th:if="${size}==0">구매내역이 없습니다.</div>
+    <div th:unless="${size}==0">
+
+
+        <table class="type1" align="center" border="2">
+            <tr>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>가격</th>
+                <th>상태</th>
+            </tr>
+
+            <tr th:each="my : ${buyList}" th:object="${my}">
+                <td th:text="*{productName}"></td>
+                <td th:text="*{count}"></td>
+                <td th:text="*{totalPrice}"></td>
+                <td th:text="*{statues}"></td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

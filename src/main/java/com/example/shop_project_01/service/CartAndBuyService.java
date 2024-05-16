@@ -6,14 +6,14 @@ import com.example.shop_project_01.dto.BuyProductDto;
 import com.example.shop_project_01.dto.CartProductDto;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.entity.*;
-import com.example.shop_project_01.repository.CartProductRepository;
-import com.example.shop_project_01.repository.CartRepository;
-import com.example.shop_project_01.repository.ProductRepository;
-import com.example.shop_project_01.repository.UserAccountRepository;
+import com.example.shop_project_01.repository.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +22,8 @@ import java.util.Optional;
 public class CartAndBuyService {
     @Autowired
     CartRepository cartRepository;
+    @Autowired
+    BuyProductRepository buyProductRepository;
 
     @Autowired
     UserAccountRepository userAccountRepository;
@@ -201,5 +203,36 @@ public class CartAndBuyService {
                 em.remove(cartProduct);
             }
             
+       }
+
+       //사용자의 구매 list
+       public List<BuyProductDto> showBuyList(String username) {
+           List<BuyProductDto> dtos = buyProductRepository.findByBuy_Username(username).stream().map(x -> BuyProductDto.buyProductDtoFromEntity(x)).toList();
+           List<BuyProductDto> dtoList = new ArrayList<>();
+           String statues = null;
+
+           for (BuyProductDto buyDto : dtos) {
+               String productName = productNameFindByProductId(buyDto.getProductId());
+               buyDto.setProductName(productName);
+               buyDto.setDate(buyDto.getSalesDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm")));
+               switch (buyDto.getProductStatus()) {
+                   case FINISH:
+                       statues = "배송완료";
+                       buyDto.setStatues(statues);
+                       break;
+
+                   case DELIVER:
+                       statues = "배송중";
+                       buyDto.setStatues(statues);
+                       break;
+
+                   case DEPOSIT:
+                       statues = "입금완료";
+                       buyDto.setStatues(statues);
+                       break;
+               }
+           }
+           return dtos;
+
        }
 }

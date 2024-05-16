@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -110,5 +111,16 @@ public class CartAndBuyController {
         }
         
         return "/product/main";
+    }
+
+    @GetMapping("/buyList")
+    public String showBuyList(Model model) {
+        String username = userService.loginUsername();
+        List<BuyProductDto> dto = cartAndBuyService.showBuyList(username);
+        int count = dto.size();
+        model.addAttribute("size",count);
+        model.addAttribute("buyList",dto);
+
+        return "myPage/buyList";
     }
 }
