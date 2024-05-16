@@ -32,6 +32,10 @@
                     <br>
                     <input type="hidden" name="productId" th:value="*{productId}">
                     <span class="product-price" th:text="*{productPrice} + '원'"></span>
+                    <span th:if="*{productStock}<30">
+                    <span th:if="*{productStock}==0"> 품절</span>
+                    <span th:unless="*{productStock}==0">품절임박</span>
+                </span>
                 </div>
             </div>
         </div>

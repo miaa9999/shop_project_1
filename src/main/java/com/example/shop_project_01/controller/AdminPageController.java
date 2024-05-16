@@ -61,6 +61,7 @@ public class AdminPageController {
 //              return "admin/notice_all";
 //       }
 
+       //===============================공지사항==================================
     //공지사항 목록 확인(관리자용) - 페이징처리
     @GetMapping("notice_all")
     public String showAllNotice(Model model,
@@ -96,10 +97,6 @@ public class AdminPageController {
               return "redirect:/admin/notice_all";
        }
        
-
-
-
-
         //공지사항 하나씩 확인하기
        @GetMapping("/notice_change/{noticeId}")
        public String noticeChange(@PathVariable("noticeId") Long noticeId, Model model) {
@@ -184,7 +181,10 @@ public class AdminPageController {
         model.addAttribute("paging", paging);
         return "/admin/sales_all";
        }
+<<<<<<< HEAD
        
+=======
+>>>>>>> 0c57b91f5f58f71202dd46d6bec12d043b86db60
        @GetMapping("/sales_all/deposit")
        public String salesAllWithDeposit(Model model,@PageableDefault(page = 0,size = 5,sort = "buyProductId",direction = Sort.Direction.DESC)
                Pageable pageable) {
@@ -225,6 +225,10 @@ public class AdminPageController {
         statusValues.add("입금완료");
         statusValues.add("배송중");
         statusValues.add("배송완료");
+<<<<<<< HEAD
+=======
+//           List<ProductStatus> statusValues = Arrays.asList(ProductStatus.values());
+>>>>>>> 0c57b91f5f58f71202dd46d6bec12d043b86db60
         
         //페이지 출력 처리 (1,2,3,4,5)
         int totalPage = paging.getTotalPages();
@@ -242,8 +246,6 @@ public class AdminPageController {
     @PostMapping("/updateProductStatus")
     public String updateProductStatus(@RequestParam("status")String status,
                                                                @RequestParam("buyProductId")Long buyProductId){
-           System.out.println(buyProductId);
-           System.out.println(status);
            adminService.updateProductStatus(buyProductId,status);
            return "redirect:/admin/sales_status";
     }
@@ -279,14 +281,10 @@ public class AdminPageController {
     }
 
 
-    @GetMapping("/product_change/{id}")
-    public String productChange(@PathVariable("id") Long productId, Model model) {
-        ProductDto productDto = adminService.productViewFindById(productId);
-        
-        model.addAttribute("product", productDto);
-        return "admin/product_change";
-    }
-    
+
+       
+       //===============================상품등록==================================
+       
     // 상품등록하기
     @GetMapping("/product_add")
     public String addProductView(Model model) {
@@ -299,7 +297,14 @@ public class AdminPageController {
         adminService.addProduct(dto);
         return "redirect:/admin/product_all";
     }
-    
+       
+       @GetMapping("/product_change/{id}")
+       public String productChange(@PathVariable("id") Long productId, Model model) {
+              ProductDto productDto = adminService.productViewFindById(productId);
+              
+              model.addAttribute("product", productDto);
+              return "admin/product_change";
+       }
     
     //상품 정보 수정하기
     @GetMapping("/product_update")

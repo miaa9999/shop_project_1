@@ -1,5 +1,6 @@
 package com.example.shop_project_01.dto;
 
+import com.example.shop_project_01.constant.ProductSale;
 import com.example.shop_project_01.entity.Cart;
 import com.example.shop_project_01.entity.CartProduct;
 import com.example.shop_project_01.entity.Product;
@@ -30,6 +31,9 @@ public class CartProductDto {
 
     private String productName;
     
+    private int stock;
+    
+    private ProductSale productSale;
     public CartProductDto(int count, Long productId, int productPrice, Long cartId) {
         this.count = count;
         this.productId = productId;

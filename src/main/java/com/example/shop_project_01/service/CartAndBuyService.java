@@ -1,5 +1,6 @@
 package com.example.shop_project_01.service;
 
+import com.example.shop_project_01.constant.ProductSale;
 import com.example.shop_project_01.dto.BuyDto;
 import com.example.shop_project_01.dto.BuyProductDto;
 import com.example.shop_project_01.dto.CartProductDto;
@@ -82,6 +83,13 @@ public class CartAndBuyService {
 
         return cartProducts;
     }
+    
+    public List<CartProduct> showMyCartSoldOut(String username) {
+        Cart cart = cartRepository.findByUserAccount_Username(username);
+        List<CartProduct> cartProducts = cartProductRepository.findByCart_CartIdAndProduct_ProductSale(cart.getCartId(),ProductSale.FOR_SALE);
+        
+        return cartProducts;
+    }
        
        
        public String productNameFindByProductId(Long productId) {
@@ -101,8 +109,12 @@ public class CartAndBuyService {
         Product product = em.find(Product.class,buyProductDto.getProductId());
         BuyProduct buyProduct = new BuyProduct();
         int stock = product.getProductStock()-buyProductDto.getCount();
-        
         product.setProductStock(stock);
+        if (stock>0){
+            product.setProductSale(ProductSale.FOR_SALE);
+        }else {
+            product.setProductSale(ProductSale.SOLD_OUT);
+        }
         
         int totalPrice =  buyProductDto.getPrice()*buyProductDto.getCount();
         buyProduct.setCount(buyProductDto.getCount());
@@ -143,7 +155,11 @@ public class CartAndBuyService {
             Product product = em.find(Product.class,buyPro.getProductId());
             int stock = product.getProductStock()-buyPro.getCount();
             product.setProductStock(stock);
-            
+            if (stock>0){
+                product.setProductSale(ProductSale.FOR_SALE);
+            }else {
+                product.setProductSale(ProductSale.SOLD_OUT);
+            }
             em.persist(product);
             
             BuyProduct buyProduct = new BuyProduct();
