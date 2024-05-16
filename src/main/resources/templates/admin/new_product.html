@@ -60,10 +60,11 @@
                 <div id="errorDivDescription" style="color:red; font-weight:bold"></div>
             </div>
             <div class="mb3">
-<!--                <label class="form-label">이미지 등록</label>-->
-<!--                <input id="imgUrl" name="imgUrl" type="text" th:field="*{imgUrl}"  class="form-control">-->
-
+                <label class="form-label">이미지 등록</label>
+                <input id="imgFile" name="imgFile" type="file" class="form-control">
+                <div id="errorDivImgfileInput" style="color:red; font-weight:bold"></div>
             </div>
+            <br>
             <br>
             <button type="submit" class="btn btn-primary">상품등록</button>
             <input type="button" value="다시" class="btn btn-primary" onclick="res()">

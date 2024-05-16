@@ -23,7 +23,9 @@
             <div class="product" th:each="book : ${bookAll}" th:object="${book}">
                 <div class="product-inner">
                     <!-- 상품 이미지 -->
-                    <div>이미지 자리</div>
+                    <div>
+                        <img class="product-image" th:src="@{${book.getImgPath()}}" width="400px" height="400px">
+                    </div>
                     <!--                    <img class="product-image" th:src="*{productImage}" alt="상품 이미지">-->
                     <img class="product-image" src="img/bookk.jpg" alt="상품 이미지">
                     <br>
