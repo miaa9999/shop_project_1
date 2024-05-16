@@ -32,11 +32,14 @@
                         상품명
                     </td>
                     <td>
+                        <span th:if="${my.stock}==0" aria-disabled="true">품절로인하여 <br> 구매가 불가능합니다.</span>
+                        <span th:unless="${my.stock}==0" aria-disabled="true">
                         <form id="modifyForm" th:action="@{/cart/modify}" method="post">
                             <input type="hidden" th:value="*{cartProductId}" name="cartProductId">
-                            <input type="number" th:value="${my.count}" name="count">
+                            <input type="number" th:value="${my.count}" name="count" th:max="${my.stock}">
                             <input type="submit" name="change" value="수정">
                         </form>
+                        </span>
                     </td>
                     <td th:text="${my.productPrice}*${my.count}">가격</td>
                     <td>

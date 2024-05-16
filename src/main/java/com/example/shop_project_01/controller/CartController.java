@@ -33,7 +33,7 @@ public class CartController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         List<CartProduct> cartProducts = cartAndBuyService.showMyCart(username);
         List<CartProductDto> cartProductDtos = new ArrayList<>();
-
+        
             int listSize = cartProducts.size();
             for (CartProduct cartProduct : cartProducts){
                CartProductDto cart = new CartProductDto();
@@ -41,7 +41,7 @@ public class CartController {
                cart.setCount(cartProduct.getCount());
                cart.setProductName(cartProduct.getProduct().getProductName());
                cart.setProductPrice(cartProduct.getProduct().getProductPrice());
-
+                cart.setStock(cartProduct.getProduct().getProductStock());
                cartProductDtos.add(cart);
             }
         model.addAttribute("size",listSize);
@@ -70,7 +70,7 @@ public class CartController {
     public String cartBuyAll(Model model){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         int point = cartAndBuyService.userPointFindByUsername(username);
-        List<CartProduct> cartProducts = cartAndBuyService.showMyCart(username);
+        List<CartProduct> cartProducts = cartAndBuyService.showMyCartSoldOut(username);
         List<CartProductDto> cartProductDtos = new ArrayList<>();
         
         int total  = 0;
@@ -78,8 +78,6 @@ public class CartController {
         for (CartProduct cartProduct : cartProducts) {
             total = total + cartProduct.getProduct().getProductPrice() * cartProduct.getCount();
         }
-        
-
         for (CartProduct cartProduct : cartProducts){
             CartProductDto cart = new CartProductDto();
             cart.setCartProductId(cartProduct.getCartProductId());
@@ -111,7 +109,7 @@ public class CartController {
             
         } else if (action.equals("buy")) {
             LocalDateTime buyDate = LocalDateTime.now();
-            List<CartProduct> cartProducts = cartAndBuyService.showMyCart(loginUsername);
+            List<CartProduct> cartProducts = cartAndBuyService.showMyCartSoldOut(loginUsername);
             List<BuyProductDto> buyProductDtos = new ArrayList<>();
             BuyDto buyDto = new BuyDto(buyDate,ProductStatus.DEPOSIT);
             for (CartProduct cartProduct : cartProducts) {

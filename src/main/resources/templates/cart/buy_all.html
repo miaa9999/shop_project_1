@@ -13,6 +13,10 @@
     <br>
     <h2 align="center">구매창</h2>
     <br>
+    <div th:if="${total}==0" align="center">
+        구매가 가능한 상품이 없습니다.
+    </div>
+    <div th:unless="${total}==0">
     <form  method="post" th:action="@{/buy_all}">
         <table class="type1" align="center" border="2">
             <tr>
@@ -42,7 +46,7 @@
             <button type="submit" name="action" value="cancel">취소</button>
         </div>
     </form>
-
+    </div>
 
 </div>
 </body>

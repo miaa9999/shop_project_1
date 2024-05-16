@@ -1,8 +1,12 @@
 package com.example.shop_project_01.entity;
 
+import com.example.shop_project_01.constant.ProductSale;
 import com.example.shop_project_01.constant.ProductStatus;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -30,17 +34,17 @@ public class Product {
     private String mainCategoryName;
     
     private String subCategoryName;
-//    @ManyToOne
-//    @JoinColumn(name = "mainCategoryName")
-//    private MainCategory mainCategory;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "mainCategoryName")
-//    private SubCategory subCategory;
-
     //게시판
     private String content;
 
-    private String imgUrl;
+    private String imgName;
     
+    private String imgPath;
+    
+    @Enumerated(EnumType.STRING)
+    private ProductSale productSale;
+    
+    @CreatedDate
+    @Column(name = "upload_date",updatable = false)
+    private LocalDateTime uploadDate;
 }

@@ -27,26 +27,34 @@
 
         <div class="productOneTitle">
             <div>
-                <img th:src="${product.imgUrl}">상품 이미지
+              상품 이미지
             </div>
             <div>
                 <h3>[[${product.productName}]]</h3>
                 <h4 align="right">[[${product.productPrice}]]원</h4>
                 <div align="right">
-                <span th:if="*{productStock}<30">품절임박<br>남은재고 : [[*{productStock}]]</span>
+                <span th:if="*{productStock}<30">
+                    <span th:if="*{productStock}==0"> 품절 상품</span>
+                    <span th:unless="*{productStock}==0">  품절임박<br>남은재고 : [[*{productStock}]]</span>
+                </span>
+
                     <span th:unless="*{productStock}<30"></span>
                 </div>
             </div>
 <!--            <input type="hidden" name="product" th:value="${product}">-->
             <input type="hidden" name="price" th:value="*{productPrice}">
-            <input type="number" name="count" th:max="${productStock}" value="1" min="1">
+
             <input type="hidden" name="productId" th:value="*{productId}">
             <input type="hidden" name="loginUsername" th:value="${loginUsername}">
-<!--            <button type="submit" name="action" value="cart" onclick="addToCart()">장바구니에 넣기-->
-<!--            </button>   -->
-            <button type="submit" name="action" value="cart">장바구니에 넣기
-        </button>
-            <button type="submit" name="action" value="buy">구매하기</button>
+            <span th:if="*{productStock}>0">
+                <input type="number" name="count" th:max="*{productStock}" value="1" min="1">
+                <button type="submit" name="action" value="cart">장바구니에 넣기</button>
+            <button type="submit" name="action" value="buy">구매하기</button></span>
+            <span th:unless="*{productStock}>0">
+                <input type="number" name="count" disabled th:max="*{productStock}" value="0" min="0">
+                <button type="submit" name="action" disabled value="cart">장바구니에 넣기</button>
+            <button type="submit" name="action" disabled value="buy">구매하기</button></span>
+
         </div>
         <br>
 
