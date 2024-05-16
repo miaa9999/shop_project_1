@@ -119,6 +119,16 @@ public class AdminPageController {
               model.addAttribute("dto", dto);
               return "/admin/sales_all";
        }
+       
+       @GetMapping("/sales_all/deliver")
+       public String salesAllWithDeliver(Model model) {
+              List<BuyProductDto> dto = adminService.showSalesAll();
+              long count = dto.size();
+              
+              model.addAttribute("count", count);
+              model.addAttribute("dto", dto);
+              return "/admin/sales_all";
+       }
     
     @GetMapping("/sales_status")
     public String salesStatus(Model model) {

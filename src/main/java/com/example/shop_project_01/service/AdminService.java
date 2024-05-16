@@ -151,6 +151,35 @@ public class AdminService {
               return dtos;
        }
        
+//       public List<BuyProductDto> showSalesAllDeliver() {
+//              List<BuyProductDto> dtos = buyProductRepository.findAllByStatusContaining(ProductStatus.DELIVER).stream().map(x -> BuyProductDto.buyProductDtoFromEntity(x)).toList();
+//              List<BuyProductDto> dtoList = new ArrayList<>();
+//              String statues = null;
+//
+//              for (BuyProductDto buyDto : dtos) {
+//                     String productName = cartAndBuyService.productNameFindByProductId(buyDto.getProductId());
+//                     buyDto.setProductName(productName);
+//                     buyDto.setDate(buyDto.getSalesDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm")));
+//                     switch (buyDto.getProductStatus()) {
+//                            case FINISH:
+//                                   statues = "배송완료";
+//                                   buyDto.setStatues(statues);
+//                                   break;
+//
+//                            case DELIVER:
+//                                   statues = "배송중";
+//                                   buyDto.setStatues(statues);
+//                                   break;
+//
+//                            case DEPOSIT:
+//                                   statues = "입금완료";
+//                                   buyDto.setStatues(statues);
+//                                   break;
+//                     }
+//              }
+//              return dtos;
+//       }
+       
        public void updateProductStatus(Long buyProductId, String status) {
               BuyProduct buyProduct = em.find(BuyProduct.class,buyProductId);
               switch (status){

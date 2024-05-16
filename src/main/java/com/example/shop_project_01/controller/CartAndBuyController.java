@@ -55,7 +55,7 @@ public class CartAndBuyController {
                 CartProductDto cartProductDto = new CartProductDto(count, productId, price, userCartNum);
                 cartAndBuyService.addCartProduct(cartProductDto);
             }
-            return "redirect:/product_detail/" + productId;
+            return "redirect:/cart";
             
         } else if (action.equals("buy")) {
           //구매하기 버튼 눌렀을때 작동
