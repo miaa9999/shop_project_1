@@ -21,7 +21,8 @@
 
         <div class="productOneTitle">
             <div>
-                상품 이미지
+                <img class="product-image" th:src="@{${product.getImgPath()}}" width="400px" height="400px">
+
             </div>
             <div>
                 <h3>상품이름:[[*{productName}]]</h3>

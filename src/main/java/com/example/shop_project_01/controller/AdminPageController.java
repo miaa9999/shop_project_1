@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -280,17 +281,23 @@ public class AdminPageController {
        //===============================상품등록==================================
        
     // 상품등록하기
+
     @GetMapping("/product_add")
-    public String addProductView(Model model) {
+    public String addProductView(Model model){
         model.addAttribute("productDto", new ProductDto());
         return "admin/new_product";
     }
-    
+
     @PostMapping("/product_add")
-    public String addProduct(@ModelAttribute("productDto") ProductDto dto) {
-        adminService.addProduct(dto);
+    public String addProduct(@ModelAttribute ProductDto dto, @RequestParam("imgFile") MultipartFile imgFile) {
+        try {
+            adminService.addProduct(dto, imgFile);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return "redirect:/admin/product_all";
     }
+
        
        @GetMapping("/product_change/{id}")
        public String productChange(@PathVariable("id") Long productId, Model model) {
