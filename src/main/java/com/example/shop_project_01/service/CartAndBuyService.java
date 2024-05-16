@@ -98,7 +98,7 @@ public class CartAndBuyService {
     public void addBuyProductOne(BuyDto buyDto, BuyProductDto buyProductDto) {
         String username = userService.loginUsername();
         UserAccount userAccount = em.find(UserAccount.class,username);
-        Product product = em.find(Product.class,buyProductDto.getBuyProductId());
+        Product product = em.find(Product.class,buyProductDto.getProductId());
         BuyProduct buyProduct = new BuyProduct();
         int stock = product.getProductStock()-buyProductDto.getCount();
         

@@ -225,18 +225,6 @@ html{
       outline: none;
     }
 
-    /*
-    .search_icon{
-          margin-top : 10px;
-          padding : 5px 10px;
-          font-size: 14px;
-          color:#000000;
-          background-color: transparent;
-          border-radius: 50px;
-          border-width:0;
-    }
-    */
-
    img.search_icon{
    margin top : 100px;
    margin right : 10px;
@@ -257,15 +245,16 @@ html{
            margin-right : auto;
     }
     table.type1 th {
-      width: 155px;
+      width: 160px;
       padding: 10px;
       font-weight: bold;
       vertical-align: top;
       color: #fff;
       background: rgb(58, 155, 69) ;
     }
+
     table.type1 td {
-      width: 155px;
+      width: 160px;
       padding: 10px;
       vertical-align: top;
       border-bottom: 1px solid #ccc;

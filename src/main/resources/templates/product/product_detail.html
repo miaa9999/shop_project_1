@@ -32,6 +32,10 @@
             <div>
                 <h3>[[${product.productName}]]</h3>
                 <h4 align="right">[[${product.productPrice}]]원</h4>
+                <div align="right">
+                <span th:if="*{productStock}<30">품절임박<br>남은재고 : [[*{productStock}]]</span>
+                    <span th:unless="*{productStock}<30"></span>
+                </div>
             </div>
 <!--            <input type="hidden" name="product" th:value="${product}">-->
             <input type="hidden" name="price" th:value="*{productPrice}">
