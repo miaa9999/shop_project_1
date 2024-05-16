@@ -1,6 +1,8 @@
 package com.example.shop_project_01.dto;
 
 import com.example.shop_project_01.constant.ProductStatus;
+import com.example.shop_project_01.entity.Buy;
+import com.example.shop_project_01.entity.BuyProduct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,32 +39,22 @@ public class BuyDto {
        //구매내역 번호 (상세)
        private Long buyProductId;
        
-//       //구매내역 번호 (상세) - 구매수량
-//       private int count;
-//
-//       //구매내역 번호 (상세) - 구매가격 ( join 아님 )
-//       private int price;
-//
-//       //구매내역 번호 (상세) - 상품번호
-//       private Long productId;
-//
-//       private String productName;
-
-//       public BuyDto(String username, int count, int price, String productName, Long productId,int insertPoint) {
-//              this.username = username;
-//              this.count = count;
-//              this.price = price;
-//              this.productName = productName;
-//              this.productId = productId;
-//              this.insertPoint = insertPoint;
-//       }
-//
-//       public BuyDto(LocalDateTime buyDate, String username, ProductStatus productStatus, int count, int price, Long productId) {
-//              this.buyDate = buyDate;
-//              this.username = username;
-//              this.productStatus = productStatus;
-//              this.count = count;
-//              this.price = price;
-//              this.productId = productId;
-//       }
+       private String statues;
+       
+       private String date;
+       public BuyDto(Long buyId, LocalDateTime buyDate, String username, ProductStatus productStatus) {
+              this.buyId = buyId;
+              this.buyDate = buyDate;
+              this.username = username;
+              this.productStatus = productStatus;
+       }
+       
+       public static BuyDto buyDtoFromEntity (Buy buy){
+              return new BuyDto(
+                     buy.getBuyId(),
+                     buy.getBuyDate(),
+                     buy.getUsername(),
+                     buy.getProductStatus()
+              );
+       }
 }

@@ -71,10 +71,9 @@
                             </ul>
                         </li>
 
-                        <form align=right style="margin-right:20px; padding-top:5px;">
+                        <form align=right style="margin-right:20px; padding-top:5px;" method="post" th:action="@{/search}">
                             <img class="search_icon" type="submit" src="/img/search_icon.png">
-                            <input class="search_input" type="text" placeholder="Search">
-
+                            <input class="search_input" type="text" name="search" placeholder="Search">
                         </form>
 
                     </ul>
