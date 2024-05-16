@@ -96,10 +96,6 @@ public class AdminPageController {
               return "redirect:/admin/notice_all";
        }
        
-
-
-
-
         //공지사항 하나씩 확인하기
        @GetMapping("/notice_change/{noticeId}")
        public String noticeChange(@PathVariable("noticeId") Long noticeId, Model model) {
@@ -182,8 +178,6 @@ public class AdminPageController {
               model.addAttribute("dto", dto);
               return "/admin/sales_all";
        }
-//<<<<<<< HEAD
-       
        @GetMapping("/sales_all/deposit")
        public String salesAllWithDeposit(Model model) {
               List<BuyProductDto> dto = adminService.showSalesAllDeposit();
@@ -248,7 +242,6 @@ public class AdminPageController {
         statusValues.add("입금완료");
         statusValues.add("배송중");
         statusValues.add("배송완료");
-//>>>>>>> 03a3de7f233d15438e7da2344f993d7a1d1ecc72
 //           List<ProductStatus> statusValues = Arrays.asList(ProductStatus.values());
         
         //페이지 출력 처리 (1,2,3,4,5)
