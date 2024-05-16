@@ -123,6 +123,7 @@ public class CartController {
                 buyProductDtos.add(buyProductDto);
                 }
             cartAndBuyService.addBuyAll(buyDto,buyProductDtos);
+            cartAndBuyService.deleteCartProduct(loginUsername);
             return "cart/buy_ok";
             
             

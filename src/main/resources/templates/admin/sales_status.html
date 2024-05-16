@@ -20,6 +20,7 @@
 
         <table class="type1" align="center" border="2">
             <tr>
+                <th>상품판매번호</th>
                 <th>상품명</th>
                 <th>판매수량</th>
                 <th>가격</th>
@@ -28,7 +29,12 @@
                 <th>상태</th>
                 <th>상태변경</th>
             </tr>
+<!--<<<<<<< HEAD-->
+<!--            <tr th:each="product : ${dto}" th:object="${product}">-->
+<!--                <td th:text="*{buyId}"></td>-->
+<!--=======-->
             <tr th:each="product : ${paging}" th:object="${product}">
+<!--&gt;>>>>>> 03a3de7f233d15438e7da2344f993d7a1d1ecc72-->
                 <td th:text="*{productName}"></td>
                 <td th:text="*{count}"></td>
                 <td th:text="*{totalPrice}+원"></td>

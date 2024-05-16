@@ -28,6 +28,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -173,14 +175,47 @@ public class AdminPageController {
 
     @GetMapping("/sales_all/deliver")
        public String salesAllWithDeliver(Model model) {
-              List<BuyProductDto> dto = adminService.showSalesAll();
+              List<BuyProductDto> dto = adminService.showSalesAllDeliver();
               long count = dto.size();
               
               model.addAttribute("count", count);
               model.addAttribute("dto", dto);
               return "/admin/sales_all";
        }
-    
+//<<<<<<< HEAD
+       
+       @GetMapping("/sales_all/deposit")
+       public String salesAllWithDeposit(Model model) {
+              List<BuyProductDto> dto = adminService.showSalesAllDeposit();
+              long count = dto.size();
+              
+              model.addAttribute("count", count);
+              model.addAttribute("dto", dto);
+              return "/admin/sales_all";
+       }
+       
+       @GetMapping("/sales_all/finish")
+       public String salesAllWithFinish(Model model) {
+              List<BuyProductDto> dto = adminService.showSalesAllFinish();
+              long count = dto.size();
+              
+              model.addAttribute("count", count);
+              model.addAttribute("dto", dto);
+              return "/admin/sales_all";
+       }
+       
+//    @GetMapping("/sales_status")
+//    public String salesStatus(Model model) {
+//        List<BuyProductDto> dto = adminService.showSalesAll();
+//        long count = dto.size();
+//
+//           // 상태 값 목록 생성
+//           List<String> statusValues = new ArrayList<>();
+//           statusValues.add("입금완료");
+//           statusValues.add("배송중");
+//           statusValues.add("배송완료");
+//=======
+
 //    @GetMapping("/sales_status")
 //    public String salesStatus(Model model) {
 //        List<BuyProductDto> dto = adminService.showSalesAll();
@@ -213,9 +248,9 @@ public class AdminPageController {
         statusValues.add("입금완료");
         statusValues.add("배송중");
         statusValues.add("배송완료");
+//>>>>>>> 03a3de7f233d15438e7da2344f993d7a1d1ecc72
 //           List<ProductStatus> statusValues = Arrays.asList(ProductStatus.values());
-
-
+        
         //페이지 출력 처리 (1,2,3,4,5)
         int totalPage = paging.getTotalPages();
         List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), totalPage);
