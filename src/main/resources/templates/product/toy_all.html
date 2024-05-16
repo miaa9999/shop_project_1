@@ -22,15 +22,17 @@
             <div class="product" th:each="toy : ${toyAll}" th:object="${toy}">
                 <div class="product-inner">
                     <!-- 이미지가 없는 경우 -->
-                    <span th:if="${toy.imgUrl == null}">이미지가 없습니다</span>
-                    <!-- 이미지가 있는 경우 -->
-                    <img th:if="${toy.imgUrl != null}" th:src="*{imgUrl}" alt="상품 이미지">
+                    <img class="product-image" src="img/bookk.jpg" alt="상품 이미지">
                     <!-- 상품 이름 및 가격 -->
                     <br>
                     <div class="product-info">
                         <a class="product-name" th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"></a>
                         <br>
                         <span class="product-price" th:text="*{productPrice} + '원'"></span>
+                        <span th:if="*{productStock}<30">
+                    <span th:if="*{productStock}==0"> 품절</span>
+                    <span th:unless="*{productStock}==0">품절임박</span>
+                        </span>
                     </div>
                 </div>
             </div>

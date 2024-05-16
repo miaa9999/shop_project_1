@@ -5,6 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -23,8 +25,11 @@ public class ProductDto {
     @NotEmpty(message = "서브 카테고리 입력은 필수입니다")
     private String subCategory;
 
-    private String imgUrl;
-
+    private String imgName;
+    
+    private String imgPath;
+    
+    private LocalDateTime uploadDate;
     public static ProductDto fromProductEntity(Product product){
         return new ProductDto(
                 product.getProductId(),
@@ -34,7 +39,9 @@ public class ProductDto {
                 product.getContent(),
                 product.getMainCategoryName(),
                 product.getSubCategoryName(),
-                product.getImgUrl()
+                product.getImgName(),
+               product.getImgPath(),
+               product.getUploadDate()
         );
     }
 
@@ -48,7 +55,9 @@ public class ProductDto {
         product.setContent(dto.getContent());
         product.setMainCategoryName(dto.getMainCategory());
         product.setSubCategoryName(dto.getSubCategory());
-        product.setImgUrl(dto.getImgUrl());
+        product.setImgName(dto.getImgName());
+        product.setImgPath(dto.getImgPath());
+        product.setUploadDate(dto.getUploadDate());
         return product;
     }
 }

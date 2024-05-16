@@ -1,5 +1,6 @@
 package com.example.shop_project_01.service;
 
+import com.example.shop_project_01.constant.ProductSale;
 import com.example.shop_project_01.constant.ProductStatus;
 import com.example.shop_project_01.constant.UserRole;
 import com.example.shop_project_01.dto.*;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,12 +91,25 @@ public class AdminService {
        
        public void addProduct(ProductDto dto) {
               Product product = dto.fromProductDto(dto);
+              if (product.getProductStock() > 0){
+                     product.setProductSale(ProductSale.FOR_SALE);
+              }else {
+                     product.setProductSale(ProductSale.SOLD_OUT);
+              }
+              LocalDateTime time = LocalDateTime.now();
+              product.setUploadDate(time);
+              
               productRepository.save(product);
        }
        
        
        public void updateProduct(ProductDto dto) {
               Product product = dto.fromProductDto(dto);
+              if (product.getProductStock() > 0){
+                     product.setProductSale(ProductSale.FOR_SALE);
+              }else {
+                     product.setProductSale(ProductSale.SOLD_OUT);
+              }
               productRepository.save(product);
        }
        
@@ -150,34 +165,6 @@ public class AdminService {
               return dtos;
        }
        
-//       public List<BuyDto> showSalesAllForBuyDto() {
-//              List<BuyDto> dtos = buyRepository.findAll().stream().map(x -> BuyDto.buyDtoFromEntity(x)).toList();
-//              List<BuyDto> dtoList = new ArrayList<>();
-//              String statues = null;
-//              int total = 0;
-//
-//              for (BuyDto buyDto : dtos) {
-//                     buyDto.setDate(buyDto.getBuyDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm")));
-//                     switch (buyDto.getProductStatus()) {
-//                            case FINISH:
-//                                   statues = "배송완료";
-//                                   buyDto.setStatues(statues);
-//                                   break;
-//
-//                            case DELIVER:
-//                                   statues = "배송중";
-//                                   buyDto.setStatues(statues);
-//                                   break;
-//
-//                            case DEPOSIT:
-//                                   statues = "입금완료";
-//                                   buyDto.setStatues(statues);
-//                                   break;
-//                     }
-//              }
-//              return dtos;
-//       }
-//
        public List<BuyProductDto> showSalesAllDeliver() {
               List<BuyProductDto> dtos = buyProductRepository.findByBuy_ProductStatus(ProductStatus.DELIVER).stream().map(x->BuyProductDto.buyProductDtoFromEntity(x)).toList();
               List<BuyProductDto> dtoList = new ArrayList<>();
@@ -237,7 +224,8 @@ public class AdminService {
        }
        
        public List<BuyProductDto> showSalesAllFinish() {
-              List<BuyProductDto> dtos = buyProductRepository.findByBuy_ProductStatus(ProductStatus.FINISH).stream().map(x->BuyProductDto.buyProductDtoFromEntity(x)).toList();
+              List<BuyProductDto> dtos = buyProductRepository.findByBuy_ProductStatus(ProductStatus.FINISH)
+                     .stream().map(x->BuyProductDto.buyProductDtoFromEntity(x)).toList();
               List<BuyProductDto> dtoList = new ArrayList<>();
               String statues = null;
               
@@ -280,9 +268,7 @@ public class AdminService {
               }
               em.persist(buyProduct);
        }
-//<<<<<<< HEAD
-//
-//=======
+
 //페이징 처리 목록들
     public Page<Notice> pagingListNotice(Pageable pageable) {
            return noticeRepository.findAll(pageable);
