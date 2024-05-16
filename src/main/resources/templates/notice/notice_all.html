@@ -23,8 +23,8 @@
 
 
             </tr>
-            <tr th:each="notice:${dtoList}" th:object="${notice}" >
-                <td th:text="${noticeStat.index + 1}">번호</td>
+            <tr th:each="notice:${paging}" th:object="${notice}" >
+                <td th:text="${paging.number * paging.size + noticeStat.index + 1}">번호</td>
                 <td>
                     <a th:href="@{/notice_showOne/{noticeId}(noticeId=${notice.noticeId})}">
                         <span th:text="${notice.title}"></span>
@@ -34,6 +34,28 @@
 
             </tr>
         </table>
+        <br>
+        <div style="display: flex; justify-content: center;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${paging.number}<=0?'disabled'">
+                        <a class="page-link"
+                           th:href="@{/notice(page=${paging.number-1})}">
+                            <<
+                        </a>
+                    </li>
+                    <th:block th:each="pageNumber:${paginationBarNumbers}">
+                        <li class="page-item"><a class="page-link"
+                                                 th:href="@{/notice(page=${pageNumber})}"
+                                                 th:text="${pageNumber+1}">1</a></li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${paging.number}==${paging.totalPages-1}?'disabled'">
+                        <a class="page-link"
+                           th:href="@{/notice(page=${paging.number+1})}">>></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
 
