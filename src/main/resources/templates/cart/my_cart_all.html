@@ -12,12 +12,9 @@
     <br>
     <br>
     <h2 align="center">장바구니</h2>
-    <div align="center"><a th:href="@{/buy}">전체구매하기</a> </div>
     <br>
     <div th:if="${size}==0">장바구니가 비어있습니다.</div>
     <div th:unless="${size}==0">
-
-
         <table class="type1" align="center" border="2">
             <tr>
                 <th>상품명</th>
@@ -45,7 +42,8 @@
                     </td>
                 </tr>
         </table>
-
+        <br>
+        <div align="center"><a th:href="@{/buy}">전체구매하기</a> </div>
     </div>
 
 </div>
