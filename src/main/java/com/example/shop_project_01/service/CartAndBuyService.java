@@ -174,4 +174,16 @@ public class CartAndBuyService {
 
         em.remove(cartProduct);
     }
+       
+       public void deleteCartProduct(String loginUsername) {
+//            Long cartId = cartIdFindByUsername(loginUsername);
+            List<CartProduct> cartProducts = showMyCart(loginUsername);
+            
+            for (CartProduct cart : cartProducts){
+                CartProduct cartProduct = em.find(CartProduct.class,cart.getCartProductId());
+                
+                em.remove(cartProduct);
+            }
+            
+       }
 }

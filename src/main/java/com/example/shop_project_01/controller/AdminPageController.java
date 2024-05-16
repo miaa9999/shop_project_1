@@ -24,6 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -122,14 +124,34 @@ public class AdminPageController {
        
        @GetMapping("/sales_all/deliver")
        public String salesAllWithDeliver(Model model) {
-              List<BuyProductDto> dto = adminService.showSalesAll();
+              List<BuyProductDto> dto = adminService.showSalesAllDeliver();
               long count = dto.size();
               
               model.addAttribute("count", count);
               model.addAttribute("dto", dto);
               return "/admin/sales_all";
        }
-    
+       
+       @GetMapping("/sales_all/deposit")
+       public String salesAllWithDeposit(Model model) {
+              List<BuyProductDto> dto = adminService.showSalesAllDeposit();
+              long count = dto.size();
+              
+              model.addAttribute("count", count);
+              model.addAttribute("dto", dto);
+              return "/admin/sales_all";
+       }
+       
+       @GetMapping("/sales_all/finish")
+       public String salesAllWithFinish(Model model) {
+              List<BuyProductDto> dto = adminService.showSalesAllFinish();
+              long count = dto.size();
+              
+              model.addAttribute("count", count);
+              model.addAttribute("dto", dto);
+              return "/admin/sales_all";
+       }
+       
     @GetMapping("/sales_status")
     public String salesStatus(Model model) {
         List<BuyProductDto> dto = adminService.showSalesAll();

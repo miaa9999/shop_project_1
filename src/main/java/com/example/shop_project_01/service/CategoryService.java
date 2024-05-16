@@ -39,4 +39,11 @@ public class CategoryService {
 //
               return products;
        }
+       
+       public List<ProductDto> findSearchProduct(String search) {
+              List<ProductDto> products = productRepository.findAllByProductNameLike("%"+search+"%")
+                     .stream().map(x->ProductDto.fromProductEntity(x)).toList();
+              
+              return products;
+       }
 }

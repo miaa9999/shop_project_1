@@ -2,18 +2,12 @@ package com.example.shop_project_01.service;
 
 import com.example.shop_project_01.constant.ProductStatus;
 import com.example.shop_project_01.constant.UserRole;
-import com.example.shop_project_01.dto.BuyProductDto;
-import com.example.shop_project_01.dto.NoticeDto;
-import com.example.shop_project_01.dto.ProductDto;
-import com.example.shop_project_01.dto.UserAccountDto;
+import com.example.shop_project_01.dto.*;
 import com.example.shop_project_01.entity.BuyProduct;
 import com.example.shop_project_01.entity.Notice;
 import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.entity.UserAccount;
-import com.example.shop_project_01.repository.BuyProductRepository;
-import com.example.shop_project_01.repository.NoticeRepository;
-import com.example.shop_project_01.repository.ProductRepository;
-import com.example.shop_project_01.repository.UserAccountRepository;
+import com.example.shop_project_01.repository.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -43,6 +37,9 @@ public class AdminService {
        
        @Autowired
        CartAndBuyService cartAndBuyService;
+       
+       @Autowired
+       BuyRepository buyRepository;
        
        public List<ProductDto> productViewAll() {
               return productRepository.findAll().stream().map(x -> ProductDto.fromProductEntity(x)).toList();
@@ -151,15 +148,14 @@ public class AdminService {
               return dtos;
        }
        
-//       public List<BuyProductDto> showSalesAllDeliver() {
-//              List<BuyProductDto> dtos = buyProductRepository.findAllByStatusContaining(ProductStatus.DELIVER).stream().map(x -> BuyProductDto.buyProductDtoFromEntity(x)).toList();
-//              List<BuyProductDto> dtoList = new ArrayList<>();
+//       public List<BuyDto> showSalesAllForBuyDto() {
+//              List<BuyDto> dtos = buyRepository.findAll().stream().map(x -> BuyDto.buyDtoFromEntity(x)).toList();
+//              List<BuyDto> dtoList = new ArrayList<>();
 //              String statues = null;
+//              int total = 0;
 //
-//              for (BuyProductDto buyDto : dtos) {
-//                     String productName = cartAndBuyService.productNameFindByProductId(buyDto.getProductId());
-//                     buyDto.setProductName(productName);
-//                     buyDto.setDate(buyDto.getSalesDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm")));
+//              for (BuyDto buyDto : dtos) {
+//                     buyDto.setDate(buyDto.getBuyDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm")));
 //                     switch (buyDto.getProductStatus()) {
 //                            case FINISH:
 //                                   statues = "배송완료";
@@ -179,6 +175,93 @@ public class AdminService {
 //              }
 //              return dtos;
 //       }
+//
+       public List<BuyProductDto> showSalesAllDeliver() {
+              List<BuyProductDto> dtos = buyProductRepository.findByBuy_ProductStatus(ProductStatus.DELIVER).stream().map(x->BuyProductDto.buyProductDtoFromEntity(x)).toList();
+              List<BuyProductDto> dtoList = new ArrayList<>();
+              String statues = null;
+
+              for (BuyProductDto buyDto : dtos) {
+                     String productName = cartAndBuyService.productNameFindByProductId(buyDto.getProductId());
+                     buyDto.setProductName(productName);
+                     buyDto.setDate(buyDto.getSalesDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm")));
+                     switch (buyDto.getProductStatus()) {
+                            case FINISH:
+                                   statues = "배송완료";
+                                   buyDto.setStatues(statues);
+                                   break;
+
+                            case DELIVER:
+                                   statues = "배송중";
+                                   buyDto.setStatues(statues);
+                                   break;
+
+                            case DEPOSIT:
+                                   statues = "입금완료";
+                                   buyDto.setStatues(statues);
+                                   break;
+                     }
+              }
+              return dtos;
+       }
+       
+       public List<BuyProductDto> showSalesAllDeposit() {
+              List<BuyProductDto> dtos = buyProductRepository.findByBuy_ProductStatus(ProductStatus.DEPOSIT).stream().map(x->BuyProductDto.buyProductDtoFromEntity(x)).toList();
+              List<BuyProductDto> dtoList = new ArrayList<>();
+              String statues = null;
+              
+              for (BuyProductDto buyDto : dtos) {
+                     String productName = cartAndBuyService.productNameFindByProductId(buyDto.getProductId());
+                     buyDto.setProductName(productName);
+                     buyDto.setDate(buyDto.getSalesDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm")));
+                     switch (buyDto.getProductStatus()) {
+                            case FINISH:
+                                   statues = "배송완료";
+                                   buyDto.setStatues(statues);
+                                   break;
+                            
+                            case DELIVER:
+                                   statues = "배송중";
+                                   buyDto.setStatues(statues);
+                                   break;
+                            
+                            case DEPOSIT:
+                                   statues = "입금완료";
+                                   buyDto.setStatues(statues);
+                                   break;
+                     }
+              }
+              return dtos;
+       }
+       
+       public List<BuyProductDto> showSalesAllFinish() {
+              List<BuyProductDto> dtos = buyProductRepository.findByBuy_ProductStatus(ProductStatus.FINISH).stream().map(x->BuyProductDto.buyProductDtoFromEntity(x)).toList();
+              List<BuyProductDto> dtoList = new ArrayList<>();
+              String statues = null;
+              
+              for (BuyProductDto buyDto : dtos) {
+                     String productName = cartAndBuyService.productNameFindByProductId(buyDto.getProductId());
+                     buyDto.setProductName(productName);
+                     buyDto.setDate(buyDto.getSalesDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH : mm")));
+                     switch (buyDto.getProductStatus()) {
+                            case FINISH:
+                                   statues = "배송완료";
+                                   buyDto.setStatues(statues);
+                                   break;
+                            
+                            case DELIVER:
+                                   statues = "배송중";
+                                   buyDto.setStatues(statues);
+                                   break;
+                            
+                            case DEPOSIT:
+                                   statues = "입금완료";
+                                   buyDto.setStatues(statues);
+                                   break;
+                     }
+              }
+              return dtos;
+       }
        
        public void updateProductStatus(Long buyProductId, String status) {
               BuyProduct buyProduct = em.find(BuyProduct.class,buyProductId);
@@ -195,4 +278,5 @@ public class AdminService {
               }
               em.persist(buyProduct);
        }
+       
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,19 @@ public class ProductController {
     @Autowired
     CategoryService categoryService;
 
+    
+    @PostMapping("/search")
+    public String search(Model model, @RequestParam("search")String search){
+        List<ProductDto> products = categoryService.findSearchProduct(search);
+        Long count = products.stream().count();
+        
+        products.forEach(user -> System.out.println(user));
+        model.addAttribute("count",count);
+        model.addAttribute("search",search);
+        model.addAttribute("dto",products);
+        
+        return "/product/search";
+    }
     // ===========  인형 - 전체보기
     @GetMapping("/doll")
     public String dollCategory(Model model) {
