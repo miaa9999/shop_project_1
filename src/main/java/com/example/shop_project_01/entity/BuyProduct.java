@@ -32,4 +32,5 @@ public class BuyProduct {
     private Buy buy;
     
     private int totalPrice;
+    
 }
