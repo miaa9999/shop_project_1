@@ -3,6 +3,7 @@ package com.example.shop_project_01.controller;
 import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

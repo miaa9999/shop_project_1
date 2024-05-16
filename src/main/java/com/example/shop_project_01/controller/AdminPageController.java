@@ -171,63 +171,41 @@ public class AdminPageController {
 
 
     @GetMapping("/sales_all/deliver")
-       public String salesAllWithDeliver(Model model) {
-              List<BuyProductDto> dto = adminService.showSalesAllDeliver();
-              long count = dto.size();
-              
-              model.addAttribute("count", count);
-              model.addAttribute("dto", dto);
-              return "/admin/sales_all";
+       public String salesAllWithDeliver(Model model,
+                                         @PageableDefault(page = 0,size = 5,sort = "buyProductId",direction = Sort.Direction.DESC)
+                                         Pageable pageable) {
+        Page<BuyProductDto> paging = adminService.pagingShowSalesAllDeliver(pageable);
+        long count = paging.getTotalElements();
+
+        model.addAttribute("count", count);
+        model.addAttribute("paging", paging);
+        return "/admin/sales_all";
        }
+
        @GetMapping("/sales_all/deposit")
-       public String salesAllWithDeposit(Model model) {
-              List<BuyProductDto> dto = adminService.showSalesAllDeposit();
-              long count = dto.size();
-              
-              model.addAttribute("count", count);
-              model.addAttribute("dto", dto);
-              return "/admin/sales_all";
+       public String salesAllWithDeposit(Model model,@PageableDefault(page = 0,size = 5,sort = "buyProductId",direction = Sort.Direction.DESC)
+               Pageable pageable) {
+           Page<BuyProductDto> paging = adminService.pagingShowSalesAllDeposit(pageable);
+           long count = paging.getTotalElements();
+
+           model.addAttribute("count", count);
+           model.addAttribute("paging", paging);
+           return "/admin/sales_all";
        }
        
        @GetMapping("/sales_all/finish")
-       public String salesAllWithFinish(Model model) {
-              List<BuyProductDto> dto = adminService.showSalesAllFinish();
-              long count = dto.size();
+       public String salesAllWithFinish(Model model,
+                                        @PageableDefault(page = 0,size = 5,sort = "buyProductId",direction = Sort.Direction.DESC)
+                                        Pageable pageable) {
+              Page<BuyProductDto> paging = adminService.pagingShowSalesAllFinish(pageable);
+              Long count = paging.getTotalElements();
+              System.out.println(count);
               
               model.addAttribute("count", count);
-              model.addAttribute("dto", dto);
+              model.addAttribute("paging", paging);
               return "/admin/sales_all";
        }
        
-//    @GetMapping("/sales_status")
-//    public String salesStatus(Model model) {
-//        List<BuyProductDto> dto = adminService.showSalesAll();
-//        long count = dto.size();
-//
-//           // 상태 값 목록 생성
-//           List<String> statusValues = new ArrayList<>();
-//           statusValues.add("입금완료");
-//           statusValues.add("배송중");
-//           statusValues.add("배송완료");
-//=======
-
-//    @GetMapping("/sales_status")
-//    public String salesStatus(Model model) {
-//        List<BuyProductDto> dto = adminService.showSalesAll();
-//        long count = dto.size();
-//
-//           // 상태 값 목록 생성
-//           List<String> statusValues = new ArrayList<>();
-//           statusValues.add("입금완료");
-//           statusValues.add("배송중");
-//           statusValues.add("배송완료");
-////           List<ProductStatus> statusValues = Arrays.asList(ProductStatus.values());
-//
-//        model.addAttribute("statusValues",statusValues);
-//        model.addAttribute("count", count);
-//        model.addAttribute("dto", dto);
-//        return "/admin/sales_status";
-//    }
 
     //판매목록관리 -  페이징 처리
     @GetMapping("sales_status")
@@ -238,12 +216,13 @@ public class AdminPageController {
         Page<BuyProductDto> paging = adminService.pagingListBuyProduct(pageable);
         Long count =  paging.getTotalElements();
 
+
         //상태값 출력
         List<String> statusValues = new ArrayList<>();
         statusValues.add("입금완료");
         statusValues.add("배송중");
         statusValues.add("배송완료");
-//           List<ProductStatus> statusValues = Arrays.asList(ProductStatus.values());
+
         
         //페이지 출력 처리 (1,2,3,4,5)
         int totalPage = paging.getTotalPages();

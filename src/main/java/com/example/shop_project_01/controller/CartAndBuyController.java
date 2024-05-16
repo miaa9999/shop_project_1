@@ -14,8 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -41,13 +43,13 @@ public class CartAndBuyController {
     
     @PostMapping("/product_detail/cart_and_buy")
     public String addCart(
-                          @RequestParam("price")int price,
-                          @RequestParam("count")int count,
-                          @RequestParam("productId")Long productId,
-                          @RequestParam("loginUsername")String loginUsername,
-                          @RequestParam("action")String action,
-                          Model model
-                          ) {
+            @RequestParam("price")int price,
+            @RequestParam("count")int count,
+            @RequestParam("productId")Long productId,
+            @RequestParam("loginUsername")String loginUsername,
+            @RequestParam("action")String action,
+            Model model , RedirectAttributes redirectAttributes
+            ) {
         Long userCartNum = cartAndBuyService.cartIdFindByUsername(loginUsername);
 
         if (action.equals("cart")) {
@@ -55,7 +57,8 @@ public class CartAndBuyController {
                 CartProductDto cartProductDto = new CartProductDto(count, productId, price, userCartNum);
                 cartAndBuyService.addCartProduct(cartProductDto);
             }
-            return "redirect:/cart";
+            redirectAttributes.addFlashAttribute("msg", "물건이 <a href=\"/cart\">장바구니</a>에 담겼습니다.!!");
+            return "redirect:/product_detail/" + productId;
             
         } else if (action.equals("buy")) {
           //구매하기 버튼 눌렀을때 작동
@@ -108,5 +111,16 @@ public class CartAndBuyController {
         }
         
         return "/product/main";
+    }
+
+    @GetMapping("/buyList")
+    public String showBuyList(Model model) {
+        String username = userService.loginUsername();
+        List<BuyProductDto> dto = cartAndBuyService.showBuyList(username);
+        int count = dto.size();
+        model.addAttribute("size",count);
+        model.addAttribute("buyList",dto);
+
+        return "myPage/buyList";
     }
 }
