@@ -26,7 +26,7 @@
             <tr th:each="product : ${paging}" th:object="${product}">
                 <td>[[*{mainCategoryName}]] > [[*{subCategoryName}]]</td>
                 <td>
-                    <img class="product-image" th:src="@{${product.getImgPath()}}" width="400px" height="400px">
+                    <img class="product-image" th:src="@{${product.getImgPath()}}" width="100px" height="100px">
                 </td>
                 <td th:text="*{productName}"></td>
                 <td th:text="*{productPrice}+원"></td>
