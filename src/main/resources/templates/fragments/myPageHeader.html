@@ -57,27 +57,9 @@
             <div>
                 <div class="dropmenu">
                     <ul>
-                        <li><a th:href="@{/doll}" id="doll">회원정보</a>
-                            <ul>
-                                <li><a th:href="@{/doll_person}">회원정보변경</a></li>
-                                <li><a th:href="@{/doll_animal}">비밀번호변경</a></li>
-                            </ul>
-                        </li>
-                        <li><a th:href="@{/toy}" id="toy">구매내역</a>
-                            <ul>
-                                <li><a th:href="@{/toy_lego}">레고</a></li>
-                                <li><a th:href="@{/toy_outdoor}">실외장난감</a></li>
-                                <li><a th:href="@{/toy_touch}">촉각놀이</a></li>
-                            </ul>
+                        <li><a th:href="@{/mypage}">회원정보</a>
                         </li>
                         <li><a th:href="@{/cart}">장바구니</a>
-                        </li>
-                        <li><a th:href="@{/books}">리뷰관리</a>
-                            <ul>
-                                <li><a th:href="@{/books_story}">동화</a></li>
-                                <li><a th:href="@{/books_biography}">위인전</a></li>
-                                <li><a th:href="@{/books_eng}">영어도서</a></li>
-                            </ul>
                         </li>
 
                         <form align=right style="margin-right:20px; padding-top:5px;" method="post" th:action="@{/search}">
