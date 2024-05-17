@@ -22,7 +22,7 @@
             <div class="product" th:each="doll : ${dollAll}" th:object="${doll}">
                 <div class="product-inner">
                     <div>
-                        <img class="product-image" th:src="@{${doll.getImgPath()}}" width="400px" height="400px">
+                        <img class="product-image" th:src="@{${doll.getImgPath()}}">
                     </div>
                     <!-- 상품 이름 및 가격 -->
                     <br>

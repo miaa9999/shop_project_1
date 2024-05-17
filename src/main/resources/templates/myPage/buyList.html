@@ -23,6 +23,7 @@
                 <th>수량</th>
                 <th>가격</th>
                 <th>상태</th>
+                <th>리뷰 작성하기</th>
             </tr>
 
             <tr th:each="my : ${buyList}" th:object="${my}">
@@ -30,6 +31,12 @@
                 <td th:text="*{count}"></td>
                 <td th:text="*{totalPrice}"></td>
                 <td th:text="*{statues}"></td>
+                <td>
+                    <form th:if="${my.statues == '배송완료'}" th:action="@{/review_add}" method="get">
+                        <input type="hidden" name="productId" th:value="${my.productId}" />
+                        <button type="submit">리뷰 작성하기</button>
+                    </form>
+                </td>
             </tr>
 
         </table>
