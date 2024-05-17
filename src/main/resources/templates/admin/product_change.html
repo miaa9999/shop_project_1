@@ -26,7 +26,9 @@
             </div>
             <div>
                 <h3>상품이름:[[*{productName}]]</h3>
-                <h5>상품설명:[[*{content}]]</h5>
+                <br>
+                <img class="product-image" th:src="@{${product.getContentImgPath()}}" width="400px" height="400px">
+
                 <h4 align="right">[[*{productPrice}]]원</h4>
                 <h4 align="right">[[*{productStock}]]개</h4>
                 <a th:href="@{/admin/product_update(productId=${product.productId})}">변경하기</a>
