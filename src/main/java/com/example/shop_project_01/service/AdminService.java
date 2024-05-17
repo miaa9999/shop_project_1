@@ -17,11 +17,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -89,22 +92,31 @@ public class AdminService {
                      findById(username).map(x -> UserAccountDto.fromUserAccountEntityNoPassword(x)).orElse(null);
               return userAccountDto;
        }
-       
-       public void addProduct(ProductDto dto) {
-              Product product = dto.fromProductDto(dto);
-              if (product.getProductStock() > 0){
-                     product.setProductSale(ProductSale.FOR_SALE);
-              }else {
-                     product.setProductSale(ProductSale.SOLD_OUT);
-              }
-              LocalDateTime time = LocalDateTime.now();
-              product.setUploadDate(time);
-              
-              productRepository.save(product);
-       }
-       
-       
-       public void updateProduct(ProductDto dto) {
+
+
+    public void addProduct(ProductDto dto, MultipartFile imgFile) throws Exception {
+        String oriImgName = imgFile.getOriginalFilename();
+        String imgName = "";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/image/";
+
+        UUID uuid = UUID.randomUUID();
+        String savedFileName = uuid + "_" + oriImgName; // 파일명 -> imgName
+
+        imgName = savedFileName;
+
+        File saveFile = new File(projectPath, imgName);
+
+        imgFile.transferTo(saveFile);
+        dto.setImgName(imgName);
+        dto.setImgPath("/image/" + imgName);
+
+        Product product = ProductDto.fromProductDto(dto);
+        productRepository.save(product);
+    }
+
+
+
+    public void updateProduct(ProductDto dto) {
               Product product = dto.fromProductDto(dto);
               if (product.getProductStock() > 0){
                      product.setProductSale(ProductSale.FOR_SALE);
