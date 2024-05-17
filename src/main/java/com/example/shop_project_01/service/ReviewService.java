@@ -9,6 +9,8 @@ import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReviewService {
     @Autowired
@@ -35,5 +37,9 @@ public class ReviewService {
 
     public boolean check(Long productId, String username) {
         return reviewRepository.existsByProductProductIdAndUserAccountUsername(productId, username);
+    }
+
+    public List<ReviewDto> getReviewsByProductId(Long productId) {
+        return reviewRepository.findByProductProductId(productId).stream().map(x->ReviewDto.fromReviewEntity(x)).toList();
     }
 }

@@ -65,9 +65,14 @@ public class CartAndBuyController {
                                  Model model) {
         ProductDto product = categoryService.productViewOne(productId);
         String username = userService.loginUsername();
-        
+
+        //리뷰 목록 가져오기
+        List<ReviewDto> reviews = reviewService.getReviewsByProductId(productId);
+        Long count = reviews.stream().count();
         model.addAttribute("loginUsername", username);
+        model.addAttribute("count",count);
         model.addAttribute("product", product);
+        model.addAttribute("reviews", reviews);
         return "/product/product_detail";
     }
     
@@ -147,23 +152,11 @@ public class CartAndBuyController {
     public String showBuyList(Model model) {
         String username = userService.loginUsername();
         List<BuyProductDto> dto = cartAndBuyService.showBuyList(username);
-//        String username = userService.loginUsername();
-//        boolean reviewExists = reviewService.check(productId, username);
 
         for (BuyProductDto buyProductDto : dto){
             boolean reviewExists = reviewService.check(buyProductDto.getProductId(),username);
             buyProductDto.setReviewExists(reviewExists);
         }
-
-
-//        if(reviewExists){
-//            model.addAttribute("reviewExists", true);
-//            return "redirect:/buyList";
-//        }
-//        for(BuyProductDto buyProductDto : dto) {
-//            Long buyProductId = buyProductDto.getBuyProductId();
-//            reviewService.findReviewByBuyProductId(buyProductId);
-//        }
             int count = dto.size();
             model.addAttribute("size", count);
             model.addAttribute("buyList", dto);
