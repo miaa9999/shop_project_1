@@ -19,7 +19,7 @@ public class ProductDto {
     private String productName;
     private int productPrice;
     private int productStock;
-    @NotEmpty(message = "상품 설명 입력은 필수입니다")
+//    @NotEmpty(message = "상품 설명 입력은 필수입니다")
     private String contentImgName;
     
     private String contentImgPath;
@@ -31,6 +31,7 @@ public class ProductDto {
     private String imgName;
     
     private String imgPath;
+
     
     private LocalDateTime uploadDate;
     
