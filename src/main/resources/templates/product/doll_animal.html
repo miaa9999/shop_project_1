@@ -21,7 +21,9 @@
             <!-- 각 상품에 대한 div 요소 -->
             <div class="product" th:each="doll : ${dollAll}" th:object="${doll}">
                 <div class="product-inner">
-                    <img class="product-image" src="img/bookk.jpg" alt="상품 이미지">
+                    <div>
+                        <img class="product-image" th:src="@{${doll.getImgPath()}}" width="400px" height="400px">
+                    </div>
                     <!-- 상품 이름 및 가격 -->
                     <br>
                     <div class="product-info">
