@@ -42,7 +42,8 @@ public class BuyProductDto {
        private String username;
        
        private String statues;
-       
+
+       private boolean reviewExists;
        public BuyProductDto(int count, int price, Long productId) {
               this.count = count;
               this.price = price;

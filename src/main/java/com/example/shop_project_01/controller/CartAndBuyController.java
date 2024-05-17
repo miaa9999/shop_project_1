@@ -40,6 +40,7 @@ public class CartAndBuyController {
     //리뷰 작성하기
     @GetMapping("/review_add")
     public String addNoticeView(Model model,@RequestParam("productId") Long productId) {
+
         model.addAttribute("productId",productId);
         model.addAttribute("reviewDto", new ReviewDto());
         return "myPage/new_review";
@@ -52,7 +53,6 @@ public class CartAndBuyController {
         if (bindingResult.hasErrors()) {
             return "myPage/new_review";
         }
-
 
         reviewService.addReview(dto);
         return "redirect:/product_detail/" + productId;
@@ -147,9 +147,26 @@ public class CartAndBuyController {
     public String showBuyList(Model model) {
         String username = userService.loginUsername();
         List<BuyProductDto> dto = cartAndBuyService.showBuyList(username);
-        int count = dto.size();
-        model.addAttribute("size",count);
-        model.addAttribute("buyList",dto);
+//        String username = userService.loginUsername();
+//        boolean reviewExists = reviewService.check(productId, username);
+
+        for (BuyProductDto buyProductDto : dto){
+            boolean reviewExists = reviewService.check(buyProductDto.getProductId(),username);
+            buyProductDto.setReviewExists(reviewExists);
+        }
+
+
+//        if(reviewExists){
+//            model.addAttribute("reviewExists", true);
+//            return "redirect:/buyList";
+//        }
+//        for(BuyProductDto buyProductDto : dto) {
+//            Long buyProductId = buyProductDto.getBuyProductId();
+//            reviewService.findReviewByBuyProductId(buyProductId);
+//        }
+            int count = dto.size();
+            model.addAttribute("size", count);
+            model.addAttribute("buyList", dto);
 
         return "myPage/buyList";
     }
