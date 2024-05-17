@@ -2,9 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/myCart_layout}">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style type="text/css">
+        .btn-8 {
+           border-radius:50px;
+           line-height:0;
+            width:150px;
+            height:50px;
+             border:2px solid #E6C985;
+             color:#FFFFFF;
+             background:#E9A858;
+
+             &:hover {
+              border:2px solid #E9A858;
+              background:transparent;
+              color:#E9A858;
+           }
+        }
+    </style>
+
 </head>
 <body>
 
@@ -23,10 +43,10 @@
     </div>
         <br>
         <div align="center">
-        <button type="submit" name="insert" value="insert">
+        <button class="btn-8" type="submit" name="insert" value="insert">
             <input type="hidden" th:value="${username}" name="username">
             충전하기</button>
-        <button type="submit" formmethod="get" name="insert" value="insert" th:formaction="@{/}">메인으로 돌아가기</button>
+        <button class="btn-8" type="submit" formmethod="get" name="insert" value="insert" th:formaction="@{/}">메인으로 돌아가기</button>
         </div>
     </form>
 </div>
