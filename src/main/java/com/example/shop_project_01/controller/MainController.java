@@ -14,6 +14,7 @@ import jakarta.websocket.server.PathParam;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -30,15 +31,17 @@ public class MainController {
 
        @Autowired
        CategoryService categoryService;
-       @Autowired
-       UserAccountService userAccountService;
+
        @Autowired
        NoticeService noticeService;
        @Autowired
        PaginationService paginationService;
 
        @GetMapping("/")
-       public String main() {
+       public String main(Model model) {
+              // 최근에 등록된 상품 중에서 첫 페이지에 있는 2개의 상품 가져오기
+              List<Product> dto = categoryService.showRecentProducts(PageRequest.of(0, 2));
+              model.addAttribute("dto", dto);
               return "/product/main";
        }
        
@@ -47,15 +50,7 @@ public class MainController {
               return "/admin/admin_page";
        }
 
-//       //공지사항 페이지
-//       @GetMapping("/notice")
-//       public String noticePage(Model model){
-//              List<NoticeDto> dtoList = noticeService.showAllNotice();
-//              long count = dtoList.size();
-//              model.addAttribute("count", count);
-//              model.addAttribute("dtoList", dtoList);
-//              return "/notice/notice_all";
-//       }
+
 
        //공지사항 페이지 - 페이징처리
        @GetMapping("notice")
