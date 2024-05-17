@@ -37,8 +37,11 @@ public class Product {
     
     private String subCategoryName;
     //게시판
-    private String content;
-
+//    private String content;
+    private String contentImgName;
+    
+    private String contentImgPath;
+    
     private String imgName;
     
     private String imgPath;

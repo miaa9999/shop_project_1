@@ -95,21 +95,34 @@ public class AdminService {
        }
 
 
-    public void addProduct(ProductDto dto, MultipartFile imgFile) throws Exception {
+    public void addProduct(ProductDto dto, MultipartFile imgFile, MultipartFile contentImgFile) throws Exception {
         String oriImgName = imgFile.getOriginalFilename();
         String imgName = "";
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/image/";
-
+        
+        String oriContentImgName = contentImgFile.getOriginalFilename();
+           String contentImgName = "";
+           String projectPathContent = System.getProperty("user.dir") + "/src/main/resources/static/image/";
+        
         UUID uuid = UUID.randomUUID();
         String savedFileName = uuid + "_" + oriImgName; // 파일명 -> imgName
-
+           String savedContentFileName = uuid+"__"+oriContentImgName;
+           
         imgName = savedFileName;
-
+       contentImgName = savedContentFileName;
+       
         File saveFile = new File(projectPath, imgName);
+       File saveContentFile = new File(projectPathContent, contentImgName);
        
         imgFile.transferTo(saveFile);
+        contentImgFile.transferTo(saveContentFile);
+        
         dto.setImgName(imgName);
+        dto.setContentImgName(contentImgName);
+        
         dto.setImgPath("/image/" + imgName);
+        dto.setContentImgPath("/image/"+contentImgName);
+        
        dto.setProductSale(ProductSale.FOR_SALE);
         Product product = ProductDto.fromProductDto(dto);
         productRepository.save(product);
