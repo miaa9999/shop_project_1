@@ -24,10 +24,8 @@
                 <div class="product-inner">
                     <!-- 상품 이미지 -->
                     <div>
-                        <img class="product-image" th:src="@{${book.getImgPath()}}" width="400px" height="400px">
+                        <img class="product-image" th:src="@{${book.getImgPath()}}">
                     </div>
-                    <!--                    <img class="product-image" th:src="*{productImage}" alt="상품 이미지">-->
-                    <img class="product-image" src="img/bookk.jpg" alt="상품 이미지">
                     <br>
                     <!-- 상품 이름 및 가격 -->
                     <a class="product-name" th:href="@{/product_detail/{productId}(productId=*{productId})}" th:text="*{productName}"></a>

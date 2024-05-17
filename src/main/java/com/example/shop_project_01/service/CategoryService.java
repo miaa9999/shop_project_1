@@ -4,7 +4,8 @@ import com.example.shop_project_01.dto.ProductDto;
 import com.example.shop_project_01.entity.Product;
 import com.example.shop_project_01.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +46,11 @@ public class CategoryService {
                      .stream().map(x->ProductDto.fromProductEntity(x)).toList();
               
               return products;
+       }
+
+
+       //main 최근에 등록된 상품 보여주기
+       public List<Product> showRecentProducts(Pageable pageable) {
+              return productRepository.findAllByOrderByUploadDateDesc(pageable);
        }
 }
