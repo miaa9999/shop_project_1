@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
     <script type="text/javascript">
 
     </script>
@@ -69,22 +68,14 @@
                         data-bs-target="#review" type="button" role="tab"
                         aria-controls="review" aria-selected="false">리뷰</button>
             </li>
-<!--            <li class="nav-item" role="presentation">-->
-<!--                <button class="nav-link" id="question-tab" data-bs-toggle="tab"-->
-<!--                        data-bs-target="#question" type="button" role="tab"-->
-<!--                        aria-controls="question" aria-selected="false">문의</button>-->
-<!--            </li>-->
         </ul>
 
         <!-- 내용 -->
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="content" role="tabpanel"
                  aria-labelledby="content-tab"><span th:text="*{content}"></span></div>
-            <div class="tab-pane fade" id="review" role="tabpanel"
-                 aria-labelledby="review-tab">리뷰리스트 탭</div>
-            <div class="tab-pane fade" id="question" role="tabpanel"
-                 aria-labelledby="question-tab">
-                문의사항 작성하기...
+            <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                리뷰 목록
             </div>
         </div>
 

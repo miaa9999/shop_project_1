@@ -20,8 +20,6 @@ public class Review {
     @Column(name = "review_id")
     private Long reviewId;
 
-    private String title;
-
     private String content;
 
     @Column(name = "created_at",updatable = false)
@@ -31,9 +29,12 @@ public class Review {
     @Column(name = "updated_at",insertable = false)
     @LastModifiedDate
     private LocalDate updatedAt;
-    
-    //작성자
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "username")
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "username", nullable = false)
     private UserAccount userAccount;
 }
