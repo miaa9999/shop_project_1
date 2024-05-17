@@ -315,9 +315,10 @@ public class AdminPageController {
     }
 
     @PostMapping("/product_add")
-    public String addProduct(@ModelAttribute ProductDto dto, @RequestParam("imgFile") MultipartFile imgFile) {
+    public String addProduct(@ModelAttribute ProductDto dto, @RequestParam("imgFile") MultipartFile imgFile,
+                             @RequestParam("contentImgFile")MultipartFile contentImgFile) {
         try {
-            adminService.addProduct(dto, imgFile);
+            adminService.addProduct(dto, imgFile, contentImgFile);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

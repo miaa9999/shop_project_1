@@ -20,7 +20,9 @@ public class ProductDto {
     private int productPrice;
     private int productStock;
     @NotEmpty(message = "상품 설명 입력은 필수입니다")
-    private String content;
+    private String contentImgName;
+    
+    private String contentImgPath;
     @NotEmpty(message = "메인카테고리 입력은 필수입니다")
     private String mainCategory;
     @NotEmpty(message = "서브 카테고리 입력은 필수입니다")
@@ -40,7 +42,8 @@ public class ProductDto {
                 product.getProductName(),
                 product.getProductPrice(),
                 product.getProductStock(),
-                product.getContent(),
+                product.getContentImgName(),
+                product.getContentImgPath(),
                 product.getMainCategoryName(),
                 product.getSubCategoryName(),
                 product.getImgName(),
@@ -57,7 +60,8 @@ public class ProductDto {
         product.setProductName(dto.getProductName());
         product.setProductPrice(dto.getProductPrice());
         product.setProductStock(dto.getProductStock());
-        product.setContent(dto.getContent());
+        product.setContentImgName(dto.getContentImgName());
+        product.setContentImgPath(dto.getContentImgPath());
         product.setMainCategoryName(dto.getMainCategory());
         product.setSubCategoryName(dto.getSubCategory());
         product.setImgName(dto.getImgName());

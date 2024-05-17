@@ -305,3 +305,17 @@ html{
   .thumb {width: 400px; height: 400px;}
   .img-box img:hover {transform: scale(1.2, 1.2); transition-duration: 0.5s;}
   .img-box img {transition-duration: 0.3s;}
+
+  .content-img{
+  background-position:center;
+  margin:0 auto;
+  align-items : center;
+  justify-content:center;
+  background-size:120%;
+  display : flex;
+  }
+
+    .content-imgs{
+    max-width:100%;
+    max-height:100%;
+    }

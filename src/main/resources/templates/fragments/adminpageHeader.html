@@ -31,9 +31,11 @@
         </form>
     </div>
     <br>
+    <br>
     <div>
-        <a href="/" class="header"> 키즈 쇼핑몰 </a>
+        <a href="/" class="header"><img th:src="@{/logo/KIKIDS.png}"></a>
     </div>
+    <br>
 <br>
     <nav class="navbar1">
         <div class="navbar1" id="nav_bar">
@@ -49,29 +51,20 @@
                         <li><a th:href="@{/admin/user_all}" id="toy">회원관리</a>
                             <ul>
                                 <li><a th:href="@{/admin/user_all}">전체회원보기</a></li>
-                                <li><a th:href="@{/toy_outdoor}">회원찾기</a></li>
                             </ul>
                         </li>
                         <li><a th:href="@{/admin/sales_all}">판매내역</a>
                             <ul>
                                 <li><a th:href="@{/admin/sales_status}">판매상품관리</a></li>
-                                <li><a th:href="@{/books_biography}">제품별</a></li>
                             </ul>
                         </li>
-                        <li><a th:href="@{/notice}">공지사항</a>
+                        <li><a th:href="@{/admin/notice_all}">공지사항</a>
                             <ul>
                                 <li><a th:href="@{/admin/notice_all}">수정 및 삭제</a></li>
                                 <li><a th:href="@{/admin/notice_add}">등록하기</a></li>
                             </ul>
                         </li>
 
-
-                        <form align=right style="margin-right:20px; padding-top:5px;" method="post" th:action="@{/search}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                            <input class="search_input" type="text" name="search" placeholder="Search">
-                        </form>
 
                     </ul>
 

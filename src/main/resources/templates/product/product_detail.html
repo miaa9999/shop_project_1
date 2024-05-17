@@ -49,6 +49,7 @@
                 <input type="number" name="count" th:max="*{productStock}" value="1" min="1">
                 <button type="submit" name="action" value="cart">장바구니에 넣기</button>
             <button type="submit" name="action" value="buy">구매하기</button></span>
+
             <span th:unless="*{productStock}>0"  sec:authorize="!hasRole('ADMIN')">
                 <input type="number" name="count" disabled th:max="*{productStock}" value="0" min="0">
                 <button type="submit" name="action" disabled value="cart">장바구니에 넣기</button>
@@ -74,7 +75,14 @@
         <!-- 내용 -->
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="content" role="tabpanel"
-                 aria-labelledby="content-tab"><span th:text="*{content}"></span></div>
+                 aria-labelledby="content-tab">
+                <div class="content-img">
+                    <div>
+                        <img th:src="@{${product.getContentImgPath()}}">
+                    </div>
+                </div>
+            </div>
+
             <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                 리뷰 목록
             </div>
