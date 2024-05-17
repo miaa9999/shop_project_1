@@ -1,5 +1,6 @@
 package com.example.shop_project_01.dto;
 
+import com.example.shop_project_01.constant.ProductSale;
 import com.example.shop_project_01.entity.Product;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
@@ -30,6 +31,9 @@ public class ProductDto {
     private String imgPath;
     
     private LocalDateTime uploadDate;
+    
+    private ProductSale productSale;
+    
     public static ProductDto fromProductEntity(Product product){
         return new ProductDto(
                 product.getProductId(),
@@ -41,7 +45,8 @@ public class ProductDto {
                 product.getSubCategoryName(),
                 product.getImgName(),
                product.getImgPath(),
-               product.getUploadDate()
+               product.getUploadDate(),
+               product.getProductSale()
         );
     }
 
@@ -58,6 +63,7 @@ public class ProductDto {
         product.setImgName(dto.getImgName());
         product.setImgPath(dto.getImgPath());
         product.setUploadDate(dto.getUploadDate());
+        product.setProductSale(dto.getProductSale());
         return product;
     }
 }

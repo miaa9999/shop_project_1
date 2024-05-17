@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/default_layout}">
+      layout:decorate="~{layouts/default_layout}"
+      xmlns:sec="http://www.springframework.org/security/tags">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -44,11 +45,11 @@
             <input type="hidden" name="productId" th:value="*{productId}">
             <input type="hidden" name="loginUsername" th:value="${loginUsername}">
 
-            <span th:if="*{productStock}>0">
+            <span th:if="*{productStock}>0" sec:authorize="!hasRole('ADMIN')">
                 <input type="number" name="count" th:max="*{productStock}" value="1" min="1">
                 <button type="submit" name="action" value="cart">장바구니에 넣기</button>
             <button type="submit" name="action" value="buy">구매하기</button></span>
-            <span th:unless="*{productStock}>0">
+            <span th:unless="*{productStock}>0"  sec:authorize="!hasRole('ADMIN')">
                 <input type="number" name="count" disabled th:max="*{productStock}" value="0" min="0">
                 <button type="submit" name="action" disabled value="cart">장바구니에 넣기</button>
             <button type="submit" name="action" disabled value="buy">구매하기</button></span>

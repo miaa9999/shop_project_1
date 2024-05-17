@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,11 +106,11 @@ public class AdminService {
         imgName = savedFileName;
 
         File saveFile = new File(projectPath, imgName);
-
+       
         imgFile.transferTo(saveFile);
         dto.setImgName(imgName);
         dto.setImgPath("/image/" + imgName);
-
+       dto.setProductSale(ProductSale.FOR_SALE);
         Product product = ProductDto.fromProductDto(dto);
         productRepository.save(product);
     }
@@ -373,5 +374,35 @@ public class AdminService {
 
         return new PageImpl<>(dtos, pageable, page.getTotalElements());
     }
-
+       
+       public int getDayTotal() {
+              LocalDateTime start = LocalDateTime.now().toLocalDate().atStartOfDay();
+              LocalDateTime end = LocalDateTime.now().toLocalDate().atTime(23, 59, 59);
+              
+              List<BuyProduct> buyProducts = buyProductRepository.findAllByBuy_BuyDateBetween(start,end);
+              int total = 0;
+              for (BuyProduct buy : buyProducts){
+                     total = buy.getTotalPrice()+ total;
+              }
+              System.out.println(start);
+              System.out.println(end);
+              System.out.println(total);
+              return total;
+       }
+       
+       public int getMonthTotal() {
+              YearMonth yearMonth = YearMonth.now();
+              LocalDateTime start = yearMonth.atDay(1).atStartOfDay();
+              LocalDateTime end = yearMonth.atEndOfMonth().atTime(23, 59, 59);
+              
+              List<BuyProduct> buyProducts = buyProductRepository.findAllByBuy_BuyDateBetween(start,end);
+              int total = 0;
+              for (BuyProduct buy : buyProducts){
+                     total = buy.getTotalPrice()+ total;
+              }
+              System.out.println(start);
+              System.out.println(end);
+              System.out.println(total);
+              return total;
+       }
 }

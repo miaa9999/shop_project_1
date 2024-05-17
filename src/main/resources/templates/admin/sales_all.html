@@ -12,19 +12,29 @@
     <br>
     <br>
     <div style="font-size:20px;" align="center"> 관리자페이지</div>
-    <div align="right">
-        <select onchange="if(this.value) window.location.href = this.value;">
-            <option value="">상태보기</option>
-            <option value="/admin/sales_all/deposit">입금완료</option>
-            <option value="/admin/sales_all/deliver">배송중</option>
-            <option value="/admin/sales_all/finish">배송완료</option>
-        </select>
-    </div>
+    <br>
     <div th:if="${count}==0" align="center">판매된 상품이 존재하지 않습니다.</div>
     <div th:unless="${count}==0">
         <table class="type1" align="center" border="2">
             <tr>
-<!--                <th>카테고리</th>-->
+                <th>일 판매액</th>
+                <td th:text="${dayTotal}"></td>
+                <th>월 판매액</th>
+                <td th:text="${monthTotal}"></td>
+            </tr>
+        </table>
+        <br>
+        <div align="right">
+            <select onchange="if(this.value) window.location.href = this.value;">
+                <option value="">상태보기</option>
+                <option value="/admin/sales_all/deposit">입금완료</option>
+                <option value="/admin/sales_all/deliver">배송중</option>
+                <option value="/admin/sales_all/finish">배송완료</option>
+            </select>
+        </div>
+
+        <table class="type1" align="center" border="2">
+            <tr>
                 <th>상품명</th>
                 <th>판매수량</th>
                 <th>가격</th>
