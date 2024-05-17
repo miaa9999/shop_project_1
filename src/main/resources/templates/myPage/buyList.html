@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript">
+
+    </script>
 </head>
 <body>
 
@@ -19,6 +22,7 @@
 
         <table class="type1" align="center" border="2">
             <tr>
+                <th>구매번호</th>
                 <th>상품명</th>
                 <th>수량</th>
                 <th>가격</th>
@@ -27,14 +31,18 @@
             </tr>
 
             <tr th:each="my : ${buyList}" th:object="${my}">
+                <td th:text="*{buyProductId}"></td>
                 <td th:text="*{productName}"></td>
                 <td th:text="*{count}"></td>
                 <td th:text="*{totalPrice}"></td>
                 <td th:text="*{statues}"></td>
                 <td>
-                    <form th:if="${my.statues == '배송완료'}" th:action="@{/review_add}" method="get">
-                        <input type="hidden" name="productId" th:value="${my.productId}" />
-                        <button type="submit">리뷰 작성하기</button>
+                    <form id="reviewForm" th:if="${my.statues == '배송완료'}" th:action="@{/review_add}" method="get">
+                        <input type="hidden" name="productId" th:value="${my.productId}">
+                        <span>
+                            <button th:if="${my.reviewExists}==true" disabled>리뷰 작성완료</button>
+                            <button th:unless="${my.reviewExists}==true" type="submit">리뷰 작성하기</button>
+                        </span>
                     </form>
                 </td>
             </tr>

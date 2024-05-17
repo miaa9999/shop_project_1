@@ -34,6 +34,10 @@ public class Review {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+//    @ManyToMany
+//    @JoinColumn(name = "buyId",nullable = false)
+//    private Buy buy;
+
     @ManyToOne
     @JoinColumn(name = "username", nullable = false)
     private UserAccount userAccount;
