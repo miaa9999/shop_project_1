@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -157,7 +158,14 @@ public class AdminPageController {
         //넘겨온 페이지 번호로 리스트 받아오기
         Page<BuyProductDto> paging = adminService.pagingListBuyProduct(pageable);
         Long count =  paging.getTotalElements();
-
+           
+           //매출 보기
+           int dayTotal = adminService.getDayTotal();
+           int monthTotal = adminService.getMonthTotal();
+           
+           model.addAttribute("monthTotal",monthTotal);
+           model.addAttribute("dayTotal",dayTotal);
+           
         //페이지 출력 처리 (1,2,3,4,5)
         int totalPage = paging.getTotalPages();
         List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), totalPage);
@@ -177,7 +185,13 @@ public class AdminPageController {
                                          Pageable pageable) {
         Page<BuyProductDto> paging = adminService.pagingShowSalesAllDeliver(pageable);
         long count = paging.getTotalElements();
-
+           //매출 보기
+           int dayTotal = adminService.getDayTotal();
+           int monthTotal = adminService.getMonthTotal();
+           
+           model.addAttribute("monthTotal",monthTotal);
+           model.addAttribute("dayTotal",dayTotal);
+           
         model.addAttribute("count", count);
         model.addAttribute("paging", paging);
         return "/admin/sales_all";
@@ -188,7 +202,13 @@ public class AdminPageController {
                Pageable pageable) {
            Page<BuyProductDto> paging = adminService.pagingShowSalesAllDeposit(pageable);
            long count = paging.getTotalElements();
-
+              //매출 보기
+              int dayTotal = adminService.getDayTotal();
+              int monthTotal = adminService.getMonthTotal();
+              
+              model.addAttribute("monthTotal",monthTotal);
+              model.addAttribute("dayTotal",dayTotal);
+              
            model.addAttribute("count", count);
            model.addAttribute("paging", paging);
            return "/admin/sales_all";
@@ -201,6 +221,13 @@ public class AdminPageController {
               Page<BuyProductDto> paging = adminService.pagingShowSalesAllFinish(pageable);
               Long count = paging.getTotalElements();
               System.out.println(count);
+              
+              //매출 보기
+              int dayTotal = adminService.getDayTotal();
+              int monthTotal = adminService.getMonthTotal();
+              
+              model.addAttribute("monthTotal",monthTotal);
+              model.addAttribute("dayTotal",dayTotal);
               
               model.addAttribute("count", count);
               model.addAttribute("paging", paging);
@@ -217,15 +244,14 @@ public class AdminPageController {
         Page<BuyProductDto> paging = adminService.pagingListBuyProduct(pageable);
         Long count =  paging.getTotalElements();
 
-
         //상태값 출력
         List<String> statusValues = new ArrayList<>();
         statusValues.add("입금완료");
         statusValues.add("배송중");
         statusValues.add("배송완료");
 
-        
-        //페이지 출력 처리 (1,2,3,4,5)
+
+           //페이지 출력 처리 (1,2,3,4,5)
         int totalPage = paging.getTotalPages();
         List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), totalPage);
         model.addAttribute("count", count);
