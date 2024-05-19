@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org" xmlns="http://www.w3.org/1999/html"
       xmlns:sec="http://www.springframework.org/security/tags">
-<head>
-    <title></title>
-</head>
+
 <div th:fragment="header">
     <div align = right>
         <form>
@@ -19,10 +17,6 @@
                sec:authorize="isAuthenticated()">
                 로그아웃
             </a>
-            <a class="header_btn1" role="button" id="insert" th:href="@{/cart/insert_point}" aria-expanded="false"
-               sec:authorize="!hasRole('ADMIN')">
-                ₩충전하기
-            </a>
             <a class="header_btn1" role="button" th:href="@{/admin_page}" aria-expanded="false"
                sec:authorize="hasRole('ADMIN')">
                 관리자 페이지
@@ -34,16 +28,6 @@
                 </svg>
                 마이페이지
             </a>
-            <a class="header_btn1" role="button" id="buyList" th:href="@{/buyList}" aria-expanded="false"
-               sec:authorize="isAuthenticated() and !hasRole('ADMIN')">
-                구매·배송조회
-            </a>
-            <a class="header_btn1" role="button" id="cart" th:href="@{/cart}" aria-expanded="false" sec:authorize="!hasRole('ADMIN')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
-                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
-                    </svg>
-                    <span>장바구니</span>
-            </a>
         </form>
     </div>
     <br>
@@ -52,26 +36,23 @@
         <a href="/" class="header_logo"><img th:src="@{/logo/KIKIDS.png}"></a>
     </div>
     <br>
-<br>
+    <br>
     <nav class="header_nav">
         <div class="header_nav" id="nav_bar">
             <div>
                 <div class="drop_menu">
                     <ul>
-                        <form align=right style="margin-right:20px; padding-top:5px;" method="post" th:action="@{/search}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                            <input class="search_input" type="text" name="search" placeholder="Search">
-                        </form>
-
                     </ul>
-
                 </div>
 
             </div>
-
         </div>
     </nav>
+    <th:block th:if="${msg} != null">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong th:text="${msg}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </th:block>
 </div>
 </html>

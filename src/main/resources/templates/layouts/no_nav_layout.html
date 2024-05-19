@@ -8,14 +8,13 @@
     <link rel="stylesheet" th:href="@{/css/layout.css}">
     <link rel="stylesheet" th:href="@{/css/button.css}">
     <link rel="stylesheet" th:href="@{/css/navbar.css}">
-    <link rel="stylesheet" th:href="@{/css/table.css}">
-    <link rel="stylesheet" th:href="@{/css/my_page.css}">
-
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/sign.css}">
     <title>Title</title>
 </head>
 <body>
 <!-- Header fragment-->
-<th:block th:replace="fragments/myCartHeader :: header"></th:block>
+<th:block th:replace="fragments/no_nav :: header"></th:block>
 <!-- Content fragment-->
 <th:block layout:fragment="content"></th:block>
 <!-- Footer fragment-->

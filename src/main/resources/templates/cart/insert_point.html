@@ -8,21 +8,7 @@
     <title>Title</title>
 
     <style type="text/css">
-        .btn-8 {
-           border-radius:50px;
-           line-height:0;
-            width:150px;
-            height:50px;
-             border:2px solid #E6C985;
-             color:#FFFFFF;
-             background:#E9A858;
 
-             &:hover {
-              border:2px solid #E9A858;
-              background:transparent;
-              color:#E9A858;
-           }
-        }
     </style>
 
 </head>
@@ -37,16 +23,17 @@
     <h3 style="font-size:20px" align="center">[[${username}]] 님의 현재 포인트 : [[${userPoint}]] </h3>
     <br>
     <h3 style="font-size:20px" align="center">충전할 금액을 입력해주세요.
-    (단위, 1000원 단위로 입력가능합니다.)</h3>
+<!--    (단위, 1000원 단위로 입력가능합니다.)-->
+    </h3>
     <div align="center" style="font-size:17px">
     <input type="number" name="insertMoney" value="0" min="0" max="1000000"> <span style="font-size:20px">원</span>
     </div>
         <br>
         <div align="center">
-        <button class="btn-8" type="submit" name="insert" value="insert">
+        <button class="orange_btn" type="submit" name="insert" value="insert">
             <input type="hidden" th:value="${username}" name="username">
             충전하기</button>
-        <button class="btn-8" type="submit" formmethod="get" name="insert" value="insert" th:formaction="@{/}">메인으로 돌아가기</button>
+        <button class="orange_btn" type="submit" formmethod="get" name="insert" value="insert" th:formaction="@{/}">메인으로 돌아가기</button>
         </div>
     </form>
 </div>
