@@ -20,4 +20,4 @@
   - CSS
 
 ## ERD
-![Uploading shop erd.png…]()
+![shop erd](https://github.com/miaa9999/shop_project_1/assets/162389738/b94ad9f1-68f2-4cb4-9e23-4b5d9d4e3171)
