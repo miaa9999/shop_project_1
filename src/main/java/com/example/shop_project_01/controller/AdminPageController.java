@@ -345,9 +345,14 @@ public class AdminPageController {
     
     
     @PostMapping("/product_update")
-    public String update(@ModelAttribute("productDto") ProductDto dto
+    public String update(@ModelAttribute("productDto") ProductDto dto,@RequestParam("imgFile") MultipartFile imgFile,
+                         @RequestParam("contentImgFile")MultipartFile contentImgFile
     ) {
-        adminService.updateProduct(dto);
+        try {
+            adminService.updateProduct(dto, imgFile, contentImgFile);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return "redirect:/admin/product_all";
     }
     

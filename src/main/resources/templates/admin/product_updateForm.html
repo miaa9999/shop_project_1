@@ -19,7 +19,7 @@
     <div align="right"><a th:href="@{/admin/product_all}">상품 전체 목록으로 돌아가기</a></div>
     <div>
         <hr>
-        <form id="frm" th:action="@{/admin/product_update}" method="post"
+        <form id="frm" th:action="@{/admin/product_update}" method="post" enctype="multipart/form-data"
               th:object="${productDto}" onsubmit="checkFormSubmit(event)">
             <div class="mb3">
                 <label class="form-label">상품 이름</label>

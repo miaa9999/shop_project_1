@@ -44,7 +44,7 @@
                 <span>장바구니</span>
             </a>
             <a class="header_btn1" role="button" id="notice" th:href="@{/notice}" aria-expanded="false"
-               sec:authorize="isAuthenticated() and !hasRole('ADMIN')">
+               sec:authorize="!hasRole('ADMIN')">
                 공지사항
             </a>
         </form>
