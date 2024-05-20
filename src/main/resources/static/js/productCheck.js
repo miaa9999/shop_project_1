@@ -26,110 +26,105 @@
    }
 
 
-// 상품 수량 확인 함수
 function checkProductStock() {
-    var productStockInput = document.getElementById('productStock');
-    var errorDivStock = document.getElementById('errorDivStock');
-
-    // 입력값이 0 또는 음수인지 확인
-    if (productStockInput.value <= 0) {
-        // 에러 메시지 표시
-        errorDivStock.innerText = '상품 수량은 0보다 큰 정수값으로 입력하세요.';
-    } else {
-        // 에러 메시지 숨기기
-        errorDivStock.innerText = '';
-    }
-}
-
-// 상품 가격 확인 함수
-function checkProductPrice() {
-    var productPriceInput = document.getElementById('productPrice');
-    var errorDivPrice = document.getElementById('errorDivPrice');
-
-    // 입력값이 0 또는 음수인지 확인
-    if (productPriceInput.value <= 0) {
-        // 에러 메시지 표시
-        errorDivPrice.innerText = '상품 가격은 0보다 큰 정수값으로 입력하세요.';
-    } else {
-        // 에러 메시지 숨기기
-        errorDivPrice.innerText = '';
-    }
-}
-
-// 상품 이름 및 설명 확인 함수
-function checkProductNameAndDescription() {
-    var productNameInput = document.getElementById('productName');
-    var contentInput = document.getElementById('content');
-    var errorDivName = document.getElementById('errorDivName');
-    var errorDivDescription = document.getElementById('errorDivDescription');
-
-    // 이름이 비어 있는지 확인
-    if (productNameInput.value.trim() === '') {
-        // 에러 메시지 표시
-        errorDivName.innerText = '상품 이름을 입력하세요.';
-    } else {
-        // 에러 메시지 숨기기
-        errorDivName.innerText = '';
-    }
-
-    // 설명이 비어 있는지 확인
-    if (contentInput.value.trim() === '') {
-        // 에러 메시지 표시
-        errorDivDescription.innerText = '상품 설명을 입력하세요.';
-    } else {
-        // 에러 메시지 숨기기
-        errorDivDescription.innerText = '';
-    }
-}
-// 메인 카테고리 및 서브 카테고리 확인 함수
-function checkCategory() {
-    var mainCategoryInput = document.getElementById('mainCategory');
-    var subCategoryInput = document.getElementById('subCategory');
-    var errorDivMainCategory = document.getElementById('errorDivMainCategory');
-    var errorDivSubCategory = document.getElementById('errorDivSubCategory');
-
-    // 메인 카테고리 선택 여부 확인
-    if (mainCategoryInput.value.trim() === '') {
-        errorDivMainCategory.innerText = '메인 카테고리를 선택하세요.';
-    } else {
-        errorDivMainCategory.innerText = '';
-    }
-
-    // 서브 카테고리 선택 여부 확인
-    if (subCategoryInput.value.trim() === '') {
-        errorDivSubCategory.innerText = '서브 카테고리를 선택하세요.';
-    } else {
-        errorDivSubCategory.innerText = '';
-    }
-}
-
-// 폼 제출 시 실행되는 함수
-function checkFormSubmit(event) {
-    // 상품 이름 및 설명 확인
-        checkProductNameAndDescription();
-
         var productStockInput = document.getElementById('productStock');
+        var errorDivStock = document.getElementById('errorDivStock');
+        var stockStatus = document.getElementById('stockStatus');
+
+        if (productStockInput.value < 0) {
+            errorDivStock.innerText = '상품 수량은 0보다 큰 정수값으로 입력하세요.';
+            stockStatus.innerText = '';
+        } else if (productStockInput.value == 0) {
+            errorDivStock.innerText = '';
+            stockStatus.innerText = '품절상태로 등록됩니다';
+        } else {
+            errorDivStock.innerText = '';
+            stockStatus.innerText = '';
+        }
+    }
+
+    function checkProductPrice() {
         var productPriceInput = document.getElementById('productPrice');
+        var errorDivPrice = document.getElementById('errorDivPrice');
+
+        if (productPriceInput.value <= 0) {
+            errorDivPrice.innerText = '상품 가격은 0보다 큰 정수값으로 입력하세요.';
+        } else {
+            errorDivPrice.innerText = '';
+        }
+    }
+
+    function checkProductName() {
+        var productNameInput = document.getElementById('productName');
+        var errorDivName = document.getElementById('errorDivName');
+
+        if (productNameInput.value.trim() === '') {
+            errorDivName.innerText = '상품 이름을 입력하세요.';
+        } else {
+            errorDivName.innerText = '';
+        }
+    }
+
+    function checkCategory() {
+        var mainCategoryInput = document.getElementById('mainCategory');
+        var subCategoryInput = document.getElementById('subCategory');
+        var errorDivMainCategory = document.getElementById('errorDivMainCategory');
+        var errorDivSubCategory = document.getElementById('errorDivSubCategory');
+
+        if (mainCategoryInput.value.trim() === '') {
+            errorDivMainCategory.innerText = '메인 카테고리를 선택하세요.';
+        } else {
+            errorDivMainCategory.innerText = '';
+        }
+
+        if (subCategoryInput.value.trim() === '') {
+            errorDivSubCategory.innerText = '서브 카테고리를 선택하세요.';
+        } else {
+            errorDivSubCategory.innerText = '';
+        }
+    }
+
+    function checkContentImgFile() {
+        var contentImgfileInput = document.getElementById('contentImgFile');
+        var errorDivContentImgfileInput = document.getElementById('errorDivContentImgfileInput');
+
+        if (contentImgfileInput.files.length > 0) {
+            errorDivContentImgfileInput.innerText = '';
+        } else {
+            errorDivContentImgfileInput.innerText = '이미지 파일을 등록해 주세요';
+        }
+    }
+
+    function checkImgFile() {
+        var imgfileInput = document.getElementById('imgFile');
+        var errorDivImgfileInput = document.getElementById('errorDivImgfileInput');
+
+        if (imgfileInput.files.length > 0) {
+            errorDivImgfileInput.innerText = '';
+        } else {
+            errorDivImgfileInput.innerText = '이미지 파일을 등록해 주세요';
+        }
+    }
+
+    function checkFormSubmit(event) {
+        checkProductName();
+        checkProductStock();
+        checkProductPrice();
+        checkCategory();
+        checkContentImgFile();
+        checkImgFile();
+
+        var errorDivName = document.getElementById('errorDivName');
         var errorDivStock = document.getElementById('errorDivStock');
         var errorDivPrice = document.getElementById('errorDivPrice');
         var errorDivMainCategory = document.getElementById('errorDivMainCategory');
         var errorDivSubCategory = document.getElementById('errorDivSubCategory');
+        var errorDivContentImgfileInput = document.getElementById('errorDivContentImgfileInput');
+        var errorDivImgfileInput = document.getElementById('errorDivImgfileInput');
 
-        // 상품 수량 확인
-        checkProductStock();
-
-        // 상품 가격 확인
-        checkProductPrice();
-
-        // 메인 카테고리 및 서브 카테고리 확인
-        checkCategory();
-
-        // 에러 메시지가 있고 상품 수량과 상품 가격이 0 또는 음수이거나
-        // 메인 카테고리 또는 서브 카테고리가 선택되지 않았을 경우에만 폼 제출 막기
-        if (errorDivName.innerText !== '' || errorDivDescription.innerText !== '' ||
-            productStockInput.value <= 0 || productPriceInput.value <= 0 ||
-            errorDivStock.innerText !== '' || errorDivPrice.innerText !== '' ||
-            errorDivMainCategory.innerText !== '' || errorDivSubCategory.innerText !== '') {
+        if (errorDivName.innerText !== '' || errorDivStock.innerText !== '' || errorDivPrice.innerText !== '' ||
+            errorDivMainCategory.innerText !== '' || errorDivSubCategory.innerText !== '' ||
+            errorDivContentImgfileInput.innerText !== '' || errorDivImgfileInput.innerText !== '') {
             event.preventDefault();
         }
-}
+    }

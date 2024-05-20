@@ -32,8 +32,8 @@
                         <br>
                         <span class="product-price" th:text="*{productPrice} + '원'"></span>
                         <span th:if="*{productStock}<30">
-                    <span th:if="*{productStock}==0"> 품절</span>
-                    <span th:unless="*{productStock}==0">품절임박</span>
+                    <span style="color:red; font-weight:bold" th:if="*{productStock}==0"> 품절</span>
+                    <span style="color:red; font-weight:bold" th:unless="*{productStock}==0">품절임박</span>
                         </span>
                     </div>
                 </div>

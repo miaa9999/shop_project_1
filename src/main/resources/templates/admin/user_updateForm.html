@@ -1,6 +1,8 @@
 //업데이트 폼
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminpage_layout}">
 <head>
     <meta charset="UTF-8">
     <title>수정화면</title>
@@ -45,7 +47,8 @@
         <br>
         <input type="hidden" th:field="*{username}">
         <input type="submit" value="수정">
+        <br>
+        <a th:href="@{/admin/user_all}">회원 목록 화면으로 돌아가기</a>
     </form>
     <br>
-    <a th:href="@{/admin/user_all}">회원 목록 화면으로 돌아가기</a>
 </div>

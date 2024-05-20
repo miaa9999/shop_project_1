@@ -33,29 +33,14 @@
                     <input type="hidden" name="productId" th:value="*{productId}">
                     <span class="product-price" th:text="*{productPrice} + '원'"></span>
                     <span th:if="*{productStock}<30">
-                    <span th:if="*{productStock}==0"> 품절</span>
-                    <span th:unless="*{productStock}==0">품절임박</span>
+                    <span style="color:red; font-weight:bold" th:if="*{productStock}==0"> 품절</span>
+                    <span style="color:red; font-weight:bold" th:unless="*{productStock}==0">품절임박</span>
                     </span>
                 </div>
             </div>
         </div>
     </div>
-<!--    <br>-->
-<!--    <div th:if="${count}==0" align="center">관련된 상품이 존재하지 않습니다.</div>-->
-<!--    <div  th:unless="${count}==0">-->
-<!--        <table class="type1"align="center" border="2">-->
-<!--            <tr>-->
-<!--                <th>상품이미지</th>-->
-<!--                <th>상품명</th>-->
-<!--                <th>상품가격</th>-->
-<!--            </tr>-->
-<!--            <tr th:each="book : ${bookAll}" th:object="${book}">-->
-<!--                <td>이미지 넣어야함</td>-->
-<!--                <td th:text="*{productName}"></td>-->
-<!--                <td th:text="*{productPrice}+원"></td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--    </div>-->
+
 </div>
 </body>
 </html>
