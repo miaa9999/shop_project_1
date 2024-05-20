@@ -7,9 +7,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript">
-
     </script>
-
 </head>
 <body>
 
@@ -22,8 +20,9 @@
 
         <hr>
 
-        <div class="productOneTitle">
-            <div>
+        <div class="product_title">
+<!--            이미지 div -->
+            <div class="product_show">
                 <div class="img-box">
                     <div class="img-wrap">
                         <img class="thumb" th:src="@{${product.getImgPath()}}">
@@ -31,30 +30,38 @@
                 </div>
             </div>
             <br>
-                <h3>[[${product.productName}]]</h3>
+            <div class="product_show">
+                <h3 align="center">[[${product.productName}]]</h3>
+                <br>
                 <h4 align="right">[[${product.productPrice}]]원</h4>
                 <div align="right">
                 <span th:if="*{productStock}<30">
                     <span th:if="*{productStock}==0"> 품절 상품</span>
                     <span th:unless="*{productStock}==0">  품절임박<br>남은재고 : [[*{productStock}]]</span>
                 </span>
-
                     <span th:unless="*{productStock}<30"></span>
                 </div>
+                <br><br><br><br><br><br>
+
+                <br>
             <input type="hidden" name="price" th:value="*{productPrice}">
             <input type="hidden" name="productId" th:value="*{productId}">
             <input type="hidden" name="loginUsername" th:value="${loginUsername}">
 
             <span th:if="*{productStock}>0" sec:authorize="!hasRole('ADMIN')">
-                <input type="number" name="count" th:max="*{productStock}" value="1" min="1">
-                <button type="submit" name="action" value="cart">장바구니에 넣기</button>
-            <button type="submit" name="action" value="buy">구매하기</button></span>
+                 <span>구매 수량 : </span>
+                <input align="rignt" type="number" name="count" th:max="*{productStock}" value="1" min="1">
+                 <br><br>
+                <button type="submit" name="action" value="cart" class="orange_btn">장바구니에 넣기</button>
+            <button type="submit" name="action" value="buy" class="orange_btn">구매하기</button></span>
 
             <span th:unless="*{productStock}>0"  sec:authorize="!hasRole('ADMIN')">
-                <input type="number" name="count" disabled th:max="*{productStock}" value="0" min="0">
-                <button type="submit" name="action" disabled value="cart">장바구니에 넣기</button>
-            <button type="submit" name="action" disabled value="buy">구매하기</button></span>
-
+                <span>구매 수량 : </span>
+                <input align="rignt" type="number" name="count" disabled th:max="*{productStock}" value="0" min="0">
+                <br><br>
+                <button type="submit" name="action" disabled value="cart" class="disable_btn">장바구니에 넣기</button>
+            <button type="submit" name="action" disabled value="buy" class="disable_btn">구매하기</button></span>
+            </div>
         </div>
         <br>
 
